@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SpSelectItems } from 'app/modules/admin/sps/SpSelectItems';
-import { SelectItem, UserRegistrDTO } from 'nswag-api-auth';
-import { SelectItemClient } from 'nswag-api-sps';
+import { SelectItem, UserRegistrDTO } from 'nswag-api/nswag-api-auth';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { combineLatest, map, Observable, of, switchMap } from 'rxjs';
 
 @Pipe({

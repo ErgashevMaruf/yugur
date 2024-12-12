@@ -6,7 +6,7 @@ import { FileServiceService } from 'app/modules/services/fileUpload.service';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
 import { SuccessComponent } from 'app/shared/messages/success/success.component';
 import { WarningComponent } from 'app/shared/messages/warning/warning.component';
-import { FilesClient, IPhotoVideoDTO, PhotoVideoClient, PhotoVideoDTO } from 'nswag-api-marathon';
+import { FilesClient, IPhotoVideoDTO, PhotoVideoClient, PhotoVideoDTO } from 'nswag-api/nswag-api-marathon';
 
 @Component({
   selector: 'app-photoGallery',

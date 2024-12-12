@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SpSelectItems } from 'app/modules/admin/sps/SpSelectItems';
-import { AthletesClient } from 'nswag-api-marathon';
-import { SelectItem, SelectItemClient } from 'nswag-api-sps';
+import { AthletesClient } from 'nswag-api/nswag-api-marathon';
+import { SelectItem, SelectItemClient } from 'nswag-api/nswag-api-sps';
 import {
     throwError as _observableThrow,
     of as _observableOf,

@@ -20,7 +20,7 @@ import {
 } from '@angular/animations';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { BibStatus, BibType, EventBibDTO } from 'nswag-api-marathon';
+import { BibStatus, BibType, EventBibDTO } from 'nswag-api/nswag-api-marathon';
 import { TranslocoService } from '@ngneat/transloco';
 @Component({
     selector: 'app-selectnumber',

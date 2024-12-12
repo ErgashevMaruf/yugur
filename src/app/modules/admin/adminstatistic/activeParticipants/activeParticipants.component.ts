@@ -1,12 +1,12 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TranslocoModule } from '@ngneat/transloco';
-import { StatisticClient } from 'nswag-api-docflow';
+import { StatisticClient } from 'nswag-api/nswag-api-docflow';
 import {
     AthleteStatistics,
     Filter,
     StatisticsClient,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { DropdownModule } from 'primeng/dropdown';
 import { StatisticService } from '../statistic.service';
 

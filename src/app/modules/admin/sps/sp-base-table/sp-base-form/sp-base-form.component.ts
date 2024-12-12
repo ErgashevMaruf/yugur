@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SpService } from 'app/core/services/sp.service';
-import { SelectItem, SPClient, SPUpdateModel } from 'nswag-api-sps';
+import { SelectItem, SPClient, SPUpdateModel } from 'nswag-api/nswag-api-sps';
 import { SpsService } from '../../sps.service';
 import { SpRootItems, SpSelectItems } from '../../SpSelectItems';
 @Component({

@@ -21,7 +21,7 @@ import {
     FilterStatus,
     PublishFilterFormulaDTO,
     PublishResultClient,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { IconFieldModule } from 'primeng/iconfield';

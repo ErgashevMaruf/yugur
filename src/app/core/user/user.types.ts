@@ -1,5 +1,5 @@
-import { ERPsportDTO, IUserRegistrDTO, OrganizationDTO, UserApplicationStatus, UserRegistrDTO } from 'nswag-api-auth';
-import { Status } from 'nswag-api-marathon';
+import { ERPsportDTO, IUserRegistrDTO, OrganizationDTO, UserApplicationStatus, UserRegistrDTO } from 'nswag-api/nswag-api-auth';
+import { Status } from 'nswag-api/nswag-api-marathon';
 
 export class User implements IUserRegistrDTO {
     fullName: string;

@@ -8,7 +8,7 @@ import {
     EventDTO,
     EventPacketDTO,
     HttpStatusCode,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { CreateEventService } from '../createEvent.service';
 import {
     FormArray,
@@ -27,7 +27,7 @@ import { SuccessComponent } from 'app/shared/messages/success/success.component'
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
 import { fuseAnimations } from '@fuse/animations';
-import { SPClient } from 'nswag-api-sps';
+import { SPClient } from 'nswag-api/nswag-api-sps';
 @Component({
     selector: 'app-createEventEventBox',
     templateUrl: './createEventEventBox.component.html',

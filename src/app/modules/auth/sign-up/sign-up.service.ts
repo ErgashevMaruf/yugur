@@ -4,7 +4,7 @@ import {
     AccountClient,
     HttpStatusCode,
     UserApplicationStatus,
-} from 'nswag-api-auth';
+} from 'nswag-api/nswag-api-auth';
 import { UserRegistrDTO } from './UserRegistrDTO';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { PasswordStrengthValidator } from './password.validation';

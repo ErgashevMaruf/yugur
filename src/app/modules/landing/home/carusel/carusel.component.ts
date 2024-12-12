@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { environment } from 'app/core/env/environment.prod';
-import { TableMetaData } from 'nswag-api-auth';
-import { EventBoxDTO, EventClient } from 'nswag-api-marathon';
+import { TableMetaData } from 'nswag-api/nswag-api-auth';
+import { EventBoxDTO, EventClient } from 'nswag-api/nswag-api-marathon';
 import { StringToHtmlDirective } from './stringToHtml.directive';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';

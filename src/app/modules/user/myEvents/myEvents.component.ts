@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventBoxDTO, EventClient, EventDTO } from 'nswag-api-marathon';
+import { EventBoxDTO, EventClient, EventDTO } from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-myEvents',

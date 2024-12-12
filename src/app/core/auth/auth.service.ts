@@ -9,7 +9,7 @@ import {
     OneIdClient,
     ResponseModelOfTokenModel,
     TokenModel,
-} from 'nswag-api-auth';
+} from 'nswag-api/nswag-api-auth';
 import { Router } from '@angular/router';
 import { NavigationService } from '../navigation/navigation.service';
 import { Navigation } from '../navigation/navigation.types';

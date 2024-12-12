@@ -1,6 +1,6 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, Input, OnInit, Renderer2 } from '@angular/core';
-import { StatisticClient } from 'nswag-api-docflow';
+import { StatisticClient } from 'nswag-api/nswag-api-docflow';
 import { TranslateAsyncPipe } from 'app/modules/pipes/translate-async.pipe';
 import { TranslocoModule } from '@ngneat/transloco';
 import { TooltipModule } from 'primeng/tooltip';

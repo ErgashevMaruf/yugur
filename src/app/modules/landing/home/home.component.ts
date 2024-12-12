@@ -7,9 +7,9 @@ import { FuseConfigService } from '@fuse/services/config';
 import { TranslocoService } from '@ngneat/transloco';
 import { Theme } from 'app/core/config/app.config';
 import { UserService } from 'app/core/user/user.service';
-import { EventBoxDTO, EventClient, StatisticsClient } from 'nswag-api-marathon';
+import { EventBoxDTO, EventClient, StatisticsClient } from 'nswag-api/nswag-api-marathon';
 import { InfoForVisitorComponent } from './infoForVisitor/infoForVisitor.component';
-import { SelectItemClient } from 'nswag-api-sps';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { SpSelectItems } from 'app/modules/admin/sps/SpSelectItems';
 
 @Component({

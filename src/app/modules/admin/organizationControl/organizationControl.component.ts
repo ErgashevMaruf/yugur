@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SelectItem, SelectItemClient, TableMetaData } from 'nswag-api-sps';
+import { SelectItem, SelectItemClient, TableMetaData } from 'nswag-api/nswag-api-sps';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { Table, TableModule } from 'primeng/table';
-import { SelectApplicationUser, SuperAdminClient } from 'nswag-api-auth';
+import { SelectApplicationUser, SuperAdminClient } from 'nswag-api/nswag-api-auth';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router, RouterModule } from '@angular/router';

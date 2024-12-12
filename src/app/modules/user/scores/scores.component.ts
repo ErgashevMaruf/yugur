@@ -11,7 +11,7 @@ import {
     SelectEvent,
     AllResultViewDTO,
     CheckPointDTO,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { CheckpointComponent } from './checkpoint/checkpoint.component';
 import { Table } from 'primeng/table';
 import { DropdownChangeEvent } from 'primeng/dropdown';

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SpService } from 'app/core/services/sp.service';
-import { AccountClient, SelectItem, TableMetaData, UserRegistrDTO } from 'nswag-api-auth';
-import { FilesClient } from 'nswag-api-marathon';
+import { AccountClient, SelectItem, TableMetaData, UserRegistrDTO } from 'nswag-api/nswag-api-auth';
+import { FilesClient } from 'nswag-api/nswag-api-marathon';
 import { SpSelectItems } from '../sps/SpSelectItems';
 import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';

@@ -6,9 +6,9 @@ import {
     EventClient,
     EventDTO,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { CreateEventService } from './createEvent.service';
-import { SelectItem, SelectItemClient } from 'nswag-api-sps';
+import { SelectItem, SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { SpService } from 'app/core/services/sp.service';
 import { SpSelectItems } from '../sps/SpSelectItems';
 import { CreateEventEventBoxComponent } from './createEventEventBox/createEventEventBox.component';

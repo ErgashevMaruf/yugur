@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslocoModule } from '@ngneat/transloco';
-import { AthletesClient } from 'nswag-api-marathon';
+import { AthletesClient } from 'nswag-api/nswag-api-marathon';
 
 @Component({
   selector: 'app-workplace',

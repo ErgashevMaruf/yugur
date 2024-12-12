@@ -5,7 +5,7 @@ import {
     MatDialogModule,
 } from '@angular/material/dialog';
 import { VideoComponent } from '../video/video.component';
-import { PhotoVideoClient, PhotoVideoDTO } from 'nswag-api-marathon';
+import { PhotoVideoClient, PhotoVideoDTO } from 'nswag-api/nswag-api-marathon';
 import { environment } from 'app/core/env/environment.prod';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({

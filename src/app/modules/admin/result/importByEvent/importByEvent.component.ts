@@ -7,7 +7,7 @@ import { UserService } from 'app/core/user/user.service';
 import { FileServiceService } from 'app/modules/services/fileUpload.service';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
 import { SuccessComponent } from 'app/shared/messages/success/success.component';
-import { SwaggerException, TableMetaData } from 'nswag-api-auth';
+import { SwaggerException, TableMetaData } from 'nswag-api/nswag-api-auth';
 import {
     EventBoxDTO,
     EventClient,
@@ -18,7 +18,7 @@ import {
     ResponseModelOfPublishResultDTO,
     EventDTO,
     PublishFilterFormulaDTO,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { Table } from 'primeng/table';
 import { AddFiltersComponent } from './addFilters/addFilters.component';
 import { catchError, of } from 'rxjs';

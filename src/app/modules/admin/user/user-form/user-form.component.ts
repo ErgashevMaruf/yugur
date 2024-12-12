@@ -7,7 +7,7 @@ import {
     SelectItem,
     SuperAdminClient,
     UserRegistrDTO,
-} from 'nswag-api-auth';
+} from 'nswag-api/nswag-api-auth';
 import {
     MAT_DIALOG_DATA,
     MatDialog,
@@ -19,7 +19,7 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { SelectItemClient } from 'nswag-api-sps';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { catchError, combineLatest, of } from 'rxjs';
 import { PasswordStrengthValidator } from 'app/modules/auth/sign-up/password.validation';
 import { ConfirmPasswordValidator } from 'app/modules/auth/sign-up/confirm-password.validator';

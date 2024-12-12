@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CheckPointDTO } from 'nswag-api-marathon';
+import { CheckPointDTO } from 'nswag-api/nswag-api-marathon';
 
 @Component({
   selector: 'app-checkpoint',

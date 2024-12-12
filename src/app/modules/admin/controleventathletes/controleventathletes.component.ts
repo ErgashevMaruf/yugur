@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TableMetaData } from 'nswag-api-auth';
-import { EventBoxDTO, EventClient } from 'nswag-api-marathon';
+import { TableMetaData } from 'nswag-api/nswag-api-auth';
+import { EventBoxDTO, EventClient } from 'nswag-api/nswag-api-marathon';
 import { Table } from 'primeng/table';
 
 @Component({

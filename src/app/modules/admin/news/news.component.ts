@@ -25,7 +25,7 @@ import {
     NewsDTO,
     NewsStatus,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MessagesModule } from 'primeng/messages';

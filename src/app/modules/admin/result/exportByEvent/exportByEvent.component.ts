@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TableMetaData } from 'nswag-api-auth';
+import { TableMetaData } from 'nswag-api/nswag-api-auth';
 import {
     AthleteEventDto,
     EventBoxDTO,
@@ -10,8 +10,8 @@ import {
     RegistationEventDTO,
     SelectRegistationEventDTO,
     SuperAdminClient,
-} from 'nswag-api-marathon';
-import { SelectItemClient } from 'nswag-api-sps';
+} from 'nswag-api/nswag-api-marathon';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { Table } from 'primeng/table';
 import { combineLatest, Subscription } from 'rxjs';
 import { SpSelectItems } from '../../sps/SpSelectItems';

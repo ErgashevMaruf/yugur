@@ -13,7 +13,7 @@ import {
     FilesClient,
     IPhotoVideoDTO,
     PhotoVideoDTO,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-videoGallery',

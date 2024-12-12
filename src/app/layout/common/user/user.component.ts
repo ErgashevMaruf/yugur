@@ -12,7 +12,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
-import { AccountClient, MainRoleChoose } from 'nswag-api-auth';
+import { AccountClient, MainRoleChoose } from 'nswag-api/nswag-api-auth';
 import { roles } from 'app/core/user/Roles';
 import { AuthService } from 'app/core/auth/auth.service';
 

@@ -5,12 +5,12 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { fuseAnimations } from '@fuse/animations';
 import { TranslocoModule } from '@ngneat/transloco';
 import { SendfeedbackComponent } from 'app/modules/user/feedback/sendfeedback/sendfeedback.component';
-import { TableMetaData } from 'nswag-api-auth';
+import { TableMetaData } from 'nswag-api/nswag-api-auth';
 import {
     ApplicationAnswer,
     ApplicationRepaymentClient,
     ApplicationRepaymentDTO,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Table, TableModule } from 'primeng/table';

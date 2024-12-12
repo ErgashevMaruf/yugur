@@ -7,7 +7,7 @@ import {
     OnInit,
 } from '@angular/core';
 import { SpService } from 'app/core/services/sp.service';
-import { EventBoxDTO, EventClient, FilesClient } from 'nswag-api-marathon';
+import { EventBoxDTO, EventClient, FilesClient } from 'nswag-api/nswag-api-marathon';
 import { CreateEventService } from '../createEvent.service';
 import {
     AbstractControl,
@@ -27,7 +27,7 @@ import { Editor, Toolbar } from 'ngx-editor';
 import { environment } from 'app/core/env/environment.prod';
 import { FileServiceService } from 'app/modules/services/fileUpload.service';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
-import { SelectItem, SelectItemClient } from 'nswag-api-sps';
+import { SelectItem, SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { SpSelectItems } from '../../sps/SpSelectItems';
 @Component({
     selector: 'app-create-event',

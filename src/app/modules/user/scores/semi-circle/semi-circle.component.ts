@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { TranslocoModule } from '@ngneat/transloco';
 import { TranslateAsyncPipe } from 'app/modules/pipes/translate-async.pipe';
-import { AthletesRankingDTO } from 'nswag-api-marathon';
+import { AthletesRankingDTO } from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-semi-circle',

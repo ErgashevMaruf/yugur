@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { EventBoxDTO } from 'nswag-api-marathon';
+import { EventBoxDTO } from 'nswag-api/nswag-api-marathon';
 
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'app/core/env/environment.prod';

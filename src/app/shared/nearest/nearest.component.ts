@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HelperService } from 'app/shared/helper.service';
-import { EventBoxDTO, EventDTO } from 'nswag-api-marathon';
+import { EventBoxDTO, EventDTO } from 'nswag-api/nswag-api-marathon';
 import { Observable, interval, map, shareReplay } from 'rxjs';
 import { CountdownTimer } from './timer.model';
 import {
@@ -48,12 +48,12 @@ export class NearestComponent {
     @Input() height = 'h-[600px]'
 
     activeLang: string;
-    
+
     constructor(
         private helperService: HelperService,
         private _sanitizier: DomSanitizer,
         private translocoService:TranslocoService,
     ) {}
-    
+
     url: SafeResourceUrl;
 }

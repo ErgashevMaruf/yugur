@@ -9,7 +9,7 @@ import {
     RegistationEventDTO,
     SelectRegistationEventDTO,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { Table } from 'primeng/table';
 
 @Component({

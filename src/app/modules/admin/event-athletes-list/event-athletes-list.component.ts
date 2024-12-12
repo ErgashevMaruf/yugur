@@ -13,7 +13,7 @@ import {
     EventClient,
     EventDTO,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { Subject } from 'rxjs';
 
 @Component({

@@ -13,8 +13,8 @@ import {
     AllResultView,
     SelectPublishFilterFormula,
     FilterStatus,
-} from 'nswag-api-marathon';
-import { TableMetaData } from 'nswag-api-auth';
+} from 'nswag-api/nswag-api-marathon';
+import { TableMetaData } from 'nswag-api/nswag-api-auth';
 import { TranslocoModule } from '@ngneat/transloco';
 import { AsyncPipe, CommonModule, NgClass } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';

@@ -1,4 +1,4 @@
-import { IUserRegistrDTO, OrganizationDTO, UserApplicationStatus } from 'nswag-api-auth';
+import { IUserRegistrDTO, OrganizationDTO, UserApplicationStatus } from 'nswag-api/nswag-api-auth';
 
 export class UserRegistrDTO implements IUserRegistrDTO {
     id?: string | undefined;

@@ -7,8 +7,8 @@ import {
     EventClient,
     EventStatus,
     StatisticsClient,
-} from 'nswag-api-marathon';
-import { SelectItemClient } from 'nswag-api-sps';
+} from 'nswag-api/nswag-api-marathon';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { DropdownModule } from 'primeng/dropdown';
 import { combineLatest } from 'rxjs';
 import { StatisticService } from '../statistic.service';

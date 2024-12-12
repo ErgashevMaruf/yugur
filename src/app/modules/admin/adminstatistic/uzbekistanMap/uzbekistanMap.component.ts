@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { StatisticClient } from 'nswag-api-docflow';
-import { Filter, RegionStatistics, StatisticsClient } from 'nswag-api-marathon';
-import { SelectItemClient } from 'nswag-api-sps';
+import { StatisticClient } from 'nswag-api/nswag-api-docflow';
+import { Filter, RegionStatistics, StatisticsClient } from 'nswag-api/nswag-api-marathon';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { SpSelectItems } from '../../sps/SpSelectItems';
 import { TranslateAsyncPipe } from 'app/modules/pipes/translate-async.pipe';
 import { TranslocoModule } from '@ngneat/transloco';

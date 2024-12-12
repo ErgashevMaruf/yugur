@@ -13,7 +13,7 @@ import { TableModule } from 'primeng/table';
 import { StatisticService } from '../statistic.service';
 import { ButtonModule } from 'primeng/button';
 import { InputIconModule } from 'primeng/inputicon';
-import { RegistationEventClient, UniversityDTO } from 'nswag-api-marathon';
+import { RegistationEventClient, UniversityDTO } from 'nswag-api/nswag-api-marathon';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
 

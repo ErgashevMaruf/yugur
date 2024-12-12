@@ -18,7 +18,7 @@ import {
     NotificationAthletesStatus,
     NotificationDTO,
     NotificationStatus,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { TranslocoService } from '@ngneat/transloco';
 import { NotificationsService } from './notifications.service';
 

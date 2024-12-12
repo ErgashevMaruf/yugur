@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { EventClient, SelectEvent, TableMetaData } from 'nswag-api-marathon';
+import { EventClient, SelectEvent, TableMetaData } from 'nswag-api/nswag-api-marathon';
 import { TableModule } from 'primeng/table';
 import { NumberFormatPipeModule } from 'app/modules/pipes/numberFormat.module';
 import { ScoreComponent } from './score/score.component';

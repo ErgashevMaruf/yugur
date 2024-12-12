@@ -26,8 +26,8 @@ import {
     SelectBibType,
     SuperAdminClient,
     EventBibDTO,
-} from 'nswag-api-marathon';
-import { SPClient } from 'nswag-api-sps';
+} from 'nswag-api/nswag-api-marathon';
+import { SPClient } from 'nswag-api/nswag-api-sps';
 import {
     catchError,
     combineLatest,

@@ -1,4 +1,4 @@
-import { ApplicationUserDTO, SelectItem } from './../../../../nswag-api-auth';
+import { ApplicationUserDTO, SelectItem } from '../../../../nswag-api/nswag-api-auth';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';

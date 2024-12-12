@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 import { Roles } from 'app/core/user/Roles';
 import { UserService } from 'app/core/user/user.service';
-import { AccountClient, TableMetaData, UserLogDTO } from 'nswag-api-auth';
+import { AccountClient, TableMetaData, UserLogDTO } from 'nswag-api/nswag-api-auth';
 import { CalendarModule } from 'primeng/calendar';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
 import { IconFieldModule } from 'primeng/iconfield';

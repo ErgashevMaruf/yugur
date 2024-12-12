@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GalleryService } from '../../../services/gallery.service';
 import { MaskService } from 'app/modules/services/mask.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FeedBackClient, FeedBackDTO, FeedType } from 'nswag-api-marathon';
+import { FeedBackClient, FeedBackDTO, FeedType } from 'nswag-api/nswag-api-marathon';
 import { SuccessComponent } from 'app/shared/messages/success/success.component';
 import { MatDialog } from '@angular/material/dialog';
 @Component({

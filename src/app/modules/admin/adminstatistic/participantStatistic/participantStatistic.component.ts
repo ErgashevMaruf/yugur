@@ -6,10 +6,10 @@ import {
 } from '@angular/core';
 import { LineColumnMixedComponent } from '../lineColumnMixed/lineColumnMixed.component';
 import { Dropdown, DropdownModule } from 'primeng/dropdown';
-import { SelectItem, SelectItemClient } from 'nswag-api-sps';
+import { SelectItem, SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { SpSelectItems } from '../../sps/SpSelectItems';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
-import { StatisticsClient } from 'nswag-api-marathon';
+import { StatisticsClient } from 'nswag-api/nswag-api-marathon';
 import { StatisticService } from '../statistic.service';
 
 @Component({

@@ -7,7 +7,7 @@ import {
     NotificationClient,
     NotificationDTO,
     ResponseModelOfBoolean,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 
 @Injectable({
     providedIn: 'root',

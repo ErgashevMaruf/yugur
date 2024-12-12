@@ -11,7 +11,7 @@ import {
     TableMetaData,
     TopAthleteInfoDTO,
     UniversityStatistics,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { BehaviorSubject } from 'rxjs';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TableMetaData } from 'nswag-api-auth';
-import { CartInformationDTO, RegistationEventClient } from 'nswag-api-marathon';
+import { TableMetaData } from 'nswag-api/nswag-api-auth';
+import { CartInformationDTO, RegistationEventClient } from 'nswag-api/nswag-api-marathon';
 
 @Component({
   selector: 'app-card',

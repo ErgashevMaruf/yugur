@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'app/core/env/environment';
-import { FileBase64 } from 'nswag-api-marathon';
+import { FileBase64 } from 'nswag-api/nswag-api-marathon';
 import { Observable } from 'rxjs';
 
 @Injectable({

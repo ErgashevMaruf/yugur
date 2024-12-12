@@ -6,7 +6,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { SpService } from 'app/core/services/sp.service';
-import { SelectItem, SelectItemClient } from 'nswag-api-sps';
+import { SelectItem, SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { map } from 'rxjs';
 import { SignUpService } from '../sign-up.service';
 import { formsData } from '../../input/input.component';

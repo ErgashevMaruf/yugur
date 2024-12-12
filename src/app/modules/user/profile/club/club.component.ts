@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'app/core/user/user.service';
 import { SpSelectItems } from 'app/modules/admin/sps/SpSelectItems';
-import { AccountClient, OrganizationModelDTO, SelectItem, UserApplicationStatus } from 'nswag-api-auth';
+import { AccountClient, OrganizationModelDTO, SelectItem, UserApplicationStatus } from 'nswag-api/nswag-api-auth';
 import {
     ClubDTO,
-} from 'nswag-api-marathon';
-import { SelectItemClient } from 'nswag-api-sps';
+} from 'nswag-api/nswag-api-marathon';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { combineLatest } from 'rxjs';
 @Component({
     selector: 'app-club',

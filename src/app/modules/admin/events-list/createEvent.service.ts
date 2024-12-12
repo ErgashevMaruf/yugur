@@ -7,7 +7,7 @@ import {
     EventDTO,
     FilesClient,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { Message } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
 

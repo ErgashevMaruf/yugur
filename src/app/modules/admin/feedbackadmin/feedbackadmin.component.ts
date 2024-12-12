@@ -11,7 +11,7 @@ import {
     FeedType,
     FilesClient,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { TableModule } from 'primeng/table';
 
 @Component({

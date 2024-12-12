@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
-import { TableMetaData } from 'nswag-api-marathon';
+import { TableMetaData } from 'nswag-api/nswag-api-marathon';
 import { Table } from 'primeng/table';
 
 export class TableHelper {

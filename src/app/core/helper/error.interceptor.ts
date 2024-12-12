@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
-import { HttpStatusCode } from 'nswag-api-auth';
+import { HttpStatusCode } from 'nswag-api/nswag-api-auth';
 
 @Injectable()
 export class ErrorInterceptor {

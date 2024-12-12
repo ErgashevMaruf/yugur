@@ -8,8 +8,8 @@ import { ConfirmPasswordValidator } from 'app/modules/auth/sign-up/confirm-passw
 import { PasswordStrengthValidator } from 'app/modules/auth/sign-up/password.validation';
 import { FileServiceService } from 'app/modules/services/fileUpload.service';
 import { SuccessComponent } from 'app/shared/messages/success/success.component';
-import { AccountClient, UserRegistrDTO } from 'nswag-api-auth';
-import { SelectItemClient } from 'nswag-api-sps';
+import { AccountClient, UserRegistrDTO } from 'nswag-api/nswag-api-auth';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 
 @Component({
     selector: 'app-personalInfo',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewsClient, NewsDTO } from 'nswag-api-marathon';
+import { NewsClient, NewsDTO } from 'nswag-api/nswag-api-marathon';
 @Component({
     selector: 'app-announcement',
     templateUrl: './announcement.component.html',

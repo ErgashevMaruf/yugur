@@ -17,7 +17,7 @@ import {
     ChartComponent,
     NgApexchartsModule,
 } from 'ng-apexcharts';
-import { SelectItemClient } from 'nswag-api-sps';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { SkeletonModule } from 'primeng/skeleton';
 
 export type ChartOptions = {

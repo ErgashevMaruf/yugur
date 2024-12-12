@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FuseLoadingService } from '@fuse/services/loading';
-import { OrgStrucClient, OrgStructureDTO } from 'nswag-api-docflow';
+import { OrgStrucClient, OrgStructureDTO } from 'nswag-api/nswag-api-docflow';
 import { TreeNode } from 'primeng/api';
 import { OrgStructureService } from '../org-structure.service';
 
@@ -32,6 +32,6 @@ export class OrgTreeComponent implements OnInit {
         this.selectedNode = new OrgStructureDTO();
     }
     onNodeSelect($event) {
-        
+
     }
 }

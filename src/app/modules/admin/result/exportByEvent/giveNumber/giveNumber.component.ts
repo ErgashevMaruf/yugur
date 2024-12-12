@@ -6,7 +6,7 @@ import {
     RegistationEventClient,
     RegistationEventDTO,
     SelectRegistationEventDTO,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { catchError, of } from 'rxjs';

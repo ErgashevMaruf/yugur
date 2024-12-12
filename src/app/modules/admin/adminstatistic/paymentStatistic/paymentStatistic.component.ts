@@ -14,7 +14,7 @@ import {
     EventClient,
     EventStatus,
     StatisticsClient,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { PaginatorModule } from 'primeng/paginator';
 import { FormsModule } from '@angular/forms';
 import { StatisticService } from '../statistic.service';

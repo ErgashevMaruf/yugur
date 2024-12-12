@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { NavigationClient, NavigationDTO } from 'nswag-api-auth';
+import { NavigationClient, NavigationDTO } from 'nswag-api/nswag-api-auth';
 
 @Component({
     selector: 'app-navigation-list',

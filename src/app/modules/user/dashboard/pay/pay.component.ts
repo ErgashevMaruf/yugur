@@ -1,6 +1,6 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AthletesPaymentDTO, PaymentClient } from 'nswag-api-marathon';
+import { AthletesPaymentDTO, PaymentClient } from 'nswag-api/nswag-api-marathon';
 
 @Component({
   selector: 'app-pay',

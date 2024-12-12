@@ -15,7 +15,7 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
-import { INewsDTO, NewsClient, NewsDTO, NewsStatus } from 'nswag-api-marathon';
+import { INewsDTO, NewsClient, NewsDTO, NewsStatus } from 'nswag-api/nswag-api-marathon';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { IconFieldModule } from 'primeng/iconfield';

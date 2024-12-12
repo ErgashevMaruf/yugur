@@ -5,7 +5,7 @@ import {
     OrgStrucClient,
     OrgStructureDTO,
     TypeOrgStructure,
-} from 'nswag-api-docflow';
+} from 'nswag-api/nswag-api-docflow';
 import { TreeNode } from 'primeng/api';
 import { SpSelectItems } from '../../sps/SpSelectItems';
 import { MouseScroll } from '../MouseScroll';

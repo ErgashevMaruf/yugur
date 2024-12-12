@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SelectItem, SelectItemClient } from 'nswag-api-sps';
+import { SelectItem, SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { ReplaySubject } from 'rxjs';
 import { SpSelectItems } from './SpSelectItems';
 @Injectable({

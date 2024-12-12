@@ -12,7 +12,7 @@ import {
     SelectItem,
     TableMetaData,
     UserRegistrDTO,
-} from 'nswag-api-auth';
+} from 'nswag-api/nswag-api-auth';
 import { RegisterUserComponent } from './registerUser/registerUser.component';
 import { roles } from 'app/core/user/Roles';
 import { TranslocoService } from '@ngneat/transloco';

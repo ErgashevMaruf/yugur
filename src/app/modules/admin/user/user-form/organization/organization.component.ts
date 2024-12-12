@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SPClient, SelectItem, SelectItemClient } from 'nswag-api-sps';
+import { SPClient, SelectItem, SelectItemClient } from 'nswag-api/nswag-api-sps';
 
 @Component({
   selector: 'app-organization',

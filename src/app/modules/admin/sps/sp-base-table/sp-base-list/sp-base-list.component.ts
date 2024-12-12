@@ -8,7 +8,7 @@ import {
     BaseSPViewModel,
     SelectItem,
     SPClient,
-} from 'nswag-api-sps';
+} from 'nswag-api/nswag-api-sps';
 import { FuseLoadingService } from '@fuse/services/loading';
 import { TableMetaInit } from 'app/core/helper/TableMetaInit';
 import { SpsService } from '../../sps.service';

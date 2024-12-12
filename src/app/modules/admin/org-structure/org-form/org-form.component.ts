@@ -4,7 +4,7 @@ import {
     OrgStrucClient,
     OrgStructureDTO,
     TypeOrgStructure,
-} from 'nswag-api-docflow';
+} from 'nswag-api/nswag-api-docflow';
 import { OrgFormItem } from '../org-structure.service';
 import { HelperService } from 'app/shared/helper.service';
 

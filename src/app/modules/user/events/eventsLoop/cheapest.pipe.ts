@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EventPacketDTO } from 'nswag-api-marathon';
+import { EventPacketDTO } from 'nswag-api/nswag-api-marathon';
 
 @Pipe({
     name: 'cheapest',

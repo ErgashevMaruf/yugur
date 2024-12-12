@@ -16,7 +16,7 @@ import {
     RegistationEventClient,
     RepaymentStatus,
     Status,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import {
     MAT_DIALOG_DATA,
     MatDialog,

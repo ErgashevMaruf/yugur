@@ -8,7 +8,7 @@ import { FileServiceService } from 'app/modules/services/fileUpload.service';
 import {
     ImageCroppedEvent,
 } from 'ngx-image-cropper';
-import { FileBase64, FilesClient } from 'nswag-api-marathon';
+import { FileBase64, FilesClient } from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-imgCropper',

@@ -9,7 +9,7 @@ import {
     FeedType,
     FilesClient,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

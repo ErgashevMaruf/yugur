@@ -15,7 +15,7 @@ import {
     SelectModel,
     SelectRegistationEventDTO,
     SuperAdminClient,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';

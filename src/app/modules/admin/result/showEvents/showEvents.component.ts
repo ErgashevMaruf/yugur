@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { CaruselModule } from 'app/shared/carusel/carusel.module';
 import { DebounceInputDirective } from 'app/shared/directives/debounce-input.directive';
-import { EventBoxDTO, EventClient, TableMetaData } from 'nswag-api-marathon';
+import { EventBoxDTO, EventClient, TableMetaData } from 'nswag-api/nswag-api-marathon';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';

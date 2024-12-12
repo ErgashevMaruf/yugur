@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'app/core/env/environment.prod';
 import { GalleryService } from 'app/modules/services/gallery.service';
-import { PhotoVideoClient } from 'nswag-api-marathon';
+import { PhotoVideoClient } from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-gallery',

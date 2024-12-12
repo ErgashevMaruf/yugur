@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslocoModule } from '@ngneat/transloco';
 import { UserService } from 'app/core/user/user.service';
-import { ApplicationRepaymentClient, ApplicationRepaymentDTO } from 'nswag-api-marathon';
+import { ApplicationRepaymentClient, ApplicationRepaymentDTO } from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-repaymentRequest',

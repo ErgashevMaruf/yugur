@@ -7,7 +7,7 @@ import {
     SelectItem,
     SuperAdminClient,
     UserRegistrDTO,
-} from 'nswag-api-auth';
+} from 'nswag-api/nswag-api-auth';
 import { SpSelectItems } from '../../sps/SpSelectItems';
 import {
     FormBuilder,
@@ -17,7 +17,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { PasswordStrengthValidator } from 'app/modules/auth/sign-up/password.validation';
-import { SelectItemClient } from 'nswag-api-sps';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { ConfirmPasswordValidator } from 'app/modules/auth/sign-up/confirm-password.validator';
 import {
     MAT_DIALOG_DATA,

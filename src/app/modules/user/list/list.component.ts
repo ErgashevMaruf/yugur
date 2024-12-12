@@ -4,7 +4,7 @@ import {
     EventClient,
     EventDTO,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-list',

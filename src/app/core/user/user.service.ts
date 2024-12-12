@@ -15,8 +15,8 @@ import {
     ResponseModelOfUserRegistrDTO,
     UserProfile,
     UserRegistrDTO,
-} from 'nswag-api-auth';
-import { FilesInfoClient } from 'nswag-api-files';
+} from 'nswag-api/nswag-api-auth';
+import { FilesInfoClient } from 'nswag-api/nswag-api-files';
 
 @Injectable({
     providedIn: 'root',

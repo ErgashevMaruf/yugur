@@ -6,13 +6,13 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ImgCropperComponent } from 'app/shared/imgCropper/imgCropper.component';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
 import { WarningComponent } from 'app/shared/messages/warning/warning.component';
-import { HttpStatusCode } from 'nswag-api-auth';
+import { HttpStatusCode } from 'nswag-api/nswag-api-auth';
 import {
     AdvertisingClient,
     AdvertisingDTO,
     AdvertisingStatus,
     FilesClient,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { CheckboxModule } from 'primeng/checkbox';
 import { catchError, throwError } from 'rxjs';
 

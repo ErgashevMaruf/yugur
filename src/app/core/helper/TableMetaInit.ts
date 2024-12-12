@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { TableMetaData } from '../../../nswag-api-sps';
+import { TableMetaData } from '../../../nswag-api/nswag-api-sps';
 
 export class TableMetaInit extends TableMetaData {
     filters: any = {};

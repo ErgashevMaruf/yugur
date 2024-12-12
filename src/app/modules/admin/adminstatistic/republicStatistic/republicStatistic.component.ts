@@ -4,7 +4,7 @@ import { StatisticComponent } from 'app/shared/statistic/statistic.component';
 import { generalSetting } from 'app/core/env/general.setting';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
-import { StatisticsClient } from 'nswag-api-marathon';
+import { StatisticsClient } from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-republicStatistic',

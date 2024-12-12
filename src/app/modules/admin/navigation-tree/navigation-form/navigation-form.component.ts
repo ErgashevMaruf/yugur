@@ -14,8 +14,8 @@ import {
     NavigationClient,
     NavigationDTO,
     UpDownOrder,
-} from 'nswag-api-auth';
-import { SelectItem } from 'nswag-api-sps';
+} from 'nswag-api/nswag-api-auth';
+import { SelectItem } from 'nswag-api/nswag-api-sps';
 
 @Component({
     selector: 'app-navigation-form',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SpService } from 'app/core/services/sp.service';
-import { StaffClient } from 'nswag-api-auth';
-import { OrgStructureDTO, TypeOrgStructure } from 'nswag-api-docflow';
-import { FilesInfoClient } from 'nswag-api-files';
+import { StaffClient } from 'nswag-api/nswag-api-auth';
+import { OrgStructureDTO, TypeOrgStructure } from 'nswag-api/nswag-api-docflow';
+import { FilesInfoClient } from 'nswag-api/nswag-api-files';
 import { SpSelectItems } from '../sps/SpSelectItems';
 
 @Injectable({

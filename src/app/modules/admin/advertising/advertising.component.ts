@@ -7,7 +7,7 @@ import {
     AdvertisingClient,
     AdvertisingDTO,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { TableModule } from 'primeng/table';
 import { AdvertisingformComponent } from './advertisingform/advertisingform.component';
 

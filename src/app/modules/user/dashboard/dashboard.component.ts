@@ -10,7 +10,7 @@ import {
     EventBoxDTO,
     EventClient,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { WorkplaceComponent } from './workplace/workplace.component';
 import { Roles } from 'app/core/user/Roles';
 

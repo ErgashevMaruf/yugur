@@ -9,7 +9,7 @@ import { TranslateAsyncPipe } from 'app/modules/pipes/translate-async.pipe';
 import { DetailsComponent } from 'app/modules/user/events/details/details.component';
 import { SuccessComponent } from 'app/shared/messages/success/success.component';
 import { SelectNumberComponent } from 'app/shared/SelectNumberForUsers/selectNumber.component';
-import { EventBoxDTO } from 'nswag-api-marathon';
+import { EventBoxDTO } from 'nswag-api/nswag-api-marathon';
 import { CheapestPipe } from './cheapest.pipe';
 
 @Component({

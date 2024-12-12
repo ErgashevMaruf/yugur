@@ -1,13 +1,13 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { TableMetaData } from 'nswag-api-auth';
+import { TableMetaData } from 'nswag-api/nswag-api-auth';
 import {
     AthleteEventDto,
     EventBoxDTO,
     EventClient,
     EventDTO,
     RegistationEventClient,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-addUserEvent',

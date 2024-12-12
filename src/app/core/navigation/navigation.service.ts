@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, tap } from 'rxjs';
 import { Navigation } from 'app/core/navigation/navigation.types';
-import { NavigationClient } from 'nswag-api-auth';
+import { NavigationClient } from 'nswag-api/nswag-api-auth';
 import { FuseNavigationItem } from '@fuse/components/navigation';
 import { UserService } from '../user/user.service';
 

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 import { environment } from 'app/core/env/environment';
-import { OneIdClient } from 'nswag-api-auth';
+import { OneIdClient } from 'nswag-api/nswag-api-auth';
 
 @Component({
   selector: 'app-oneid',

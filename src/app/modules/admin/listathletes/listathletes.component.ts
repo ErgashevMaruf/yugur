@@ -5,10 +5,10 @@ import {
     AthletesDTO,
     HttpStatusCode,
     OrganizationDTO,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import * as XLSX from 'xlsx';
 import { SpSelectItems } from '../sps/SpSelectItems';
-import { SelectItem, SelectItemClient, TableMetaData } from 'nswag-api-sps';
+import { SelectItem, SelectItemClient, TableMetaData } from 'nswag-api/nswag-api-sps';
 import { catchError, combineLatest, throwError } from 'rxjs';
 import { TranslocoService } from '@ngneat/transloco';
 import { UserService } from 'app/core/user/user.service';

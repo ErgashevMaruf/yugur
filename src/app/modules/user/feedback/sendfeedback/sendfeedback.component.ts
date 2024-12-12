@@ -6,7 +6,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { FileServiceService } from 'app/modules/services/fileUpload.service';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
 import { SuccessComponent } from 'app/shared/messages/success/success.component';
-import { FeedBackClient, FeedType, DeviceType, FeedBackDTO, HttpStatusCode, ResponseModelOfBoolean } from 'nswag-api-marathon';
+import { FeedBackClient, FeedType, DeviceType, FeedBackDTO, HttpStatusCode, ResponseModelOfBoolean } from 'nswag-api/nswag-api-marathon';
 import { catchError, throwError } from 'rxjs';
 interface sendOption {
     name: string;
@@ -16,7 +16,7 @@ interface sendOption {
   selector: 'app-sendfeedback',
   templateUrl: './sendfeedback.component.html',
   styleUrls: ['./sendfeedback.component.css'],
-  
+
 })
 export class SendfeedbackComponent implements OnInit {
 

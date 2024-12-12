@@ -6,7 +6,7 @@ import { TranslateAsyncPipe } from 'app/modules/pipes/translate-async.pipe';
 import {
     FinishedEventBoxStatistics,
     ResultStatistics,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-finishedEvent',

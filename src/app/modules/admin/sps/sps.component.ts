@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { SelectItem } from 'nswag-api-auth';
-import { SelectItemClient } from 'nswag-api-sps';
+import { SelectItem } from 'nswag-api/nswag-api-auth';
+import { SelectItemClient } from 'nswag-api/nswag-api-sps';
 import { SpBaseListComponent } from './sp-base-table/sp-base-list/sp-base-list.component';
 import { SpsService } from './sps.service';
 

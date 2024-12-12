@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/core/auth/auth.service';
-import { AccountClient, EmailConfirmed, HttpStatusCode } from 'nswag-api-auth';
+import { AccountClient, EmailConfirmed, HttpStatusCode } from 'nswag-api/nswag-api-auth';
 import { map, takeUntil, timer } from 'rxjs';
 import { SuccessComponent } from '../success/success.component';
 import { AlreadyhaveComponent } from '../alreadyhave/alreadyhave.component';

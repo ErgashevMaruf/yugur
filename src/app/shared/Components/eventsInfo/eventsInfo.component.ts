@@ -10,7 +10,7 @@ import {
     EventClient,
     EventDTO,
     TableMetaData,
-} from 'nswag-api-marathon';
+} from 'nswag-api/nswag-api-marathon';
 import { TooltipModule } from 'primeng/tooltip';
 @Component({
     selector: 'app-eventsInfo',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { environment } from 'app/core/env/environment.prod';
-import { AthletesInfoDTO, FaceIDMobileClient } from 'nswag-api-marathon';
+import { AthletesInfoDTO, FaceIDMobileClient } from 'nswag-api/nswag-api-marathon';
 
 @Component({
     selector: 'app-faceId',

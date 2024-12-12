@@ -14,7 +14,7 @@ import {
     ResetPassword,
     ResetPasswordWithEmail,
     ResponseModelOfResetPassword,
-} from 'nswag-api-auth';
+} from 'nswag-api/nswag-api-auth';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorComponent } from 'app/shared/messages/error/error.component';
 import { ConfirmPasswordValidator } from '../sign-up/confirm-password.validator';

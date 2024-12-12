@@ -1,0 +1,129 @@
+<div class="w-full h-screen flex bg-white dark:bg-[#25262c]">
+    <div class="h-full w-full flex items-center justify-center cs:px-0 px-4">
+        <div @fadeInLeft [formGroup]="signInForm" class="flex flex-col gap-12">
+            <img
+                src="./assets/images/yugurPng.png"
+                alt=""
+                class="w-[120px] h-[32px] cursor-pointer object-cover"
+                [routerLink]="['home']"
+            />
+            <div>
+                <p class="font-[800] text-4xl text-[#383942] dark:text-[#F7F8F8] leading-[44px]">
+                    {{ "sign.login" | transloco }}
+                </p>
+                <p class="text-[#4A4C5A] dark:text-[#B6B9C3] font-medium text-[16px] leading-6">
+                    {{
+                        "welcomeLoginAccount"
+                            | transloco
+                    }}
+                </p>
+            </div>
+            <div class="w-full p-1 bg-[#F7F8F8] dark:bg-[#383942] flex rounded-xl relative">
+                <div class="sm:w-[235px] w-1/2 h-[44px] bg-white dark:bg-[#25262c] border
+                 dark:border-[#41434E] slidingDiv border-[#D8DADF]
+                 rounded-[10px] absolute top-1 left-1"
+                 [ngClass]="{
+                    'move-right':
+                        active == 'sign'
+                }"
+                 ></div>
+                <button
+                    class="h-[44px] rounded-[10px] z-10 relative sm:w-[235px] w-full font-bold notActive bg-transparent"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white':
+                            active == 'oneid'
+                    }"
+                    (click)="active = 'oneid';"
+                >
+                    {{ "oneid" | transloco }}
+                </button>
+                <button
+                    class="h-[44px] rounded-[10px] sm:w-[235px] w-full font-bold notActive relative z-10"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white':
+                            active == 'sign'
+                    }"
+                    (click)="active = 'sign'"
+                >
+                    {{ "sign.login" | transloco }}
+                </button>
+            </div>
+            @if (active=='sign') {
+                <div class="flex flex-col gap-5">
+                    <div class="sm:min-w-[450px] min-w-[350px]">
+                        <app-input-forms
+                        [inputFormsData]="formsData"
+                        [error]="alert.type=='error'"
+                        [groupName]="signInForm"
+                    ></app-input-forms>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex gap-[10px] items-center">
+                            <app-checkbox
+                                [borderRadius]="5"
+                                [width]="18"
+                                [height]="18"
+                                formControlName="rememberMe"
+                                border="2"
+                                borderColor="#707587"
+                            ></app-checkbox>
+                            <p class="font-medium">
+                                {{ "keep.me.logged.in" | transloco }}
+                            </p>
+                        </div>
+                        <a
+                            [routerLink]="['/forgot-password']"
+                            class="text-[#FF3A3C] underline font-medium"
+                            >{{ "fortgot.password" | transloco }}</a
+                        >
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <button
+                        class="w-full disabled:bg-red-600 sm:text-[18px] text-[14px] text-white font-semibold sm:h-[44px] h-[40px] rounded-[10px] green"
+                        [disabled]="signInForm.invalid"
+                        (click)="signIn()"
+                    >
+                        {{ "siginin.system" | transloco }}
+                    </button>
+                    <!-- <div class="w-full flex justify-center">
+                        <p class="font-bold leading-[20px] text-[#8E92A2]">
+                            {{ "notHaveAccount" | transloco }}
+                        </p>
+                        <a
+                            [routerLink]="['/sign-up']"
+                            class="font-semibold leading-5 text-[#67BD50]"
+                            >{{ "register.now" | transloco }}</a
+                        >
+                    </div> -->
+                </div>
+            }
+            @else {
+                <div class="w-full h-full border border-[#EDEDF1] dark:border-[#383942] rounded-[16px]
+                 flex flex-col justify-center items-center pb-4">
+                    <img
+                    class="w-[180px] h-[200px]"
+                    src="./assets/oneId.png" alt="">
+                    <p class="text-[16px] dark:text-white text-center text-[#383942] font-medium">
+                        {{'goOneId' | transloco}}</p>
+                </div>
+                <button
+                    (click)="oneID()"
+                    class="bg-[#4825C2] h-[44px] w-full rounded-[10px] flex justify-center"
+                >
+                    <img
+                        class="w-[89px] h-[44px] text-center"
+                        src="./assets/icons/oneid.svg"
+                        alt="oneid"
+                    />
+                </button>
+            }
+        </div>
+    </div>
+    <div
+        class="h-full w-full md:flex hidden items-center justify-center bg-[#f7f7f5]"
+        @fadeInRight
+    >
+        <img src="./assets/signIn/man.png" alt="" class="w-[590px] h-[590px]" />
+    </div>
+</div>

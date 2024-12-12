@@ -1,0 +1,22 @@
+<div class="sm:p-[30px] p-[20px]
+bg-main
+pb-0 sm:h-[300px] h-[280px] overflow-hidden">
+    <div class="w-full flex justify-end mb-[10px]">
+        <mat-icon
+            class="text-red-600 dark:text-red-400 relative z-99 cursor-pointer text-[25px]"
+            (click)="close()"
+            >cancel</mat-icon
+        >
+    </div>
+    <div
+        class="w-full flex justify-center sm:text-[30px] font-bold gap-[5px] items-center text-red-600"
+    >
+        <i class="pi pi-ban font-bold sm:text-[30px]"></i>
+        <p class="dark:text-red-400 max-w-[350px] text-center">{{errorMessage | transloco}}</p>
+    </div>
+    <div
+        class="absolute sm:top-0 top-[-30px] sm:h-full h-[280px] overflow-hidden"
+    >
+        <ng-lottie height="320px" [options]="options"></ng-lottie>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="flex text-[#707587] dark:text-[#8E92A2] font-semibold cursor-pointer gap-2">
+  @for (x of lang; track x) {
+    <p
+      [ngClass]="x.value==activeLang?'text-[#67BD50]':''"
+      (click)="setActiveLang(x.value)"
+    >{{x.name}}</p>
+  }
+</div>

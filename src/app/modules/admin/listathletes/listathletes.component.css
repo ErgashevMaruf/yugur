@@ -1,0 +1,60 @@
+.header{
+    background: #0098DA;
+    padding: 15px !important;
+    color: white;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: grid;
+    text-align:center;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+td{
+    border-bottom:1px solid #0098DA !important;
+}
+table tr th{
+    background:#0098DA;
+    padding: 10px;
+    color:white;
+    border-collapse: collapse !important;
+    font-weight: 500 !important;
+    border-right: 1px solid white;
+}
+table tr td{
+    font-weight: 500 !important;
+    text-align:center;
+}
+input{
+    text-align:center;
+    border: 1px solid #0098DA;
+    border-radius: 5px;
+    padding: 5px;
+}
+:host ::ng-deep .calendar .p-inputtext {
+    width: 100%;
+    padding: 5px !important;
+    margin: 0.2rem 0;
+    text-align: center;
+    border: 1px solid #0098DA;
+}
+:host ::ng-deep .dropdownSelect
+{
+    padding: 5px 25px !important;
+}
+:host ::ng-deep .dropdownList
+{
+    z-index:9999;
+    top: 40px !important;
+}
+ :host ::ng-deep .dropdown .p-inputtext
+ {
+    border: none !important;
+ }
+:host ::ng-deep .p-dropdown
+{
+    width: 200px !important;
+}
+:host ::ng-deep .p-inputtext
+{
+    padding: 0.1rem 0.75rem !important;
+}

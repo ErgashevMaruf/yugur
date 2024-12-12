@@ -1,0 +1,261 @@
+@if (create) {
+<div
+    class="w-full bg-white dark:bg-[#7b7b7b] px-[30px] rounded-[20px] py-[30px] h-screen overflow-y-auto"
+    [formGroup]="userEditForm"
+>
+    <!-- Private info Start -->
+    <div class="relative">
+        <div class="flex justify-between w-full items-center max-w-[660px]">
+            <p class="heading">{{ "private.info" | transloco }}</p>
+            <div>
+                @if (user?.imageFileGuid) {
+                    <div class="">
+                        <p-image
+                            [src]="url + user.imageFileGuid"
+                            alt="Image"
+                            styleClass="w-[100px]"
+                            [preview]="true"
+                        />
+                    </div>
+                    }
+                    <!-- <div class="w-[100px] flex items-center justify-center h-[40px] rounded-[10px] bg-blue-500"
+                    [pTooltip]="'uploadPicture' | transloco"
+                    >
+                        <i class="pi pi-upload text-white"></i>
+                    </div> -->
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-[15px]">
+            <div>
+                <label for="Name">{{ "personName" | transloco }}</label>
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="name"
+                    formControlName="name"
+                    id="name"
+                />
+            </div>
+            <div>
+                <label for="surname">{{ "personSurname" | transloco }}</label>
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="surname"
+                    formControlName="surname"
+                    id="surname"
+                />
+            </div>
+            <div>
+                <label for="thirdName">{{ "patronymic" | transloco }}</label>
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="patronymic"
+                    formControlName="patronymic"
+                    id="thirdName"
+                />
+            </div>
+            <div>
+                <label for="email">{{ "email" | transloco }}</label>
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="email"
+                    formControlName="email"
+                    id="email"
+                />
+            </div>
+            <div>
+                <label for="number">{{ "phone" | transloco }}</label>
+                <input
+                    id="number"
+                    class="input"
+                    type="text"
+                    placeholder="number"
+                    formControlName="phoneMain"
+                />
+            </div>
+            <div>
+                <label for="birthDate">{{ "birthday.date" | transloco }}</label>
+                <p class="input">{{ user.birthDate }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Private info End -->
+    <!-- Organization info start -->
+    @if (user.organization) {
+    <div class="w-full max-w-[660px]" [formGroup]="organizationForm">
+        <p class="heading">{{ "organizers" | transloco }}</p>
+        <div class="flex gap-4">
+            <div>
+                <label for="organizaitonName">{{
+                    "organizaitonName" | transloco
+                }}</label>
+                <input
+                    class="input"
+                    type="text"
+                    placeholder="{{ 'organizaitonName' | transloco }}"
+                    formControlName="name"
+                    id="organizaitonName"
+                />
+            </div>
+            <div>
+                <label for="organizaitonName">{{
+                    "organizaitonName" | transloco
+                }}</label>
+                <p-dropdown
+                    [options]="organizationTypes?.slice(1)"
+                    optionValue="value"
+                    optionLabel="label"
+                    formControlName="spOrganizationTypeId"
+                ></p-dropdown>
+            </div>
+        </div>
+    </div>
+    }
+    <!-- Organization info end -->
+    <!-- Is From Uzbekistan Start -->
+    @if (user.isPassportUzb) {
+    <div>
+        <div class="flex justify-between w-full max-w-[660px]">
+            <p class="heading">{{ "passportInfo" | transloco }}</p>
+        </div>
+        <div class="grid grid-cols-3 gap-[10px]">
+            <p class="input">
+                {{ "passportSeria" | transloco }} :
+                <span class="disable"> {{ user.passportSeria }}</span>
+            </p>
+            <p class="input">
+                {{ "passportNumber" | transloco }} :
+                <span class="disable">{{ user.passportNumber }}</span>
+            </p>
+            <p class="input">
+                {{ "pinfl" | transloco }} :
+                <span class="disable">{{ user.pinfl }}</span>
+            </p>
+        </div>
+    </div>
+    }
+    <!-- Is From Uzbekistan End -->
+    <!-- About User from System Start -->
+    <div [formGroup]="setPassword">
+        <p class="heading">
+            {{ "systemInfo" | transloco }}
+        </p>
+        <div class="grid grid-cols-3 gap-[15px]">
+            <div>
+                <label for="userName">{{ "userName" | transloco }}</label>
+                <p class="input disable">{{ user.userName }}</p>
+            </div>
+            <div>
+                <label for="newpassword">{{
+                    "sign.password" | transloco
+                }}</label>
+                <input type="text" class="input" formControlName="password" />
+            </div>
+            <div>
+                <label for="confirmpassword">{{
+                    "confirmpassword" | transloco
+                }}</label>
+                <input
+                    type="text"
+                    class="input"
+                    formControlName="confirmpassword"
+                />
+            </div>
+        </div>
+        @if (setPassword.get('password').dirty) {
+        <div class="w-full my-[10px]">
+            <app-checkPassword [form]="setPassword"></app-checkPassword>
+        </div>
+        }
+    </div>
+    <!-- About User System End -->
+    <!-- Address Info Start-->
+    <div>
+        <p class="heading">{{ "Address" | transloco }}</p>
+        <div class="grid grid-cols-3 gap-[10px] mb-[15px]">
+            @if (user.isForeign) {
+            <div>
+                <label>{{ "personCountry" | transloco }}</label>
+                <p-dropdown
+                    appendTo="body"
+                    [options]="countries"
+                    [disabled]=""
+                    optionValue="code"
+                    optionLabel="label"
+                    formControlName="spCountryId"
+                    [placeholder]="'CHOOSE' | transloco"
+                ></p-dropdown>
+            </div>
+            } @if (!user.isForeign) {
+            <div>
+                <label for="">{{ "eventRegion" | transloco }}</label>
+                <p-dropdown
+                    [options]="regions?.slice(1)"
+                    optionValue="value"
+                    optionLabel="label"
+                    formControlName="spRegionId"
+                    [placeholder]="'CHOOSE' | transloco"
+                    (onChange)="changeDistrict($event)"
+                ></p-dropdown>
+            </div>
+            } @if (!user.isForeign) {
+            <div>
+                <label for="">{{ "REGION" | transloco }}</label>
+                <p-dropdown
+                    [options]="regionsDistricts"
+                    optionValue="value"
+                    optionLabel="label"
+                    formControlName="spDistrictId"
+                    [placeholder]="'CHOOSE' | transloco"
+                ></p-dropdown>
+            </div>
+            }
+        </div>
+        <div>
+            <label for="">{{ "Address" | transloco }}</label>
+            @if (!user.isForeign) {
+            <input type="text" class="input" formControlName="address" />
+            }
+        </div>
+    </div>
+    <!-- Address Info End -->
+    <!-- Roles Start -->
+    <div>
+        <p class="heading">
+            {{ "roles" | transloco }}
+        </p>
+        <div>
+            <mat-selection-list
+                formControlName="roles"
+                (selectionChange)="select($event)"
+            >
+                @for (x of rolesList; track x) {
+                <mat-list-option [value]="x.label">
+                    {{ roles.get(x.label) | transloco }}
+                    @if (x.label=='Студент-пользователь' && studentMessage) {
+                        <p>Maruf Ergashev</p>
+                    }
+                </mat-list-option>
+                }
+            </mat-selection-list>
+        </div>
+    </div>
+    <!-- Roles End -->
+    <div class="flex justify-end">
+        <button
+            class="w-[150px] h-[40px] rounded-[10px] disabled:bg-[#aeaeae] bg-green-600 text-white"
+            [disabled]="
+                userEditForm.invalid ||
+                setPassword.invalid ||
+                organizationForm.invalid
+            "
+            (click)="editUser()"
+        >
+            {{ "SAVE" | transloco }}
+        </button>
+    </div>
+</div>
+}

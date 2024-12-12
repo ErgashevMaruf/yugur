@@ -1,0 +1,70 @@
+<div class="w-full md:w-[486px] bg-main"
+[ngClass]="{'p-5 rounded-[10px]': dialogData}"
+[formGroup]="feedBackForm">
+    <div class="flex flex-col gap-4 mb-12">
+        <div class="flex flex-col gap-1 w-full">
+            <label
+                for="Описание"
+                class="dark:text-[#B6B9C3] font-medium text-[#8E92A2]"
+                >{{ "fullDescription" | transloco }}</label
+            >
+            <textarea
+                class="p-3 h-[96px] border border-[#D8DADF] rounded-[10px] dark:border-[#41434E] bg-[#F7F8F8] dark:bg-[#25262c]"
+                [placeholder]="'writeSomething...' | transloco"
+                type="text"
+                id="Описание"
+                placeholder="{{ 'feedback.text' | transloco }}"
+                formControlName="text"
+            ></textarea>
+        </div>
+        <div class="flex flex-col gap-1 w-full">
+            <label
+                for="Описание"
+                class="dark:text-[#B6B9C3] font-medium text-[#8E92A2]"
+                >{{ "fullDescription" | transloco }}</label
+            >
+            @if (showSelectOption) {
+            <p-dropdown
+                appendTo="body"
+                [options]="type"
+                optionValue="value"
+                optionLabel="name"
+                styleClass="w-full  rounded-[10px] font-normal"
+                formControlName="type"
+                [placeholder]="'CHOOSE' | transloco"
+            ></p-dropdown>
+            }
+        </div>
+        <div
+            class="border border-[#D8DADF] dark:border-[#41434E] border-dashed w-full relative items-center rounded-[16px] flex justify-between px-4 py-[18px]"
+        >
+            <div class="flex gap-4 items-center">
+                <mat-icon
+                    svgIcon="fileFeedback"
+                    class="h-[36px] w-9 text-[#5B5F6E] dark:text-[#B6B9C3]"
+                ></mat-icon>
+                <p class="text-[#5B5F6E] dark:text-[#B6B9C3] font-medium">
+                    {{ "attachThefile" | transloco }}
+                </p>
+            </div>
+            <button
+                class="h-[44px] w-[104px] border border-[#D8DADF] text-[#67BD50] dark:border-[#4A4C5A] rounded-[10px] font-bold"
+            >
+                {{ "uploadServer" | transloco }}
+            </button>
+            <input
+                type="file"
+                class="w-full h-full opacity-0 absolute"
+                (change)="uploadFile($event.target.files)"
+                accept="image/*, .pdf, .doc, .docx"
+            />
+        </div>
+    </div>
+    <button
+        class="h-[44px] w-full bg-[#67BD50] disabled:bg-[#D8DADF] text-white rounded-[10px] font-bold"
+        [disabled]="feedBackForm.invalid"
+        (click)="saveFeedback()"
+    >
+        {{ "SAVE" | transloco }}
+    </button>
+</div>

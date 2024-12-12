@@ -1,0 +1,103 @@
+<div class="w-full cs:px-0 px-4">
+    <div class="w-full flex md:flex-row flex-col  justify-between items-center">
+        <div class="flex flex-col gap-6" @fadeInLeft>
+            <div class="heading mb-0">
+                <p class="">{{'onlinePlatform' | transloco}}</p>
+                <p class="text-[#67BD50]">{{'health' | transloco}}</p>
+            </div>
+            <p class="sm:font-semibold font-normal seconDaryText sm:w-[450px] w-[343px]">
+               {{"infoYugurPlatfom" | transloco}}
+            </p>
+            <div
+                class="flex gap-2 p-3 signIn w-fit
+                font-semibold text-white rounded-[10px] items-center bg-[#67BD50] cursor-pointer"
+                [routerLink]="['/sign-in']"
+            >
+                <mat-icon svgIcon="userLanding" class="text-white"></mat-icon>
+                <p>{{ "enterYourCabinet" | transloco }}</p>
+            </div>
+        </div>
+        <div class="relative bgDiv" @fadeInRight>
+            <img src="./assets/landing/landing.png" alt="" />
+            <div
+                class="bg-whiteTo900 border-grey50To800 shadowDiv absolute sm:top-[125px] top-[103px] sm:left-[18px] left-[9px]
+                 sm:w-[160px] sm:h-[120px] w-[138px] h-[52px]
+                sm:rounded-[16px]
+                flex rounded-xl sm:flex-col flex-row sm:gap-3 gap-1 justify-center items-center"
+            >
+                <div
+                    class="rounded-full
+                    boxShadowBlue  bg-[#0CAEEB] sm:w-[40px] sm:h-[40px] w-[28px] h-[28px] flex justify-center items-center"
+                >
+                    <mat-icon
+                        svgIcon="calendarLanding"
+                        class="text-white text-[14px]"
+                    ></mat-icon>
+                </div>
+                <div class="flex gap-1 font-bold
+                 text-[#0CAEEB]">
+                    <p
+                        [countUp]="statistics?.eventCount"
+                        [duration]="1000"
+                        [divide]="3"
+                    >
+                        {{ statistics?.eventCount }}
+                    </p>
+                    <p>{{ "nav.events.list" | transloco }}</p>
+                </div>
+            </div>
+            <div
+                class="bg-whiteTo900 border-grey50To800 shadowDiv absolute sm:top-[190px] sm:right-[31px] right-[-5px] top-[161px] w-[160px] sm:h-[120px]  h-[52px]
+                sm:rounded-[16px]
+                flex rounded-xl sm:flex-col flex-row sm:gap-3 gap-1 justify-center items-center"
+            >
+                <div
+                    class="rounded-full
+                    boxShadowGreen
+                    bg-[#67BD50] sm:w-[40px] sm:h-[40px] w-[28px] h-[28px] flex justify-center items-center"
+                >
+                    <mat-icon
+                        svgIcon="peopleLanding"
+                        class="text-white text-[14px]"
+                    ></mat-icon>
+                </div>
+                <div class="flex gap-1 font-bold text-[#67BD50]">
+                    <p
+                        [countUp]="statistics?.participants"
+                        [duration]="1000"
+                        [divide]="3"
+                    >
+                        {{ statistics?.participants }}
+                    </p>
+                    <p>{{ "participants" | transloco }}</p>
+                </div>
+            </div>
+            <div
+                class="bg-whiteTo900 border-grey50To800 shadowDiv absolute
+                sm:w-[160px] sm:h-[112px] w-[177px] h-[52px] sm:bottom-[90px] bottom-[47px] sm:left-[134px] left-[80px]  sm:rounded-[16px]
+                 flex  sm:flex-col flex-row gap-3 justify-center items-center rounded-xl"
+            >
+                <div
+                    class="rounded-full
+                    boxShadowRed
+                    bg-[#FF3A3C] sm:w-[45px] sm:h-[45px] w-[28px] h-[28px] flex justify-center items-center"
+                >
+                    <mat-icon
+                        svgIcon="organization"
+                        class="text-white text-[14px]"
+                    ></mat-icon>
+                </div>
+                <div class="flex gap-1 font-bold text-[#FF3A3C]">
+                    <p
+                        [countUp]="statistics?.organizationCount"
+                        [duration]="1000"
+                        [divide]="3"
+                    >
+                        {{ statistics?.organizationCount }}
+                    </p>
+                    <p>{{ "organizers" | transloco }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

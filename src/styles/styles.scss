@@ -1,0 +1,228 @@
+// /* ----------------------------------------------------------------------------------------------------- */
+// /*  @ Import/write your custom styles here.
+// /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+// /* ----------------------------------------------------------------------------------------------------- */
+
+// /* Importing Bootstrap SCSS file. */
+// // @import "./node_modules/bootstrap/scss/bootstrap";
+// @import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+.p-button {
+    padding: 0.3rem 0.5rem;
+}
+.green {
+    background-color: #67bd50;
+}
+.greenText {
+    color: #67bd50;
+}
+.inactive_btn {
+    transition: all 0.2s ease;
+    border-bottom: 4px solid #eee;
+}
+.blue {
+    background-color: #02a3d3;
+}
+.table {
+    --bs-table-color: none;
+}
+.dropdown-toggle {
+    padding: 0px 5px;
+    margin: 0px;
+}
+.btn-small {
+    padding: 0px;
+}
+.p-splitter-panel {
+    overflow: auto !important;
+}
+.float-left,
+.pull-left {
+    float: left !important;
+}
+.p-cascadeselect {
+    background: inherit;
+}
+.p-treeselect {
+    background: inherit;
+}
+.p-cascadeselect-sublist {
+    overflow: scroll;
+    max-height: 500px;
+}
+.p-cascadeselect-panel
+    .p-cascadeselect-items
+    .p-cascadeselect-item
+    .p-cascadeselect-item-content {
+    padding: 0.2rem 1rem;
+}
+.p-dialog-content {
+    overflow-y: auto !important;
+}
+.p-dialog-mask {
+    z-index: 1000 !important;
+}
+.p-cascadeselect {
+    width: 100%;
+}
+.mat-mdc-form-field-has-icon-prefix .mat-mdc-text-field-wrapper {
+    padding-left: 0;
+    --mat-mdc-form-field-label-offset-x: 0px !important;
+}
+.p-float-label label {
+    top: 27%;
+    margin-top: 0rem;
+}
+.p-dialog {
+    .p-dialog-header {
+        @apply bg-primary-100 dark:bg-primary-900 #{'!important'};
+        padding: 0.5rem;
+    }
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    padding: 0px;
+}
+.padding-2 {
+    padding: 2px !important;
+}
+
+.p-component,
+.p-datatable .p-datatable-thead > tr > th {
+    font-weight: normal !important;
+}
+.mat-dialog-container {
+    padding: 0px !important;
+}
+.mat-form-field {
+    display: block !important;
+}
+// .p-paginator {
+//     background-color: transparent;
+// }
+.p-datatable .p-datatable-footer {
+    background: transparent;
+}
+.mat-form-field-wrapper {
+    padding-bottom: 0.5em !important;
+}
+.mat-error {
+    padding-top: 12px;
+}
+.mat-form-field-subscript-wrapper {
+    margin-top: 0em;
+}
+
+.float-right,
+.pull-right {
+    float: right;
+}
+.bg-mg {
+    background-color: #023e73 !important;
+}
+.cl-mg {
+    color: #7e0b08;
+}
+.bg-h {
+    background-color: #010b46 !important;
+    color: white !important;
+}
+.bg-h .mat-icon {
+    color: white !important;
+    .left-40p {
+        left: 41%;
+    }
+    .right-30p {
+        right: 30%;
+    }
+}
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.4em 0 1em 0;
+}
+.mat-form-field-label-wrapper {
+    top: -17px;
+}
+.left-40p {
+    left: 41%;
+}
+.fuse-vertical-navigation-basic-item
+    .fuse-vertical-navigation-item-wrapper.fuse-vertical-navigation-item-active {
+    background-color: #010b46 !important;
+}
+
+.right-30p {
+    right: 30%;
+}
+
+:host ::ng-deep {
+    font-family: 'Manrope';
+    fuse-vertical-navigation-basic-item
+        .fuse-vertical-navigation-item-wrapper
+        .fuse-vertical-navigation-item-active {
+        background-color: #010b46 !important;
+    }
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 15px !important;
+    padding-bottom: 10px !important;
+}
+.mat-mdc-form-field-infix {
+    min-height: 50px;
+}
+.p-datepicker table td {
+    padding: 0px !important;
+}
+h3 {
+    font-size: 30px;
+    font-weight: bold;
+}
+.btnAll{
+    width: 200px;
+    height: 40px;
+    border: 2px solid #67BD50;
+    color: #67BD50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.heading{
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 54px;
+    color: #25262C;
+    margin-bottom:48px;
+}
+.dark{
+    .heading{
+        color: white;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .heading
+    {
+        font-size: 32px !important;
+        line-height: 44px !important;
+        margin-bottom: 24px !important;
+    }
+}
+
+.allInput{
+    width: 100%;
+    border-radius: 10px;
+    padding: 12px;
+    padding-left: 16px;
+    font-weight: 500;
+    font-size: 14px;
+}
+label{
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+}

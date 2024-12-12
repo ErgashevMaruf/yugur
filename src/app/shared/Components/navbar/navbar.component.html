@@ -1,0 +1,73 @@
+<div
+  id="navbarContent"
+  class="flex flex-col w-full bg-card h-full"
+  fuseScrollbar
+  @fadeInLeft
+  >
+  <div
+    class="flex flex-row justify-between items-center pt-2 px-6 h-12 min-h-12 bg-card shadow"
+    >
+    <div class="ml-3 text-2xl flex flex-row font-semibold tracking-tight">
+      <div class="h-full">
+        <mat-icon class="icon-size-7 text-current my-auto">{{
+          maticon
+        }}</mat-icon>
+      </div>
+      <span class="ml-8">{{ title | transloco }}</span>
+    </div>
+    <div class="ml-10">
+      @if (isShowAddButton) {
+        <button
+          mat-raised-button
+          class="save-button fuse-white compose-dialog-button w-100-p mr-4"
+          aria-label="Compose"
+          (click)="addButton.emit()"
+          >
+          <mat-icon svgIcon="add"></mat-icon>
+          {{ "config.add" | transloco }}
+        </button>
+      }
+      @if (showExportExcel) {
+        <button
+          type="button"
+          class="mr-4"
+          style="float: right"
+          label="{{ 'export_to_excel' | transloco }}"
+          pButton
+          mat-raised-button
+          icon="pi pi-file-excel"
+          (click)="expoerExcelButton.emit()"
+          aria-label="Compose"
+        ></button>
+      }
+
+      @if (dt != undefined) {
+        <button
+          class="mr-4"
+          mat-icon-button
+          (click)="dt.exportCSV()"
+          aria-label="Compose"
+          >
+          <mat-icon class="icon-size-7 text-current"
+            >swap_vertical_circle</mat-icon
+            >
+          </button>
+        }
+        @if (leftBtn) {
+          <button
+            mat-raised-button
+            class="fuse-white compose-dialog-button w-100-p mr-4"
+            aria-label="Compose"
+            (click)="lefBtnClick.emit()"
+            >
+            <span>
+              {{ "leftBtnTitle" | transloco }}
+            </span>
+          </button>
+        }
+      </div>
+    </div>
+    <div class="p-2 h-full">
+      <ng-content></ng-content>
+    </div>
+  </div>

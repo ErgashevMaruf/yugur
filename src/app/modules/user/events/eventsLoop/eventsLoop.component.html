@@ -1,0 +1,74 @@
+<div class="userLanding w-full linearGradient">
+    <div
+        class="cursor-pointer h-[150px] overflow-y-auto relative"
+        #scrollableDiv
+    >
+        @for (event of eventBox.events; track $index) {
+        <div
+            class="flex font-semibold md:text-2xl px-4 rounded-[12px]
+            text-[16px] allDivCarusel items-center justify-between"
+            (mouseenter)="activeIndex = $index"
+            [ngClass]="activeIndex == $index ? styleClass : ''"
+            (click)="openDetails(event)"
+            (touchstart)="touchStart($event, scrollableDiv)"
+            (touchend)="touchEnd($event, scrollableDiv)"
+        >
+            <div
+                class="flex sm:flex-row flex-col sm:changeGap gap-1 sm:items-center runLanding"
+            >
+                <mat-icon
+                    svgIcon="runLanding"
+                    class="opacity0 textGreen dark:text-white"
+                    [ngClass]="{ 'opacity-100': activeIndex == $index,
+                        'text-white':isUsedDetails
+                     }"
+                ></mat-icon>
+                <p class="w-[60px]">
+                    {{ event | appTranslateAsync :'raceDistance' | async }}
+                </p>
+            </div>
+            <div
+                class="flex sm:flex-row flex-col sm:changeGap gap-1 sm:items-center userLanding"
+            >
+                <mat-icon
+                    svgIcon="userLanding"
+                    class="opacity0 textGreen dark:text-white"
+                    [ngClass]="{ 'opacity-100': activeIndex == $index,
+                        'text-white':isUsedDetails
+                     }"
+                ></mat-icon>
+
+                <p class="w-[45px]">{{ event.participants | numberFormat }}</p>
+            </div>
+            <div
+                class="flex sm:flex-row flex-col sm:changeGap gap-1 sm:items-center"
+            >
+                <mat-icon
+                    svgIcon="moneyLanding"
+                    class="mt-[2px] opacity0 textGreen dark:text-white"
+                    [ngClass]="{ 'opacity-100': activeIndex == $index,
+                    'text-white':isUsedDetails
+                 }"
+                ></mat-icon>
+
+                <p class="">
+                    {{ event.packets  | cheapest | numberFormat }}
+                    <span>{{ "SUM" | transloco }}</span>
+                </p>
+                <div
+                    class="w-[44px] hidden h-[44px] opacity0 bg-green-500 rounded-full sm:flex justify-center justify-self-end items-center"
+                    [ngClass]="{ 'opacity-100 ': activeIndex == $index }"
+                >
+                    <div
+                        class="w-6 h-6 rounded-full bg-white flex justify-center items-center"
+                    >
+                        <i
+                            class="pi pi-arrow-right text-green-500 font-semibold"
+                        ></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

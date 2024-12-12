@@ -1,0 +1,370 @@
+<div
+    class="w-[700px] bg-main rounded-[32px] flex flex-col gap-6 p-9 max-h-screen overflow-y-auto"
+>
+    <div class="w-full flex justify-between">
+        <p class="font-[800] text-[32px] text-grey950toWhite">
+            {{ "createEvent" | transloco }}
+        </p>
+        <div
+            class="h-10 w-10 rounded-full bg-[#F7F8F8] flex items-center justify-center"
+            (click)="closePopUp()"
+        >
+            <i class="pi pi-times text-[#707587] font-bold cursor-pointer"></i>
+        </div>
+    </div>
+    <hr class="w-full h-[1px] border border-grey100To800" />
+    <div class="w-full flex gap-6">
+        <div class="w-[200px] font-bold">
+            @for (item of ['main','additional']; track $index) {
+            <div
+                class="flex gap-3 mb-6 items-center cursor-pointer"
+                (click)="active = $index"
+            >
+                <div
+                    [ngClass]="{
+                        'border-[#67BD50] bg-[#55A93E]': active == $index
+                    }"
+                    class="w-9 h-9 flex justify-center items-center rounded-full notActive"
+                >
+                    <p
+                        [ngClass]="
+                            active == $index
+                                ? 'text-white'
+                                : 'text-grey600To200'
+                        "
+                    >
+                        {{ $index + 1 }}
+                    </p>
+                </div>
+                <p
+                    [ngClass]="
+                        active == $index
+                            ? 'text-grey900To100'
+                            : 'text-grey600To200'
+                    "
+                >
+                    {{ item | transloco }}
+                </p>
+            </div>
+            }
+        </div>
+        @if (active==0) {
+        <div
+            class="w-full flex flex-col gap-6"
+            [formGroup]="eventInfoByLanguage"
+        >
+            <div
+                class="w-full p-1 bg-[#F7F8F8] dark:bg-[#383942] flex rounded-xl relative"
+            >
+                <div
+                    class="w-[33%] h-[88%] bg-white dark:bg-[#25262c] border dark:border-[#41434E] ease-in-out transition-[0.5s] border-[#D8DADF] rounded-[10px] absolute top-1 left4"
+                    [ngClass]="{
+                        'translate-x-[100%]': activeTab == 'RU',
+                        'translate-x-[200%] left-0': activeTab == 'EN',
+                    }"
+                ></div>
+                <button
+                    class="min-h-[44px] max-h-[110px] rounded-[10px] z-10 relative w-full px-2 font-bold break-words notActiveBtn bg-transparent"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white': activeTab == 'UZ'
+                    }"
+                    (click)="changeTab('UZ')"
+                >
+                    {{ "O’zbek" }}
+                </button>
+                <button
+                    class="min-h-[44px] rounded-[10px] px-2 max-h-[110px] z-10 relative w-full font-bold notActiveBtn bg-transparent"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white': activeTab == 'RU'
+                    }"
+                    (click)="changeTab('RU')"
+                >
+                    {{ "Русский" | transloco }}
+                </button>
+                <button
+                    class="min-h-[44px] rounded-[10px] px-2 max-h-[100px] w-full font-bold notActiveBtn relative z-10"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white': activeTab == 'EN'
+                    }"
+                    (click)="changeTab('EN')"
+                >
+                    {{ "English" | transloco }}
+                </button>
+            </div>
+            <div>
+                <label for="eventName">{{ "eventName" | transloco }}</label>
+                <p-iconField iconPosition="right">
+                    <p-inputIcon styleClass="pi pi-book" />
+                    <input
+                        type="text"
+                        pInputText
+                        id="eventName"
+                        [formControl]="
+                            eventInfoByLanguage.controls['name' + activeTab]
+                        "
+                    />
+                </p-iconField>
+            </div>
+            <div>
+                <label for="location"
+                    >{{ "location.event" | transloco }}*</label
+                >
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <div class="mt-[-3px]">
+                            <mat-icon
+                                svgIcon="locationFooter"
+                                class=""
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <input
+                        type="text"
+                        pInputText
+                        id="location"
+                        [formControl]="
+                            eventInfoByLanguage.controls['address' + activeTab]
+                        "
+                    />
+                </p-iconField>
+            </div>
+            <div class="editor">
+                <label for="">{{ "eventDescription" | transloco }}</label>
+                @if (activeTab == 'UZ') {
+                <ngx-editor-menu [editor]="editorUZ" [toolbar]="toolbar">
+                </ngx-editor-menu>
+                <ngx-editor
+                    [editor]="editorUZ"
+                    [formControlName]="'description' + activeTab"
+                >
+                </ngx-editor>
+                } @if (activeTab == 'RU') {
+                <ngx-editor-menu [editor]="editorRU" [toolbar]="toolbar">
+                </ngx-editor-menu>
+                <ngx-editor
+                    [editor]="editorRU"
+                    [formControlName]="'description' + activeTab"
+                >
+                </ngx-editor>
+                } @if (activeTab == 'EN') {
+                <ngx-editor-menu [editor]="editorEN" [toolbar]="toolbar">
+                </ngx-editor-menu>
+                <ngx-editor
+                    [editor]="editorEN"
+                    [formControlName]="'description' + activeTab"
+                >
+                </ngx-editor>
+                }
+            </div>
+        </div>
+        } @else {
+        <div class="w-full flex flex-col gap-6" [formGroup]="eventFullInfo">
+            <div class="flex gap-4">
+                @if (eventFullInfo.get('imageFileId').value) {
+                <img
+                    [src]="url + eventFullInfo.get('imageFileId').value"
+                    class="rounded-[15px] w-full h-[110px] object-contain"
+                    alt=""
+                />
+                }
+                <div
+                    class="border w-full relative flex justify-between items-center border-dashed rounded-[16px] p-4"
+                    appDrag
+                    (files)="uploadImg($event)"
+                >
+                    <div class="flex items-center gap-4">
+                        <mat-icon
+                            svgIcon="imgCustom"
+                            class="text-grey400To300"
+                        ></mat-icon>
+                        <p class="w-[200px] text-grey600To200">
+                            {{ "uploadOrPutHere" | transloco }}
+                        </p>
+                    </div>
+                    <p-button [outlined]="true">
+                        {{ "upload" | transloco }}
+                    </p-button>
+                    <input
+                        type="file"
+                        class="absolute top-0 w-full h-full opacity-0"
+                        (change)="uploadImg($event.target.files)"
+                    />
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                @if (eventFullInfo.get('offerFileId').value) {
+                <i
+                    class="pi text-grey400To300 pi-copy text-[32px] hover:text-blue-400 cursor-pointer"
+                    (click)="downloadOfferta()"
+                    [pTooltip]="'downloadDocument' | transloco"
+                ></i>
+                }
+                <div
+                    class="border w-full relative flex justify-between items-center border-dashed rounded-[16px] p-4"
+                >
+                    <div class="flex items-center gap-4">
+                        <i
+                            class="pi pi-file-word font-normal text-grey400To300 text-[24px]"
+                        ></i>
+                        <p class="w-[200px] text-grey600To200">
+                            {{ "uploadOfferta" | transloco }}
+                        </p>
+                    </div>
+                    <p-button [outlined]="true">
+                        {{ "upload" | transloco }}
+                    </p-button>
+                    <input
+                        type="file"
+                        class="absolute top-0 w-full h-full opacity-0"
+                        (change)="uploadFile($event.target.files)"
+                    />
+                </div>
+            </div>
+            <div>
+                <label for="region">{{ "spRegion" | transloco }}</label>
+                <p-dropdown
+                    [options]="regions"
+                    [filter]="true"
+                    filterBy="label"
+                    optionValue="value"
+                    styleClass="w-full"
+                    optionLabel="label"
+                    placeholder="{{ 'CHOOSE' | transloco }}"
+                    formControlName="spRegionId"
+                ></p-dropdown>
+            </div>
+            <div class="w-full">
+                <label>{{ "eventCategory" | transloco }}*</label>
+                <p-multiSelect
+                    styleClass="w-full"
+                    [options]="category"
+                    appendTo="body"
+                    [(ngModel)]="eventCategories"
+                    [ngModelOptions]="{ standalone: true }"
+                    optionLabel="label"
+                    optionValue="value"
+                    [placeholder]="'CHOOSE' | transloco"
+                    (onChange)="maxLimitStatusChange($event)"
+                />
+            </div>
+            <div>
+                <label for="location"
+                    >{{ "location.event" | transloco }}*</label
+                >
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <div class="mt-[-3px]">
+                            <mat-icon
+                                svgIcon="locationFooter"
+                                class=""
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <input
+                        type="text"
+                        pInputText
+                        id="location"
+                        formControlName="location"
+                    />
+                </p-iconField>
+            </div>
+            <div>
+                <label for="athleteMaxLimit">{{
+                    "athletesLimitForOrganizator" | transloco
+                }}</label>
+                <p-iconField iconPosition="right">
+                    <p-inputIcon
+                        styleClass="pi pi-briefcase text-grey400To300"
+                    />
+                    <input
+                        type="text"
+                        pInputText
+                        id="athleteMaxLimit"
+                        formControlName="athleteMaxLimit"
+                    />
+                </p-iconField>
+            </div>
+            <div class="w-full flex gap-4">
+                <div>
+                    <label class="signText"
+                        >{{ "registrationStartdate" | transloco }}
+                        <span>*</span></label
+                    >
+                    <p-calendar
+                        dataType="string"
+                        class="w-full"
+                        dateFormat="yy.mm.dd"
+                        formControlName="startRegstrDate"
+                        [minDate]="today"
+                        appendTo="body"
+                        [iconDisplay]="'input'"
+                        [showIcon]="true"
+                    >
+                        <ng-template pTemplate="inputicon">
+                            <i class="pi pi-calendar text-grey400To300"></i>
+                        </ng-template>
+                    </p-calendar>
+                </div>
+                <div>
+                    <label class="signText"
+                        >{{ "registrationEndDate" | transloco }}
+                        <span>*</span></label
+                    >
+                    <p-calendar
+                        dataType="string"
+                        class="w-full"
+                        dateFormat="yy.mm.dd"
+                        formControlName="endRegstrDate"
+                        [minDate]="minDate"
+                        appendTo="body"
+                        [iconDisplay]="'input'"
+                        [showIcon]="true"
+                    >
+                        <ng-template
+                            pTemplate="inputicon"
+                            let-clickCallBack="clickCallBack"
+                        >
+                            <i class="pi pi-calendar text-grey400To300"></i>
+                        </ng-template>
+                    </p-calendar>
+                </div>
+            </div>
+            <div class="w-full">
+                <label class="signText"
+                    >{{ "event.date" | transloco }} <span>*</span></label
+                >
+                <p-calendar
+                    styleClass="w-full"
+                    dataType="string"
+                    class="w-full"
+                    dateFormat="yy.mm.dd"
+                    formControlName="eventDate"
+                    [minDate]="eventdate"
+                    appendTo="body"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                >
+                    <ng-template pTemplate="inputicon">
+                        <i class="pi pi-calendar text-grey400To300"></i>
+                    </ng-template>
+                </p-calendar>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="flex justify-end gap-4">
+        <p-button [outlined]="true" (onClick)="closePopUp()">
+            {{ "Cancel" | transloco }}
+        </p-button>
+        <p-button
+            [disabled]="
+                eventFullInfo.invalid ||
+                eventInfoByLanguage.invalid ||
+                eventCategories.length == 0
+            "
+            (click)="senServer()"
+        >
+            {{ "SUBMIT" | transloco }}
+        </p-button>
+    </div>
+</div>

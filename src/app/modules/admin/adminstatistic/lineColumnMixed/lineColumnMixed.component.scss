@@ -1,0 +1,38 @@
+:host ::ng-deep .apexcharts-legend-series:first-of-type
+{
+    display:none !important;
+}
+.dark {
+    :host ::ng-deep  .apexcharts-text tspan {
+        fill: #D8DADF !important;
+    }
+    :host ::ng-deep .apexcharts-backgroundBar
+    {
+        fill: #383942 !important
+    }
+    :host ::ng-deep .apexcharts-tooltip-title
+    {
+        background: #25262c !important;
+    }
+}
+:host ::ng-deep .apexcharts-legend-series{
+    display: flex !important;
+    align-items: center;
+    gap: 4px;
+}
+:host ::ng-deep .apexcharts-legend-marker
+{
+    display: none !important;
+}
+:host ::ng-deep .apexcharts-legend
+{
+    gap: 36px !important;
+}
+:host ::ng-deep .apexcharts-legend
+{
+    left: 270px !important;
+}
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator button
+{
+    border-radius: 15px;
+}

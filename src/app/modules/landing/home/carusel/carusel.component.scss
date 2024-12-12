@@ -1,0 +1,72 @@
+// :host ::ng-deep .p-carousel-content{
+//     position: relative;
+// }
+:host ::ng-deep .p-carousel-prev
+{
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px !important;
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    z-index: 40;
+    transform: translateY(-50%);
+
+}
+:host ::ng-deep .p-carousel-next
+{
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    right: -30px;
+    z-index: 40;
+}
+:host ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev, .p-carousel .p-carousel-content .p-carousel-next
+{
+    width: 44px !important;
+    height: 44px !important;
+}
+:host ::ng-deep .p-carousel .p-carousel-content .p-carousel-next
+{
+    width: 44px !important;
+    height: 44px !important;
+}
+.scrollDiv::-webkit-scrollbar
+{
+    display: none;
+}
+.userLanding .mat-icon
+{
+    stroke: #67BD50;
+}
+.translateY
+{
+    transform: translateY(-156px);
+}
+.userLandingInside .mat-icon {
+    stroke: #67BD50;
+}
+.changeGap
+{
+    gap: 12px;
+}
+@media only screen and (max-width: 960px) {
+    .changeGap
+    {
+        gap: 6px !important;
+    }
+
+}
+@media only screen and (max-width: 600px) {
+    :host ::ng-deep .p-carousel-prev
+    {
+        top: 40% !important;
+        left: -20px;
+    }
+    :host ::ng-deep .p-carousel-next
+    {
+        top: 40% !important;
+        right: -20px;
+    }
+
+}

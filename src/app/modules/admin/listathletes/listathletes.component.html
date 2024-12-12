@@ -1,0 +1,394 @@
+<div class="w-full p-[15px]">
+  <div class="w-full flex justify-between gap-[10px]">
+    <div class="flex gap-[10px]">
+      @if (isCreate) {
+        @if (role == 'Администратор' || role == 'Организатор') {
+          <div
+            class="w-[200px] h-[40px] rounded-[5px] mb-[10px] relative cursor-pointer"
+            >
+            <button class="btnAll">
+              <i class="pi pi-file-excel text-[#67BD50]"></i>
+              {{ "UploadExcell" | transloco }}
+            </button>
+            <input
+              type="file"
+              (change)="checkExcell($event)"
+              class="opacity-0 z-40 absolute top-0 h-full w-full"
+              />
+          </div>
+        }
+        <button (click)="addUser()" class="btnAll">
+          <i class="pi pi-user-plus text-[#67BD50]"></i>
+          {{ "create.user" | transloco }}
+        </button>
+      }
+      @if (role == 'Администратор' || role == 'Организатор') {
+        <button
+          (click)="uploadExample()"
+          class="btnAll"
+          >
+          <i class="pi pi-download text-[#67BD50]"></i>
+          {{ "uploadExample" | transloco }}
+        </button>
+      }
+    </div>
+    @if (role == 'Администратор' || role == 'Организатор') {
+      <button
+        (click)="exportToExcell()"
+        class="btnAll"
+        >
+        <i class="pi pi-file-excel text-[#67BD50]"></i>
+        {{ "Export" | transloco }}
+      </button>
+    }
+  </div>
+  @if (controlState) {
+    <form [formGroup]="contRolFb">
+      <div formArrayName="userTables" class="w-full overflow-x-auto">
+        <table class="background w-full">
+          <tr>
+            <th class="rounded-tl-[5px]">No</th>
+            <th>{{ "personName" | transloco }}</th>
+            <th>{{ "personSurname" | transloco }}</th>
+            <th>{{ "personPatronic" | transloco }}</th>
+            <th>{{ "birthday.date" | transloco }}</th>
+            <th>{{ "sp.sexes" | transloco }}</th>
+            <th>{{ "countryinfo" | transloco }}</th>
+            <th>{{ "eventRegion" | transloco }}</th>
+            <th>{{ "PHONE" | transloco }}</th>
+            <th class="rounded-tr-[5px]">
+              {{ "email" | transloco }}
+            </th>
+          </tr>
+          @for (
+            x of contRolFb.get('userTables')['controls']; track
+            x; let i = $index) {
+            <tr
+              [formGroupName]="i"
+              >
+              <td class="">{{ i + 1 }}</td>
+              <td>
+                <input
+                  class=""
+                  type="text"
+                  formControlName="name"
+                                [ngClass]="{
+                                    'border-2 border-red-500': checkValidOrNot(
+                                        i,
+                                        'name'
+                                    )
+                                }"
+                  [matTooltip]="'lettersNotSpace' | transloco"
+                  />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="surname"
+                                [ngClass]="{
+                                    'border-2 border-red-500': checkValidOrNot(
+                                        i,
+                                        'surname'
+                                    )
+                                }"
+                  [matTooltip]="'lettersNotSpace' | transloco"
+                  />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="patronymic"
+                                [ngClass]="{
+                                    'border-2 border-red-500': checkValidOrNot(
+                                        i,
+                                        'patronymic'
+                                    )
+                                }"
+                  [matTooltip]="'onlyLetters' | transloco"
+                  />
+              </td>
+              <td class="calendar">
+                <p-calendar
+                  dateFormat="yy-mm-dd"
+                  formControlName="birthDate"
+                                [inputStyleClass]="
+                                    checkValidOrNot(i, 'birthDate')
+                                        ? 'border-red-600'
+                                        : ''
+                                "
+                  [locale]="de"
+                  appendTo="body"
+                ></p-calendar>
+              </td>
+              <td>
+                <p-dropdown
+                  [options]="spSex.slice(1)"
+                  optionLabel="label"
+                  formControlName="spSexId"
+                  optionValue="value"
+                  appendTo="body"
+                  [placeholder]="'CHOOSE' | transloco"
+                ></p-dropdown>
+              </td>
+              <td>
+                <p-dropdown
+                  [options]="chooseCountry"
+                  optionLabel="label"
+                  formControlName="spCountryId"
+                  optionValue="value"
+                  (onChange)="setValidatorsRegion($event, i)"
+                  appendTo="body"
+                  [placeholder]="'CHOOSE' | transloco"
+                ></p-dropdown>
+              </td>
+              <td class="relative">
+                <p-dropdown
+                  [options]="regions?.slice(1)"
+                  formControlName="spRegionId"
+                  optionValue="value"
+                  optionLabel="label"
+                  appendTo="body"
+                  [placeholder]="'CHOOSE' | transloco"
+                ></p-dropdown>
+                @if (
+                  this.userTable['controls'][i]['controls'][
+                  'spCountryId'
+                  ].value !== 182
+                  ) {
+                  <div
+                    class="w-full h-full absolute top-0"
+                  ></div>
+                }
+              </td>
+              <td>
+                <input
+                  type="text"
+                  formControlName="phoneMain"
+                  mask="99 999 99 99"
+                                [ngClass]="{
+                                    'border-2 border-red-500': checkValidOrNot(
+                                        i,
+                                        'phoneMain'
+                                    )
+                                }"
+                  class="w-[120px]"
+                  [matTooltip]="'include9Number' | transloco"
+                  />
+              </td>
+              <td>
+                <div class="flex items-center gap-1">
+                  <input
+                    type="text"
+                    class="block"
+                    formControlName="eMail"
+                                    [ngClass]="{
+                                        'border-2 border-red-500':
+                                            checkValidOrNot(i, 'eMail')
+                                    }"
+                    matTooltip="example@gmail.com"
+                    />
+                  @if (i !== 0) {
+                    <i
+                      class="pi pi-times-circle cursor-pointer text-red-600 font-semibold"
+                      (click)="delete(i)"
+                    ></i>
+                  }
+                </div>
+              </td>
+            </tr>
+          }
+        </table>
+      </div>
+    </form>
+    <div
+      class="w-full flex my-[10px]"
+      [ngClass]="isCreate ? 'justify-between' : 'justify-end'"
+      >
+      @if (isCreate) {
+        <div
+          class="w-[40px] h-[40px] rounded-full flex justify-center items-center cursor-pointer bg-[#0098DA]"
+          >
+          <i
+            class="pi pi-user-plus text-[20px] text-white"
+            (click)="addUserFromExcell()"
+          ></i>
+        </div>
+      }
+      <div class="flex gap-[10px]">
+        <button
+          class="w-[150px] h-[40px] bg-red-600 disabled:bg-[#aeaeae] text-white rounded-[5px]"
+          (click)="closeForm()"
+          >
+          {{ "CLOSE" | transloco }}
+        </button>
+        <button
+          class="w-[150px] h-[40px] bg-[#0098da] disabled:bg-[#aeaeae] text-white rounded-[5px]"
+          [disabled]="contRolFb.invalid"
+          (click)="sendToServer()"
+          >
+          {{ "send.to" | transloco }}
+        </button>
+      </div>
+    </div>
+  }
+  @if (show) {
+    <p-table
+      #dt
+      [value]="athletes"
+      (onLazyLoad)="loadAthletes($event)"
+      [lazy]="true"
+      [paginator]="true"
+      [rows]="20"
+      [totalRecords]="totalItems"
+      [rowsPerPageOptions]="[10, 50, 100]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      >
+      <ng-template pTemplate="caption">
+        <div class="flex justify-between">
+          <div class="flex items-center gap-2" [formGroup]="filterForm">
+            <input
+              type="text"
+              formControlName="name"
+              (input)="dt.filter($event.target.value, 'name')"
+              [placeholder]="'personName' | transloco"
+              />
+            <input
+              type="text"
+              formControlName="surname"
+              (input)="dt.filter($event.target.value, 'surname')"
+              [placeholder]="'personSurname' | transloco"
+              />
+            @if (role == 'Администратор') {
+              <input
+                type="text"
+                (input)="dt.filter($event.target.value, 'orgname')"
+                formControlName="organizationName"
+                [placeholder]="'organizaitonName' | transloco"
+                />
+              <div class="dropdown">
+                <p-dropdown
+                  [options]="organization?.slice(1)"
+                  formControlName="selectOrgType"
+                  optionValue="value"
+                  optionLabel="label"
+                                (onChange)="
+                                    dt.filter($event.value + '', 'orgtype')
+                                "
+                  [placeholder]="'CHOOSE' | transloco"
+                  />
+              </div>
+            }
+            @if (isFilterShow) {
+              <i
+                class="pi pi pi-filter-slash text-[16px] cursor-pointer font-semibold"
+                (click)="filterClean()"
+              ></i>
+            }
+          </div>
+          <!-- *ngIf="role == 'Администратор' || role == 'Организатор'" -->
+          @if (false) {
+            <i
+              class="pi pi-cart-plus mr-[30px] text-[30px] cursor-pointer"
+              routerLink="card"
+            ></i>
+          }
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="rounded-tl-[5px]"
+          >No</th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "personName" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "personSurname" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "personPatronic" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "pinfl" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "birthday.date" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "sp.sexes" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "countryinfo" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "eventRegion" | transloco }}
+          </th>
+          <th pSortableColumn="code" style="width: 10%">
+            {{ "PHONE" | transloco }}
+          </th>
+          @if (role == 'Администратор') {
+            <th pSortableColumn="code" style="width: 10%">
+              {{ "organizers" | transloco }}
+            </th>
+            <th pSortableColumn="code" style="width: 10%">
+              {{ "organizationType" | transloco }}
+            </th>
+          }
+          <th style="width: 10%">{{ "eventName" | transloco }}</th>
+          <th style="width: 10%">{{ "email" | transloco }}</th>
+          <th class="rounded-tr-[5px]" style="width: 20%" pFrozenColumn>
+            {{ "action" | transloco }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-athletes let-rowIndex="rowIndex">
+        <tr class="cursor-pointer">
+          <td>
+            {{ rowIndex + 1 }}
+          </td>
+          <td>{{ athletes.name }}</td>
+          <td>{{ athletes.surname }}</td>
+          <td>{{ athletes.patronymic }}</td>
+          <td>{{ athletes.pinfl }}</td>
+          <td>{{ athletes.birthDate | date : "dd.MM.yyyy" }}</td>
+          <td>{{ genderLabel(athletes.spSexId) }}</td>
+          <td>
+            {{ athletes.spCountryId == 182 ? country : othercountry }}
+          </td>
+          <td>{{ region(athletes.spRegionId) }}</td>
+          <td>{{ athletes.phoneMain }}</td>
+          @if (role == 'Администратор') {
+            <td>{{ athletes.organization?.name }}</td>
+            <td>{{ getOrganizationType(athletes.organization) }}</td>
+          }
+          <td>
+            <div class="w-[200px]">
+              {{ athletes.registeredStatus }}
+            </div>
+          </td>
+          <td>{{ athletes.eMail }}</td>
+          <td class="frozen-col"
+            >
+            <div class="flex gap-2">
+              <i
+                class="pi-user-edit text-[22px] pi mr-[5px]"
+                matTooltip="editUser"
+                (click)="openEditPanel(athletes)"
+              ></i>
+              <i
+                class="pi pi-calendar-plus text-[22px]"
+                matTooltip="addUserEvent"
+                (click)="openAddEvent(athletes.id)"
+              ></i>
+              <i
+                class="pi pi-trash text-red-600 text-[22px]"
+                matTooltip="addUserEvent"
+                (click)="deleteUser(athletes.id)"
+              ></i>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  }
+</div>

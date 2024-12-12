@@ -1,0 +1,11 @@
+<div
+    (click)="clickDone.emit(true)"
+    [ngClass]="{
+        'bg-sky-600 text-white rounded-2xl dark:text-white': selectedMenuItem,
+        'text-gray-400 cursor-auto': notActive
+    }"
+    class="flex flex-row text-left font-bold p-3 cursor-pointer hover:text-sky-500 hover:bg-inherit"
+>
+    <mat-icon class="text-inherit mr-4" [svgIcon]="icon"></mat-icon
+    >{{ textMenu | transloco }}
+</div>

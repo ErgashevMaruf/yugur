@@ -1,0 +1,216 @@
+<div class="w-full">
+    <h3 class="text-[18px] mb-5">
+        {{ event | appTranslateAsync : "name" | async }}
+    </h3>
+
+    <div
+        class="flex gap-[20px] w-full mb-[20px] border-b border-[#0098da] pb-[10px]"
+    >
+        @for (x of eventBox?.events; track x) {
+        <p-button [outlined]="true" (onClick)="changeEvent(x)">
+            {{ x | appTranslateAsync : "raceDistance" | async }}
+        </p-button>
+        }
+    </div>
+
+    @if (isSowProperty) {
+    <div class="relative">
+        <p-accordion [activeIndex]="activeIndex">
+            <div class="absolute z-999 top-[9px] right-4">
+                <p-button (onClick)="openFilter()">{{
+                    "ADD" | transloco
+                }}</p-button>
+            </div>
+            <p-accordionTab [header]="'selectFilters' | transloco">
+                <div class="grid grid-cols-6 gap-2">
+                    @for (item of formula; track $index) {
+                    <div
+                        class="w-full p-4 flex cursor-pointer flex-col justify-center items-center rounded-[10px] border font-semibold text-grey600To200 border-grey200To800"
+                        (click)="openFilter(item)"
+                    >
+                        <p class="w-full line-clamp-1">
+                            {{ item | appTranslateAsync : "name" | async }}
+                        </p>
+                    </div>
+                    }
+                </div>
+            </p-accordionTab>
+            <p-accordionTab
+                [disabled]="disableSelectRows"
+                [header]="'selectRows' | transloco"
+            >
+                <div
+                    [formGroup]="publishForm"
+                    class="gap-2 grid grid-cols-6 mb-3"
+                >
+                    @for ( control of publishForm.controls | keyvalue :
+                    originalOrder ; track control) {
+                    <div [pTooltip]="control.key | transloco">
+                        <p class="font-medium cursor-pointer line-clamp-1">
+                            {{
+                                control.key == "active"
+                                    ? ("sp.active" | transloco)
+                                    : (control.key | transloco)
+                            }}
+                        </p>
+                        <p-checkbox
+                            [formControlName]="control.key"
+                            [binary]="true"
+                            inputId="binary"
+                        />
+                    </div>
+                    }
+                </div>
+                <div class="w-full flex justify-end">
+                    <p-button (onClick)="saveVisibleUi()">
+                        @if (!publishRowId) {
+                        {{ "SAVE" | transloco }}
+                        } @else {
+                        {{ "update.profile" | transloco }}
+                        }
+                        <ng-template #update>
+                            {{ "update.profile" | transloco }}
+                        </ng-template>
+                    </p-button>
+                    <!-- <button
+                        class="px-[20px] py-[10px] rounded-[10px] mb-3 text-white font-medium bg-[#0098da]"
+                        (click)="saveVisibleUi()"
+                    ></button> -->
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+    <p-table
+        #dt
+        [value]="users"
+        (onLazyLoad)="loadUser($event)"
+        [lazy]="true"
+        [paginator]="true"
+        [rows]="10"
+        [totalRecords]="totalItems"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- <th class="rounded-tl-[5px]">No</th> -->
+                @for (x of users[0] | keyvalue : originalOrder; track x) {
+                <th>
+                    {{
+                        x.key == "id"
+                            ? "ID"
+                            : x.key == "bibCode"
+                            ? ("bibcode" | transloco)
+                            : x.key == "age"
+                            ? ("isAge" | transloco)
+                            : (x.key | transloco)
+                    }}
+                </th>
+                }
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="caption">
+            <div class="flex justify-between gap-2 items-center">
+                <div class="flex gap-4">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            [(ngModel)]="fullname"
+                            pInputText
+                            type="text"
+                            (input)="dt.filter($event.target.value, 'fullname')"
+                            [placeholder]="'fullName' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="position"
+                            (input)="dt.filter($event.target.value, 'position')"
+                            [placeholder]="'position' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="bibcode"
+                            (input)="dt.filter($event.target.value, 'bibcode')"
+                            [placeholder]="'bibcode' | transloco"
+                        />
+                    </span>
+                </div>
+                <div class="flex gap-2">
+                    @if (isSuperAdmin) {
+                    <p-button styleClass="relative">
+                        <input
+                            type="file"
+                            accept=".xlsx"
+                            id="fileID"
+                            class="h-full w-full absolute opacity-0"
+                            (change)="importExcell($event.target.files, true)"
+                        />
+                        <p>{{ "updateResult" | transloco }}</p>
+                    </p-button>
+                    }
+                    <p-button
+                        label="{{ 'Clear' | transloco }}"
+                        [outlined]="true"
+                        icon="pi pi-filter-slash"
+                        (click)="clear(dt)"
+                    />
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="body" let-athletes let-rowIndex="rowIndex">
+            <tr class="cursor-pointer">
+                <!-- <td>{{ rowIndex + 1 }}</td> -->
+                @for (x of athletes | keyvalue : originalOrder; track x) {
+                <td>
+                    {{ x.value }}
+                </td>
+                }
+            </tr>
+        </ng-template>
+    </p-table>
+    } @else {
+    <div class="container">
+        <div class="card relative">
+            <p class="text-[18px] font-semibold">
+                {{ "UploadFile" | transloco }}
+            </p>
+            <div class="drop_box">
+                <header>
+                    <h4>{{ "SelectFilehere" | transloco }}</h4>
+                </header>
+                <p>{{ "FilesSupportedOnly" | transloco }}: XLSX</p>
+                <input
+                    type="file"
+                    accept=".xlsx, .xls"
+                    id="fileID"
+                    class="h-full w-full absolute opacity-0"
+                    (change)="importExcell($event.target.files)"
+                />
+                <button class="btn">{{ "ChooseFile" | transloco }}</button>
+            </div>
+        </div>
+    </div>
+    }
+    <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '15rem' }">
+        <div class="w-full flex flex-col gap-3 mt-3">
+            <p class="font-semibold text-grey600To300">
+                {{ "ErrorOccuredExcel" | transloco }}
+            </p>
+            <div class="w-full flex justify-end">
+                <p-button
+                    (onClick)="hrefElement.click()"
+                    styleClass="text-center"
+                    >{{ "uploadServer" | transloco }}</p-button
+                >
+            </div>
+        </div>
+    </p-dialog>
+</div>

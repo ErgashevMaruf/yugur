@@ -1,0 +1,61 @@
+<div class="rounded-[20px] bg-white" *ngIf="timeLeft$ | async as t">
+    <div class="py-[45px] px-[30px] text-white bg-[#02A3D3] rounded-t-[20px]">
+        <p class="text-[25px] font-bold text-center">
+            {{ nearestEvent['name'+this.activeLang] }}
+        </p>
+    </div>
+    <div
+        class="flex bg-[#f5f5f5] dark:bg-[#7b7b7b] justify-center p-[40px] counter dark:text-white"
+    >
+        <div class="flex flex-col items-center">
+            <p>{{ t.days }}</p>
+            <span>{{ "day" | transloco }}</span>
+        </div>
+        <span class="text-[40px] font-extrabold">:</span>
+        <div class="flex flex-col items-center">
+            <p>{{ t.hours }}</p>
+            <span>{{ "hours" | transloco }}</span>
+        </div>
+        <span class="text-[40px] font-extrabold">:</span>
+        <div class="flex flex-col items-center">
+            <p>{{ t.minutes }}</p>
+            <span>{{ "minutes" | transloco }}</span>
+        </div>
+        <span class="text-[40px] font-extrabold">:</span>
+        <div class="flex flex-col items-center">
+            <p>{{ t.seconds }}</p>
+            <span>{{ "seconds" | transloco }}</span>
+        </div>
+    </div>
+    <div class="p-[30px] pb-0 flex flex-col secondaryBgWhite">
+        <p class="text-[22px] font-bold mb-[20px] text-center defaultTextColor">
+            {{ "participants" | transloco }}
+        </p>
+        <div
+            class="w-[170px] h-[170px] p-[15px] rounded-full bg-[#02a3d32e] self-center mb-[30px]"
+        >
+            <div
+                class="w-full h-full rounded-full bg-[#02A3D3] flex items-center justify-center"
+            >
+                <p
+                    class="participant rounded-full text-[35px] text-white font-bold"
+                >
+                    {{ nearestEvent?.countEventAthletes }}
+
+                </p>
+            </div>
+        </div>
+        <p class="text-[22px] font-bold mb-[20px] text-center defaultTextColor">
+            {{ "Location" | transloco }}
+        </p>
+    </div>
+    <div class="rounded-b-[20px] overflow-hidden">
+        <iframe
+            [ngClass]="height"
+            [src]="url"
+            frameBorder="0"
+            class="w-full"
+            title="W3Schools Free Online Web Tutorials"
+        ></iframe>
+    </div>
+</div>

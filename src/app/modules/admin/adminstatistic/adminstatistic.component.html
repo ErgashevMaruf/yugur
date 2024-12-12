@@ -1,0 +1,164 @@
+<div class="w-full max-w-[1200px] mx-auto">
+    <div class="flex justify-between mb-6">
+        <p class="font-[800] text-[32px]">
+            @if (_statistic.activeItem=='event') {
+            {{ "new.events" | transloco }}
+            } @else {
+            {{ "participants" | transloco }}
+            }
+        </p>
+        <div class="flex gap-4">
+            <p-dropdown
+                styleClass="bg-transparent"
+                appendTo="body"
+                [options]="[2024]"
+            >
+            </p-dropdown>
+            <div
+                class="w-[210px] p-1 bg-[#F7F8F8] dark:bg-[#383942] flex rounded-xl relative"
+            >
+                <div
+                    class="w-[101px] h-[44px] bg-white dark:bg-[#25262c] border dark:border-[#41434E] slidingDiv border-[#D8DADF] rounded-[10px] absolute top-1 left-1"
+                    [ngClass]="{
+                        'move-right': _statistic.activeItem == 'participants'
+                    }"
+                ></div>
+                <button
+                    class="h-[44px] rounded-[10px] z-10 relative sm:w-[101px] w-full font-bold notActive bg-transparent"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white':
+                            _statistic.activeItem == 'event'
+                    }"
+                    (click)="_statistic.activeItem = 'event'"
+                >
+                    {{ "nav.events.list" | transloco }}
+                </button>
+                <button
+                    class="h-[44px] rounded-[10px] sm:w-[101px] w-full font-bold notActive relative z-10"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white':
+                            _statistic.activeItem == 'participants'
+                    }"
+                    (click)="_statistic.activeItem = 'participants'"
+                >
+                    {{ "event.participants" | transloco }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col gap-14">
+        @if (_statistic.activeItem=='event') {
+        <div>
+            <div class="w-full relative">
+                @if (_statistic.activeEvents.length!==0) {
+                <p-carousel
+                    [value]="_statistic.activeEvents"
+                    [numVisible]="4"
+                    [numScroll]="1"
+                    [circular]="true"
+                >
+                    <ng-template pTemplate="previousicon">
+                        <div
+                            class="w-[44px] h-[44px] flex justify-center items-center rounded-full bg-[#B6B9C3] dark:bg-[#4A4C5A]"
+                        >
+                            <i class="pi pi-chevron-left text-white"></i>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="nexticon">
+                        <div
+                            class="w-[44px] h-[44px] flex justify-center items-center bg-[#B6B9C3] dark:bg-[#4A4C5A]"
+                        >
+                            <i class="pi pi-chevron-right text-white"></i>
+                        </div>
+                    </ng-template>
+                    <ng-template let-product pTemplate="item">
+                        <div class="mx-2">
+                            <app-waterAnimation
+                                [item]="product"
+                            ></app-waterAnimation>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+                }
+                @else {
+                    <app-activeEventNotFound></app-activeEventNotFound>
+                }
+            </div>
+        </div>
+        <div>
+            <p class="mb-6 font-[800] text-[32px]">
+                {{ "finishedEvent" | transloco }}
+            </p>
+            <div class="w-full grid grid-cols-4 gap-6">
+                @for (item of _statistic.finishedEvents; track $index) {
+                <app-finishedEvent [item]="item"></app-finishedEvent>
+                }
+            </div>
+        </div>
+        <div>
+            <p class="mb-6 font-[800] text-[32px]">
+                {{ "statisticRespublic" | transloco }}
+            </p>
+            <app-republicStatistic></app-republicStatistic>
+        </div>
+        <app-paymentStatistic></app-paymentStatistic>
+        } @else {
+        <div>
+            <div class="w-full flex justify-between gap-6">
+                <div class="w-full">
+                    <app-participantStatistic></app-participantStatistic>
+                </div>
+                <div class="min-w-[384px] rounded-[24px] bg-grey50To900 p-6">
+                    <app-recordsmens></app-recordsmens>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p class="mb-6 font-[800] text-[32px]">
+                {{ "statisticByAge" | transloco }}
+            </p>
+            <div class="w-full flex justify-between gap-6">
+                <div
+                    class="sm:p-9 p-4 relative border w-full border-[#EDEDF1] dark:border-[#41434E] rounded-[24px]"
+                >
+                    <div class="absolute flex gap-4 z-9999 top-[30px] right-4">
+                        <p-dropdown
+                            styleClass="w-[220px] bg-transparent"
+                            [options]="ages"
+                            optionValue="value"
+                            optionLabel="label"
+                            [placeholder]="'CHOOSEAgeFrom' | transloco"
+                            (onChange)="
+                                _statistic.getAgeStatistics($event, 'ageFrom')
+                            "
+                            [showClear]="true"
+                        ></p-dropdown>
+                        <p-dropdown
+                            styleClass="w-[220px] bg-transparent"
+                            [options]="ages"
+                            optionValue="value"
+                            optionLabel="label"
+                            [placeholder]="'CHOOSEAgeTO' | transloco"
+                            (onChange)="
+                                _statistic.getAgeStatistics($event, 'ageTo')
+                            "
+                            [showClear]="true"
+                        ></p-dropdown>
+                    </div>
+                    <app-statistic
+                        [series]="_statistic.seriesAge"
+                    ></app-statistic>
+                </div>
+                <div
+                    class="min-w-[384px] bg-grey50To900 rounded-[24px] p-6 h-[425px] relative overflow-y-auto"
+                >
+                    <app-activeParticipants></app-activeParticipants>
+                </div>
+            </div>
+        </div>
+        <app-top-table></app-top-table>
+        <app-university-user-table></app-university-user-table>
+        <app-universitetes-table></app-universitetes-table>
+        }
+    </div>
+</div>

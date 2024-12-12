@@ -1,0 +1,201 @@
+<p-dialog
+  [header]="titleDialog"
+  [(visible)]="displayDialog"
+  [style]="{ width: '70%', height: '90%' }"
+  [draggable]="true"
+  [resizable]="true"
+  [maximizable]="true"
+  [modal]="true"
+  [closable]="true"
+  styleClass="dark-panel"
+  >
+  <p-splitter
+    class="h-full"
+    [panelSizes]="[70, 30]"
+    [minSizes]="[50, 50]"
+    [style]="{ height: '100%' }"
+    >
+    <ng-template pTemplate
+      ><div class="flex flex-col w-full max-h-full pt-5 m-5">
+      <form #heroForm="ngForm" class="pvalidate compose-form">
+        <span class="p-float-label md:w-20rem w-full mb-4">
+          <p-treeSelect
+            containerStyleClass="w-full"
+            name="rootId"
+            [(ngModel)]="rootSelItem"
+            [options]="navigationList"
+            (onNodeSelect)="rootChange()"
+            showClear="true"
+          ></p-treeSelect>
+          <label for="treeselect">{{
+            "navigation.root" | transloco
+          }}</label>
+        </span>
+        <mat-form-field class="w-full min-w-0" appearance="outline">
+          <mat-label>{{
+            "navigation.title" | transloco
+          }}</mat-label>
+          <input
+            matInput
+            name="title"
+            [(ngModel)]="selItem.title"
+            required
+            type="text"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>{{ "nav.type" | transloco }}</mat-label>
+            <mat-select name="type" [(ngModel)]="selItem.type">
+              @for (item of types; track item) {
+                <mat-option
+                  [value]="item.value"
+                  >
+                  {{ item.label | transloco }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <div class="flex flex-row">
+            <mat-form-field
+              class="w-full min-w-0"
+              appearance="outline"
+              >
+              <mat-label>{{
+                "navigation.icon" | transloco
+              }}</mat-label>
+              <input
+                matInput
+                name="icon"
+                [(ngModel)]="selItem.icon"
+                required
+                type="text"
+                />
+              </mat-form-field>
+              <mat-icon
+                class="ml-5 mt-5"
+                svgIcon="{{ selItem.icon }}"
+              ></mat-icon>
+            </div>
+
+            <mat-form-field class="w-full min-w-0" appearance="outline">
+              <mat-label>{{
+                "navigation.link" | transloco
+              }}</mat-label>
+              <input
+                matInput
+                name="link"
+                [(ngModel)]="selItem.link"
+                required=""
+                type="text"
+                />
+              </mat-form-field>
+              <div class="mb-4">
+                <span>{{ "sp.status" | transloco }}</span>
+                <mat-slide-toggle
+                  class="ml-28"
+                  name="active"
+                  [(ngModel)]="selItem.active"
+                  >
+                </mat-slide-toggle>
+              </div>
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>{{
+                  "navigation.comment" | transloco
+                }}</mat-label>
+                <textarea
+                  [(ngModel)]="selItem.comment"
+                  matInput
+                  name="comment"
+                  type="text"
+                  >
+                </textarea>
+              </mat-form-field>
+            </form>
+          </div>
+        </ng-template>
+        <ng-template pTemplate>
+          <div class="flex flex-col">
+            <div class="flex flex-row w-full pt-5 m-2">
+              <mat-form-field class="w-3/4 min-w-0" appearance="outline">
+                <mat-label>{{
+                  "user.roles.add" | transloco
+                }}</mat-label>
+                <input
+                  matInput
+                  name="title"
+                  [(ngModel)]="newRoleName"
+                  type="text"
+                  />
+                </mat-form-field>
+                <button
+                  mat-raised-button
+                  [color]="'primary'"
+                  (click)="addNewRole()"
+                  class="save-button ml-2"
+                  aria-label="SAVE"
+                  >
+                  <mat-icon svgIcon="add"></mat-icon>
+                </button>
+              </div>
+              <div class="flex flex-col w-full">
+                <h1>{{ "user.roles" | transloco }}</h1>
+                <mat-selection-list
+                  name="listRoles"
+                  [(ngModel)]="selItem.key"
+                  class="w-full"
+                  >
+                  @for (item of rolesList; track item) {
+                    <mat-list-option
+                      [value]="item.label"
+                      >
+                      {{ item.label }}
+                    </mat-list-option>
+                  }
+                </mat-selection-list>
+              </div>
+            </div>
+          </ng-template>
+        </p-splitter>
+
+        <ng-template pTemplate="footer">
+          <div class="mx-5 my-2 flex flex-row justify-between">
+            <button name="b1" mat-raised-button (click)="displayDialog = false">
+              {{ "config.close" | transloco }}
+            </button>
+            <div>
+              @if (selItem.id != '0') {
+                <button
+                  mat-mini-fab
+                  (click)="upDownElement(1)"
+                  >
+                  <mat-icon>arrow_downward</mat-icon>
+                </button>
+              }
+              @if (selItem.id != '0') {
+                <button
+                  mat-mini-fab
+                  (click)="upDownElement(0)"
+                  >
+                  <mat-icon>arrow_upward</mat-icon>
+                </button>
+              }
+            </div>
+
+            <button
+              mat-raised-button
+              [color]="'primary'"
+              (click)="save()"
+              class="save-button"
+              aria-label="SAVE"
+              [disabled]="!heroForm?.form?.valid"
+              >
+              {{
+              (selItem.id == "0" ? "config.add" : "config.save")
+              | transloco
+              }}
+            </button>
+          </div>
+        </ng-template>
+      </p-dialog>

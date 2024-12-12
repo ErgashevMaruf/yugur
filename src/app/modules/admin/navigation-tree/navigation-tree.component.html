@@ -1,0 +1,14 @@
+<navbar
+    title="navigation.title"
+    [isShowAddButton]="true"
+    (addButton)="itemForm.showDialogToAddUpdate(0)"
+>
+    <app-navigation-list
+        #list
+        class="w-full"
+        (onRowSelectDialog)="itemForm.showDialogToAddUpdate($event)"
+    >
+    </app-navigation-list>
+</navbar>
+<app-navigation-form #itemForm (onSave)="list.onloadLazy()">
+</app-navigation-form>

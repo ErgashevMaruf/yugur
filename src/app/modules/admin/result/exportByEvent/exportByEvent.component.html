@@ -1,0 +1,329 @@
+<div class="w-full">
+    <div class="flex gap-3 items-center mb-4">
+        <div
+            class="w-10 h-10 bg-white dark:bg-[#383942] cursor-pointer flex items-center justify-center rounded-full"
+            [routerLink]="['/result/exportResult']"
+        >
+            <i class="pi pi-angle-left"></i>
+        </div>
+
+        <h3 class="text-[18px]">
+            {{ event | appTranslateAsync : "name" | async }}
+        </h3>
+    </div>
+    <div
+        class="flex gap-[20px] w-full mb-[20px] border-b border-[#0098da] pb-[10px]"
+    >
+        @for (x of event?.events; track x) {
+        <p-button [outlined]="true" (onClick)="changeEvent(x)">
+            {{ x | appTranslateAsync : "raceDistance" | async }}
+        </p-button>
+        }
+    </div>
+    <div class="flex justify-end">
+        <p-button (onClick)="exportToExcell()">
+            {{ "Export" | transloco }}
+        </p-button>
+    </div>
+    @if (show) {
+    <!-- (selectionChange)="onSelectionChange($event)" -->
+    <!-- (selectAllChange)="onSelectAllChange($event)" -->
+    <p-table
+        #dt
+        [value]="users"
+        (onLazyLoad)="loadUser($event)"
+        [lazy]="true"
+        [paginator]="true"
+        [rows]="10"
+        [totalRecords]="totalItems"
+        dataKey="id"
+        [selection]="selectedData"
+        [selectAll]="selectAll"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="rounded-tl-[5px]">No</th>
+                <th
+                    style="width: 4rem"
+                    [matTooltip]="'areTakenAllNumber' | transloco"
+                >
+                    <!-- <p-tableHeaderCheckbox /> -->
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "athletesId" | transloco }}
+                </th>
+                <th style="width: 10%">{{ "bibcode" | transloco }}</th>
+                <th style="width: 10%">{{ "givenBibCode" | transloco }}</th>
+
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "personName" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "personSurname" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "personPatronic" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "pinfl" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "sp.sexes" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "birthday.date" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "PHONE" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "organizers" | transloco }}
+                </th>
+
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "organizationType" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 10%">
+                    {{ "Universitet" | transloco }}
+                </th>
+                <th>{{ "smenaName" | transloco }}</th>
+                <th>{{ "packetName" | transloco }}</th>
+                <th style="width: 10%">{{ "email" | transloco }}</th>
+                <th class="rounded-tr-[5px]" style="width: 20%">
+                    {{ "action" | transloco }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="caption">
+            <div class="">
+                <p-button
+                    label="Clear"
+                    [outlined]="true"
+                    styleClass="mb-2"
+                    icon="pi pi-filter-slash"
+                    (onClick)="clear(dt)"
+                />
+                <div class="grid grid-cols-5 gap-3">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            [(ngModel)]="fullName"
+                            pInputText
+                            class="w-full"
+                            type="text"
+                            (input)="dt.filter($event.target.value, 'fullname')"
+                            [placeholder]="'fullName' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            [(ngModel)]="ahtletesId"
+                            pInputText
+                            type="text"
+                            class="w-full"
+                            (input)="
+                                dt.filter($event.target.value, 'athletesid')
+                            "
+                            [placeholder]="'ahtletesId' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="pinfl"
+                            class="w-full"
+                            (input)="dt.filter($event.target.value, 'pinfl')"
+                            [placeholder]="'pinfl' | transloco"
+                        />
+                    </span>
+                    <div class="">
+                        <p-dropdown
+                            [options]="spSex?.slice(1)"
+                            [(ngModel)]="gender"
+                            styleClass="w-full"
+                            optionValue="value"
+                            optionLabel="label"
+                            (onChange)="dt.filter($event.value + '', 'gender')"
+                            [placeholder]="'CHOOSE' | transloco"
+                        />
+                    </div>
+                    <!-- <p-calendar
+                        [placeholder]="'birthday.date' | transloco"
+                        [(ngModel)]="birthdate"
+                        dataType="string"
+                        dateFormat="dd.mm.yy"
+                        styleClass="w-full"
+                        (onSelect)="dt.filter(birthdate, 'birthdate')"
+                        (onInput)="dt.filter(birthdate, 'birthdate')"
+                    ></p-calendar> -->
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="universityname"
+                            class="w-full"
+                            (input)="
+                                dt.filter($event.target.value, 'universityname')
+                            "
+                            [placeholder]="'universityname' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="phonemain"
+                            class="w-full"
+                            (input)="
+                                dt.filter($event.target.value, 'phonemain')
+                            "
+                            [placeholder]="'phone' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            class="w-full"
+                            type="text"
+                            [(ngModel)]="orgname"
+                            (input)="dt.filter($event.target.value, 'orgname')"
+                            [placeholder]="'orgname' | transloco"
+                        />
+                    </span>
+                    <div class="">
+                        <p-dropdown
+                            [options]="organization?.slice(1)"
+                            [(ngModel)]="orgtype"
+                            optionValue="value"
+                            styleClass="w-full"
+                            optionLabel="label"
+                            (onChange)="dt.filter($event.value + '', 'orgtype')"
+                            [placeholder]="'CHOOSE' | transloco"
+                        />
+                    </div>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            class="w-full"
+                            [(ngModel)]="email"
+                            (input)="dt.filter($event.target.value, 'email')"
+                            [placeholder]="'email' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            class="w-full"
+                            type="text"
+                            [(ngModel)]="bibcode"
+                            (input)="dt.filter($event.target.value, 'bibcode')"
+                            [placeholder]="'bibcode' | transloco"
+                        />
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="body" let-athletes let-rowIndex="rowIndex">
+            <tr class="cursor-pointer">
+                <td>
+                    {{ rowIndex + 1 }}
+                </td>
+                <!-- @if (!athletes?.isGivenNumber) {
+                <td>
+                    <p-tableCheckbox
+                        (onChange)="giveNumber($event)"
+                        [matTooltip]="'isTakenNumber' | transloco"
+                    />
+                </td>
+                } @if (athletes?.isGivenNumber) {
+                <td>
+                    <p-checkbox
+                        [(ngModel)]="athletes.isGivenNumber"
+                        [binary]="true"
+                        inputId="binary"
+                        (onChange)="changeState(athletes)"
+                    />
+                </td>
+                } -->
+                <td (click)="giveNumber(athletes, rowIndex)">
+                    <p-checkbox
+                        [(ngModel)]="athletes.isGivenNumber"
+                        (onChange)="giveNumber(athletes, rowIndex)"
+                        [binary]="true"
+                        [disabled]="true"
+                    />
+                </td>
+                <td>{{ athletes.athletesId }}</td>
+                <td>{{ athletes.eventBib.bibCode }}</td>
+                <td>{{ athletes.oldBibCode }}</td>
+                <td>{{ athletes.athletes.name }}</td>
+                <td>{{ athletes.athletes.surname }}</td>
+                <td>{{ athletes.athletes.patronymic }}</td>
+                <td>{{ athletes.athletes.pinfl }}</td>
+                <td>
+                    {{
+                        athletes.athletes.spSexId == 1
+                            ? ("Men" | transloco)
+                            : ("woman" | transloco)
+                    }}
+                </td>
+                <td>{{ athletes.athletes.birthDate | date : "dd.MM.yyyy" }}</td>
+                <td>{{ athletes.athletes.phoneMain }}</td>
+                <td>{{ athletes.athletes.organization?.name }}</td>
+
+                <td>
+                    {{
+                        organizationTypeMap.get(
+                            athletes.athletes?.organization
+                                ?.spOrganizationTypeId
+                        )
+                    }}
+                </td>
+                <td>
+                    <p
+                        class="line-clamp-1 w-[150px]"
+                        [pTooltip]="
+                            athletes.athletes.studentDTO?.universityName
+                        "
+                    >
+                        {{ athletes.athletes.studentDTO?.universityName }}
+                    </p>
+                </td>
+                <td>{{ athletes.smenaName }}</td>
+                <td>{{ athletes.eventPacketName }}</td>
+                <td>{{ athletes.athletes.eMail }}</td>
+                <td>
+                    <div class="flex gap-2">
+                        <i
+                            class="pi pi-trash text-red-600 text-[18px]"
+                            matTooltip="{{ 'removeUser' | transloco }}"
+                            (click)="deleteUser(athletes)"
+                        ></i>
+                        @if ( !athletes?.isGivenNumber &&
+                        user$.userInfo.mainRole == 'Администратор' ) {
+                        <i
+                            class="pi pi-sync text-blue-500 text-[18px]"
+                            matTooltip="{{ 'changeUserBibCode' | transloco }}"
+                            (click)="openBibCodeChangeMenu(athletes)"
+                        ></i>
+                        }
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    }
+    <p-toast />
+    <p-confirmDialog />
+</div>

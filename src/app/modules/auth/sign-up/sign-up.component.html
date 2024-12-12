@@ -1,0 +1,183 @@
+<div class="w-full h-screen flex" [formGroup]="singUpService.access">
+    <div
+        class="h-full w-full overflow-y-auto flex items-center justify-center py-5
+         bg-white dark:bg-[#25262c] cs:px-0 px-4"
+    >
+        <div @fadeInLeft class="flex flex-col gap-9">
+            <img
+                src="./assets/images/yugurPng.png"
+                alt=""
+                class="w-[120px] h-[32px] cursor-pointer"
+                [routerLink]="['home']"
+            />
+            <div>
+                <p class="font-[800] text-4xl text-[#383942] dark:text-white leading-[44px]">
+                    {{ "sign-up.login" | transloco }}
+                </p>
+                <p class="text-[#4A4C5A] dark:text-[#B6B9C3] font-medium text-[16px] leading-6">
+                    {{
+                        "welcomeLetsCreateAccount"
+                            | transloco
+                    }}
+                </p>
+            </div>
+            <div class="w-full p-1 bg-grey50To900 dark:bg-[#383942] flex rounded-xl relative">
+                <div class="sm:w-[235px] w-1/2 h-[44px] bg-white dark:bg-[#25262c] border
+                 dark:border-[#41434E] slidingDiv border-[#D8DADF]
+                 rounded-[10px] absolute top-1 left-1"
+                 [ngClass]="{
+                    'move-right':
+                        active == 1
+                }"
+                 ></div>
+                <button
+                    class="h-[44px] rounded-[10px] z-10 relative sm:w-[235px] w-full font-bold notActive bg-transparent"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white':
+                            active == 0
+                    }"
+                    (click)="active = 0; changeFormValidator()"
+                >
+                    {{ "isNotAdult" | transloco }}
+                </button>
+                <button
+                    class="h-[44px] rounded-[10px] sm:w-[235px] w-full font-bold notActive relative z-10"
+                    [ngClass]="{
+                        'text-[#383942] dark:text-white':
+                            active == 1
+                    }"
+                    (click)="active = 1; changeFormValidator()"
+                >
+                    {{ "foreignCitizen" | transloco }}
+                </button>
+            </div>
+            <p-accordion [activeIndex]="activeIndex" styleClass="dark:bg-[#25262c]">
+                <p-accordionTab>
+                    <div class="flex flex-col gap-4 mb-6">
+                        <app-input-forms
+                            classInput="dark:bg-[#25262c] dark:border-[#41434E]"
+                            [inputFormsData]="formsData"
+                            [groupName]="singUpService.access"
+                        ></app-input-forms>
+                        <div>
+                            <label
+                                for="login"
+                                class="text-[14px] font-medium mb-1 text-[#8E92A2]"
+                                >{{ " Дата рождения" | transloco
+                                }}<span class="text-red-600 dark:text-white"
+                                    >*</span
+                                ></label
+                            >
+                            <div class="flex sm:flex-row flex-col items-center gap-4 sm:pr-6">
+                                <div class="w-full">
+                                    <div
+                                        class="relative sm:w-[235px] w-full border border-[#D8DADF]
+                                         dark:border-[#41434E]
+                                         bg-[#F7F8F8] rounded-[10px]"
+                                    >
+                                        @if (active==0) {
+                                        <p-calendar
+                                            styleClass="w-full"
+                                            [placeholder]="
+                                                'birthday.date' | transloco
+                                            "
+                                            formControlName="birthDate"
+                                            dateFormat="dd.mm.yy"
+                                            dataType="string"
+                                            [maxDate]="maxDate"
+                                            [minDate]="minDate"
+                                        ></p-calendar>
+                                        } @else {
+                                        <p-calendar
+                                            styleClass="w-full"
+                                            [placeholder]="
+                                                'birthday.date' | transloco
+                                            "
+                                            formControlName="birthDate"
+                                            dateFormat="dd.mm.yy"
+                                            dataType="string"
+                                            [maxDate]="maxDate"
+                                        ></p-calendar>
+                                        }
+                                        <mat-icon
+                                            svgIcon="signCalendar"
+                                            class="absolute top-2 right-1 z-30 stroke-[#8E92A2]"
+                                        ></mat-icon>
+                                    </div>
+                                </div>
+                                <div class="gap-6 flex items-center">
+                                    <div class="flex gap-2 items-center">
+                                        <p-radioButton
+                                            value="1"
+                                            formControlName="spSexId"
+                                            inputId="Men"
+                                        />
+                                        <label
+                                            for="Men"
+                                            class="font-medium dark:text-[#D8DADF] text-[#41434E] leading-5"
+                                        >
+                                            {{ "Men" | transloco }}
+                                        </label>
+                                    </div>
+                                    <div class="flex gap-2 items-center">
+                                        <p-radioButton
+                                            value="2"
+                                            formControlName="spSexId"
+                                            inputId="woman"
+                                        />
+                                        <label
+                                            for="woman"
+                                            class="text-[#41434E] dark:text-[#D8DADF] leading-5 font-medium"
+                                        >
+                                            {{ "woman" | transloco }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <button
+                            class="w-full rounded-[10px] disabled:bg-[#D8DADF] h-[44px] bg-[#67BD50] text-white font-bold"
+                            [disabled]="!isFillFormContinue"
+                            (click)="activeIndex = 1"
+                        >
+                            {{ "Продолжить" | transloco }}
+                        </button>
+
+                        <div class="flex text-[16px] justify-center">
+                            <p class="text-[#8E92A2] font-bold leading-5">
+                                {{ "alreadyHaveanAccount" | transloco }}
+                            </p>
+                            <a
+                                [routerLink]="['/sign-in']"
+                                class="font-bold text-[#67BD50] leading-5"
+                            >
+                                {{ "sign.login" | transloco }}</a
+                            >
+                        </div>
+                    </div>
+                </p-accordionTab>
+                @if (activeIndex==1) {
+                <p-accordionTab>
+                    @if (active==0) {
+                    <app-info-person
+                    (backToPrevious)="activeIndex=0"
+                    ></app-info-person>
+                    } @else {
+                    <app-foreign-country
+                    (backToPrevious)="activeIndex=0"
+                    ></app-foreign-country>
+                    }
+                </p-accordionTab>
+                }
+            </p-accordion>
+        </div>
+    </div>
+    <div
+        class="h-full w-full md:flex hidden items-center justify-center bg-[#f7f7f5]"
+        @fadeInRight
+    >
+        <img src="./assets/signIn/man.png" alt="" class="w-[590px] h-[590px]" />
+    </div>
+</div>

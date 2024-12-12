@@ -1,0 +1,84 @@
+.mainP {
+    font-weight: 600;
+}
+.gridCols6 {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr 0.5fr 0.2fr;
+}
+:host ::ng-deep .p-paginator .p-paginator-last {
+    display: none !important;
+}
+:host ::ng-deep .p-paginator .p-paginator-first {
+    display: none !important;
+}
+ ::ng-deep .p-paginator .p-paginator-prev {
+    background: #8e92a2;
+    color: white !important;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+}
+ ::ng-deep .p-paginator .p-paginator-next {
+    background: #8e92a2;
+    color: white !important;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+}
+ ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
+    min-width: 44px;
+    height: 44px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #d8dadf;
+    color: #8e92a2;
+    border-radius: 10px;
+}
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    border: 0 !important;
+    background: #e0f3fe;
+    color: #0098da !important;
+    font-weight: 600 !important;
+}
+ ::ng-deep [disabled] * {
+    color: white !important;
+}
+.icon {
+    transition: transform 0.3s ease;
+}
+
+.open {
+    transform: rotate(180deg);
+}
+
+.closed {
+    transform: rotate(0);
+}
+.backGround {
+    background: #8e92a2;
+}
+:host ::ng-deep .p-datatable .p-paginator-bottom {
+    margin-top: -16px;
+}
+
+.dark {
+    :host ::ng-deep {
+        .p-paginator .p-paginator-pages .p-paginator-page {
+            border: 1px solid #41434e !important;
+            color: #8e92a2 !important;
+        }
+        .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+            border: 1px solid #0b4e6f !important;
+            background: #0b4e6f !important;
+            color: #7cd8fd !important;
+        }
+        .p-paginator .p-paginator-next {
+            background: #4a4c5a !important;
+            color: white !important;
+        }
+        .p-paginator .p-paginator-prev {
+            background: #4a4c5a !important;
+            color: white !important;
+        }
+    }
+}

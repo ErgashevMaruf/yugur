@@ -1,0 +1,16 @@
+<div class="p-[20px] secondaryBg">
+    <div class="w-full flex justify-end">
+        <mat-icon
+            class="text-red-600 dark:text-red-400 cursor-pointer text-[25px]"
+            (click)="close()"
+            >cancel</mat-icon
+        >
+    </div>
+    <div
+        class="w-full flex justify-center sm:text-[30px] font-bold gap-[20px] items-center text-red-600"
+    >
+        <i class="pi pi-ban font-bold sm:text-[30px]"></i>
+        <p class="dark:text-red-400">{{ "no.info.found" | transloco }}</p>
+    </div>
+    <ng-lottie [options]="options"></ng-lottie>
+</div>

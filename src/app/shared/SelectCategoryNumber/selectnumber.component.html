@@ -1,0 +1,80 @@
+<div class="relative text-[#000000] text-[15px] font-medium">
+  <div
+        class="p-[10px] flex items-center justify-between
+        cursor-pointer select-none rounded-[8px] border border-[#0CAEEB] w-[150px]"
+        [ngClass]="{
+            borderOpen: show && borderState == false ? true : false
+        }"
+        [ngClass]="{
+            borderError: borderState && show == false ? true : false
+        }"
+    (click)="openMenu()"
+    >
+    <p
+      class="dark:text-white"
+    >{{ select }}</p>
+    <mat-icon
+            class="cursor-pointer
+            dark:text-white
+            text-[#0098da] text-[30px]"
+      [@rotatedState]="openBox"
+      >expand_more</mat-icon
+      >
+    </div>
+    <div
+        class=" bg-white dark:bg-[#25262c]
+        z-10 border-[#6E62E57A] h-[150px] overflow-y-auto border-[1px] rounded-[8px]
+        hidden flex-col gap-[5px] absolute top-[45px] w-full p-[10px]"
+      [ngClass]="{ flex: show }"
+      >
+      @if (allelements | async; as Numbers) {
+        <div>
+          <div
+            class="w-full h-[30px] mb-[5px] border relative border-[#6E62E5] rounded-[5px]"
+            >
+            <input
+              type="text"
+              class="w-full h-full p-[5px] dark:bg-[#535353]"
+              (input)="searchNumber($event.target.value)"
+              [(ngModel)]="cleanSearch"
+              />
+              <i
+                    class="pi pi-search absolute
+                    cursor-pointer
+                    top-[5px] right-[5px] text-[#6E62E5]"
+                [ngClass]="{'hidden':isSearch}"
+              ></i>
+              <i
+                (click)="removeSearch()"
+                class="pi pi-times-circle absolute top-[5px] right-[5px] text-red-600"
+                [ngClass]="{'hidden':!isSearch}"
+              ></i>
+            </div>
+            @for (x of Numbers; track x; let i = $index) {
+              <div
+                class="cursor-pointer"
+                >
+                <div
+                    class="flex items-center justify-between mb-[5px] rounded-[8px] py-[5px] px-[25px]
+                     hover:bg-[#00A68E] hover:text-white"
+                  (click)="addOrRemoveSelect(x.bibCode)"
+                  [ngClass]="{ multipleChooseBg: selectedState(x.bibCode) }"
+                  >
+                  <p class="dark:text-white">{{ x.bibCode }}</p>
+                  <span
+                    class="pi pi-check text-[#6E62E5] text-[16px] font-bold hidden"
+                    [ngClass]="{ flex: selectedState(x.bibCode) }"
+                  ></span>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="w-full h-full flex justify-center items-center">
+            <p class="text-center">No Numbers Available</p>
+          </div>
+        }
+        <div
+        #placeholder></div>
+      </div>
+    </div>

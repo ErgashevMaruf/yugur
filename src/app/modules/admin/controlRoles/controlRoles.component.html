@@ -1,0 +1,131 @@
+<div class="p-[30px] w-full">
+    @if (rolesList) {
+    <p-table
+        #dt
+        (onLazyLoad)="loadFeedBack($event)"
+        [lazy]="true"
+        [paginator]="true"
+        [rows]="10"
+        [totalRecords]="totalItems"
+        [value]="rolesList"
+        [tableStyle]="{ 'min-width': '70rem' }"
+        [rowsPerPageOptions]="[10, 50, 100]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+        <ng-template pTemplate="header">
+            <tr class="bg-[#0098DA]">
+                <th class="rounded-tl-[10px]">No</th>
+                <th>{{ "userName" | transloco }}</th>
+                <th>{{ "fullName" | transloco }}</th>
+                <th>{{ "email" | transloco }}</th>
+                <th>{{ "phone" | transloco }}</th>
+                <th>{{ "roles" | transloco }}</th>
+                <th>{{ "requestedRole" | transloco }}</th>
+                <th class="rounded-tr-[10px]">
+                    {{ "status.user" | transloco }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="caption">
+            <div class="flex justify-between items-center">
+                <div class="flex gap-4">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            [(ngModel)]="userName"
+                            pInputText
+                            type="text"
+                            (input)="dt.filter($event.target.value, 'userName')"
+                            [placeholder]="'userName' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            [(ngModel)]="fullName"
+                            pInputText
+                            type="text"
+                            (input)="dt.filter($event.target.value, 'fullName')"
+                            [placeholder]="'fullName' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            [(ngModel)]="email"
+                            pInputText
+                            type="text"
+                            (input)="dt.filter($event.target.value, 'email')"
+                            [placeholder]="'email' | transloco"
+                        />
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            [(ngModel)]="phone"
+                            (input)="dt.filter($event.target.value, 'phone')"
+                            [placeholder]="'phone' | transloco"
+                        />
+                    </span>
+                    <!-- <p-dropdown
+            [options]="spRoles.slice(1)"
+            [(ngModel)]="spBindingRole"
+            optionValue="value"
+            optionLabel="label"
+            (onChange)="dt.filter($event.value, 'roles')"
+            [placeholder]="'CHOOSE' | transloco"
+          ></p-dropdown> -->
+                </div>
+                <p-button
+                    label="Clear"
+                    [outlined]="true"
+                    icon="pi pi-filter-slash"
+                    (click)="clear(dt)"
+                />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+            <tr class="cursor-pointer">
+                <td class="font-bold">{{ rowIndex + 1 }}</td>
+                <td>{{ user.userName }}</td>
+                <td>{{ user.fullName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phoneMain }}</td>
+                <td style="min-width: 250px; width: 250px">
+                    {{ user.rolesStr }}
+                </td>
+                <td>{{ roles.get(user.spUserTypeId) }}</td>
+                <td>
+                    <div class="flex gap-2">
+                        <div
+                            (click)="blockUserRole(user.id, rowIndex)"
+                            class="bg-red-600 h-5 w-5 rounded-full flex items-center justify-center"
+                        >
+                            <i
+                                class="pi pi-times text-[10px] font-bold text-white"
+                            ></i>
+                        </div>
+                        <div
+                            (click)="allowUserRole(user.id, rowIndex)"
+                            class="bg-[#55A93E] h-5 w-5 rounded-full flex items-center justify-center"
+                        >
+                            <i
+                                class="pi pi-check text-[10px] font-bold text-white"
+                            ></i>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    } @if (!rolesList) {
+    <div
+        class="w-full h-full text-red-600 font-semibold text-[30px] flex flex-col items-center justify-center"
+    >
+        <p>{{ "userRequestRoleNotFound" | transloco }}</p>
+    </div>
+    }
+</div>

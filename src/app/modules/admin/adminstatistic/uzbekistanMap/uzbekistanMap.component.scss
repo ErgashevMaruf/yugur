@@ -1,0 +1,28 @@
+.light {
+    :host ::ng-deep {
+        .fillGrey100 {
+            fill: #ededf1;
+        }
+        .fillGrey200 {
+            fill: #d8dadf;
+        }
+        .fillGrey500
+        {
+            fill: #B6B9C3;
+        }
+    }
+}
+.dark {
+    :host ::ng-deep {
+        .fillGrey100 {
+            fill: #5b5f6e;
+        }
+        .fillGrey200 {
+            fill: #8e92a2;
+        }
+        .fillGrey500
+        {
+            fill: #707587;
+        }
+    }
+}

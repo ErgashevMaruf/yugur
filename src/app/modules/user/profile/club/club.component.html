@@ -1,0 +1,58 @@
+@if (show) {
+  <div
+    class="w-full max-w-[900px] rounded-[20px] secondaryBgWhite md:py-[36px] pt-[15px] px-[30px]"
+    >
+    <h4 class="club md:text-[22px] text-[20px] font-bold">
+      {{ "requestRole" | transloco }}
+    </h4>
+    <div class="" [formGroup]="requestRole">
+      <div class="card flex gap-1 items-center">
+        <p-dropdown
+          [options]="userTypes?.slice(1)"
+          optionLabel="label"
+          formControlName="userType"
+          [placeholder]="'CHOOSE' | transloco"
+          optionValue="value"
+          [disabled]="isParent"
+        ></p-dropdown>
+        @if (isUserOrganizator) {
+          <p-dropdown
+            [options]="organizations?.slice(1)"
+            optionLabel="label"
+            formControlName="spOrganizationTypeId"
+            optionValue="value"
+            [placeholder]="'CHOOSE' | transloco"
+          ></p-dropdown>
+          <input
+            type="text"
+            formControlName="name"
+            optionValue="value"
+            class="border-2 border-[#02a3d3] p-3 rounded-[10px]"
+            [placeholder]="'organizaitonName' | transloco"
+            />
+          }
+        </div>
+        <div class="flex justify-end md:pb-0 pb-4">
+          <!-- <div class="flex gap-3 items-center">
+          <p-checkbox
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="isParent"
+            [binary]="true"
+            inputId="binary"
+            (onChange)="permitParentRole($event)"
+            />
+            <p class="font-medium text-[16px]">
+              {{ "iamparent" | transloco }}
+            </p>
+          </div> -->
+          <button
+            class="py-[10px] px-[30px] bg-[#02A3D3] rounded-[10px] text-white sm:text-[18px] disabled:bg-[#aeaeae] text-[16px] mt-[10px] font-semibold"
+            [disabled]="requestRole.invalid"
+            (click)="sendServer()"
+            >
+            {{ "SAVE" | transloco }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }

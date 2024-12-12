@@ -1,0 +1,30 @@
+<p-treeTable
+  [value]="navigationItems"
+  [columns]="cols"
+  selectionMode="single"
+  [(selection)]="selItem"
+  dataKey="id"
+  (onNodeSelect)="onRowSelectDialog.emit($event.node.data.idDB)"
+  >
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      @for (col of columns; track col) {
+        <th>
+          {{ col.header | transloco }}
+        </th>
+      }
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+      <td>
+        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+        <mat-icon class="mr-2" svgIcon="{{ rowData?.icon }}"></mat-icon>
+        <span>{{ rowData?.title | transloco }}</span>
+      </td>
+
+      <td>{{ rowData?.link }}</td>
+      <td>{{ rowData?.key }}</td>
+    </tr>
+  </ng-template>
+</p-treeTable>

@@ -1,0 +1,150 @@
+<div class="w-full p-[20px]">
+    <div class="w-full flex justify-between my-[10px]">
+        <p class="font-[800] text-[32px] text-grey900To100">
+            {{ "nav.user" | transloco }}
+        </p>
+        <button
+            class="w-[200px] flex items-center
+            justify-center gap-2 font-bold
+             text-white rounded-[10px]
+              bg-[#67BD50] px-4 py-3"
+            (click)="createUserForm()"
+        >
+            <i class="pi pi-plus"></i>
+            {{ "create.user" | transloco }}
+        </button>
+    </div>
+    <p-table
+        #dt
+        [value]="users"
+        [lazy]="true"
+        [totalRecords]="totalItems"
+        [paginator]="true"
+        [rows]="10"
+        (onLazyLoad)="loadUser($event)"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        styleClass="custom-table"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+        <ng-template pTemplate="caption">
+            <div class="w-full flex gap-4 mb-4 items-center">
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <i class="pi pi-id-card"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt.filter($event.target.value, 'ahtletesId')"
+                        [(ngModel)]="ahtletesId"
+                        [placeholder]="'athletesId' | transloco"
+                    />
+                </p-iconField>
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <i class="pi pi-user"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt.filter($event.target.value, 'userName')"
+                        [(ngModel)]="userName"
+                        [placeholder]="'userName' | transloco"
+                    />
+                </p-iconField>
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <i class="pi pi-user"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="EventBoxName"
+                        debonceInput
+                        (input)="dt.filter($event.target.value, 'fullName')"
+                        [(ngModel)]="fullName"
+                        [placeholder]="'fullName' | transloco"
+                    />
+                </p-iconField>
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <i class="pi pi-envelope"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt.filter($event.target.value, 'email')"
+                        [(ngModel)]="email"
+                        [placeholder]="'email' | transloco"
+                    />
+                </p-iconField>
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <i class="pi pi-phone"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt.filter($event.target.value, 'phone')"
+                        [(ngModel)]="phone"
+                        [placeholder]="'phone' | transloco"
+                    />
+                </p-iconField>
+                <p-button
+                    icon="pi pi-filter-slash"
+                    styleClass="bg-blue-600"
+                    (onClick)="clear(dt)"
+                ></p-button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="">No</th>
+                <th>{{ "athletesId" | transloco }}</th>
+                <th>{{ "userName" | transloco }}</th>
+                <th>{{ "fullName" | transloco }}</th>
+                <th>{{ "email" | transloco }}</th>
+                <th>{{ "phone" | transloco }}</th>
+                <th>{{ "roles" | transloco }}</th>
+                <th>{{ "enter.count" | transloco }}</th>
+                <th class="">
+                    {{ "status.user" | transloco }}
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-user let-i="rowIndex">
+            <tr class="cursor-pointer" (click)="editUser(user.id)">
+                <td class="font-bold">{{ i + 1 }}</td>
+                <td class="text-[#0CAEEB]">{{ user.athletesId }}</td>
+                <td>{{ user.userName }}</td>
+                <td>{{ user.fullName }}</td>
+                <td>{{ user.email }}</td>
+                <td class="text-[#0CAEEB]">
+                    <span class="inline-block w-[150px]">{{
+                        user.phoneMain | mask : "000 00 000 00 00"
+                    }}</span>
+                </td>
+                <td style="min-width: 250px; width: 250px">
+                    {{ user.rolesStr }}
+                </td>
+                <td>{{ user.countEnter }}</td>
+                <td>
+                    @if (user?.lockoutEnabled) {
+                    <mat-icon class="text-red-600">highlight_off</mat-icon>
+                    } @else {
+                    <div
+                        class="bg-[#55A93E] h-5 w-5 rounded-full flex items-center justify-center"
+                    >
+                        <i
+                            class="pi pi-check text-[10px] font-bold text-white"
+                        ></i>
+                    </div>
+                    }
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <div #placeholderElement></div>
+</div>

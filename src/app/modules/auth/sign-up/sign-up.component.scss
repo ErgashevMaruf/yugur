@@ -1,0 +1,86 @@
+.notActive {
+    color: #707587;
+}
+:host ::ng-deep .p-button {
+    background: #01a559 !important;
+}
+:host ::ng-deep .p-calendar .p-inputtext {
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+:host ::ng-deep .p-inputtext:enabled:focus {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+:host ::ng-deep .p-inputtext:enabled:hover {
+    border-color: #01a559 !important;
+}
+:host ::ng-deep .p-inputtext {
+    border: 1px solid transparent;
+    margin: 0 !important;
+}
+:host ::ng-deep {
+    .p-radiobutton .p-radiobutton-box {
+        border: 2px solid #55a93e !important;
+    }
+
+    .p-radiobutton .p-radiobutton-box.p-highlight {
+        background: transparent !important;
+    }
+    .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+        background: #55a93e !important;
+    }
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+        outline: 0 none;
+        outline-offset: 0;
+        box-shadow: none !important;
+    }
+    .p-dropdown {
+        border-radius: 10px !important;
+        border: 1px solid #d8dadf;
+    }
+    .p-inputtext {
+        border: 0 !important;
+        border-radius: 8px;
+    }
+    .p-accordion .p-accordion-header {
+        display: none !important;
+    }
+    .p-accordion .p-accordion-content {
+        padding: 0 !important;
+        border: 0 !important;
+    }
+}
+label {
+    display: inline-block;
+}
+.slidingDiv {
+    transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+}
+.move-right {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+}
+.dark {
+    .notActive {
+        color: #8e92a2 !important;
+    }
+    :host ::ng-deep {
+        .p-radiobutton .p-radiobutton-box {
+            border: 2px solid #707587 !important;
+        }
+        .p-radiobutton .p-radiobutton-box.p-highlight {
+            border: 2px solid #55a93e !important;
+        }
+        .p-dropdown .p-dropdown-label.p-placeholder
+        {
+            background: #383942 !important;
+        }
+        .p-dropdown .p-dropdown-trigger 
+        {
+            background: #383942;
+        }
+    }
+}

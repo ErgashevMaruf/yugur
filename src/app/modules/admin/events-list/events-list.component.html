@@ -1,0 +1,156 @@
+<div class="p-[15px] w-full">
+    <div class="w-full flex justify-end">
+        <p-button styleClass="flex items-center gap-2" (onClick)="openDialog()">
+            <mat-icon class="text-white">add</mat-icon>
+            {{ "add.event" | transloco }}
+        </p-button>
+    </div>
+    <p-table
+        #dt
+        (onLazyLoad)="createOrUpdateEvent.getEventList($event)"
+        [value]="createOrUpdateEvent.events"
+        [lazy]="true"
+        [rows]="10"
+        [tableStyle]="{ 'min-width': '60rem' }"
+        [paginator]="true"
+        [totalRecords]="createOrUpdateEvent.totalItems"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="rounded-tl-[10px]">No</th>
+                <th>
+                    {{ "image" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 30%">
+                    {{ "event.name" | transloco }}
+                </th>
+                <th pSortableColumn="category" style="width: 30%">
+                    {{ "location.event" | transloco }}
+                </th>
+                <th pSortableColumn="quantity" style="width: 20%">
+                    {{ "event.status" | transloco }}
+                </th>
+                <!-- <th pSortableColumn="price" style="width: 20%">
+                    {{ "event.cost" | transloco }}
+                </th> -->
+                <th class="" pSortableColumn="price" style="width: 10%">
+                    {{ "event.date" | transloco }}
+                </th>
+                <th pSortableColumn="price" style="width: 10%">
+                    {{ "userAction" | transloco }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="caption">
+            <div class="w-full flex gap-4 mb-4 items-center">
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="EventBoxName"
+                        debonceInput
+                        (search)="dt.filter(EventBoxName, 'EventBoxName')"
+                        placeholder="{{ 'eventName' | transloco }}"
+                    />
+                </p-iconField>
+                <p-iconField iconPosition="right">
+                    <p-inputIcon>
+                        <i class="pi pi-calendar"></i>
+                    </p-inputIcon>
+                    <p-calendar
+                        [placeholder]="'searchByEventDate' | transloco"
+                        dateFormat="dd.mm.yy"
+                        (onSelect)="dt.filter(EventDate, 'EventDate')"
+                        [(ngModel)]="EventDate"
+                        (onInput)="dt.filter(EventDate, 'EventDate')"
+                        dataType="string"
+                    ></p-calendar>
+                </p-iconField>
+                <p-dropdown
+                    [options]="status"
+                    optionLabel="title"
+                    optionValue="id"
+                    [placeholder]="'CHOOSE' | transloco"
+                    [(ngModel)]="Status"
+                    (onChange)="dt.filter(Status, 'Status')"
+                ></p-dropdown>
+                <p-button
+                    icon="pi pi-filter-slash"
+                    styleClass="bg-blue-600"
+                    (onClick)="clear(dt)"
+                ></p-button>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
+            <tr class="cursor-pointer">
+                <td>
+                    {{ rowIndex + 1 }}
+                </td>
+                <td class="px-[15px]">
+                    <p-image
+                        [src]="url + event.imageFileId"
+                        [preview]="true"
+                        styleClass="rounded-[5px]"
+                    ></p-image>
+                </td>
+                <td>{{ event | appTranslateAsync : "name" | async }}</td>
+                <td>{{ event | appTranslateAsync : "address" | async }}</td>
+                @if (event.status | eventStatus; as status) {
+                <td [ngClass]="status.class">
+                    {{ status.title }}
+                </td>
+                }
+                <!-- <td>{{ event.cost | numberFormat }}</td> -->
+                <td>{{ event.eventDate | date : "dd.MM.yyyy" }}</td>
+                <td>
+                    <div class="items-center flex gap-2">
+                        <i
+                            class="iconSize pi pi-pencil"
+                            (click)="openEdit(event)"
+                        ></i>
+                        <i
+                            class="iconSize pi pi-plus-circle"
+                            (click)="createEvent(event)"
+                        ></i>
+                        <i
+                            class="pi iconSize icon pi-angle-down"
+                            [ngClass]="showIndex == rowIndex ? 'open' : 'close'"
+                            (click)="openEventBox(rowIndex, event.id)"
+                        ></i>
+                    </div>
+                </td>
+            </tr>
+            @if (showIndex == rowIndex) {
+            <tr>
+                <td colspan="8">
+                    <div
+                        class="flex p-[20px] gap-[23px] font-medium text-[14px] flex-wrap text-white"
+                    >
+                        @for (x of eventsList; track x) {
+                        <div
+                            class="w-[160px] h-[100px] flex cursor-pointer hover:scale-125 flex-col justify-center items-center rounded-[10px] bg-[#0098DA]"
+                            (click)="editEvent(x, event.id)"
+                        >
+                            <p>
+                                {{
+                                    x
+                                        | appTranslateAsync : "raceDistance"
+                                        | async
+                                }}
+                            </p>
+                            <p>{{ x | appTranslateAsync : "title" | async }}</p>
+                        </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+            }
+        </ng-template>
+    </p-table>
+</div>

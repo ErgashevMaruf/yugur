@@ -1,0 +1,18 @@
+.bgLinear {
+    background: linear-gradient(#f7f8f800 0, #f7f8f8eb 92%, #f7f8f8 100%);
+    // background: linear-gradient(#38394200 0, #38394200 92%, #38394200 100%);
+}
+
+.dark {
+   :host ::ng-deep  .bgLinear {
+        background: linear-gradient(
+            180deg,
+            rgba(56, 57, 66, 0) 0%,
+            rgba(56, 57, 66, 0.92) 85.28%,
+            #383942 141.25%
+        );
+    }
+}
+.mainDiv::-webkit-scrollbar {
+    display: none;
+}

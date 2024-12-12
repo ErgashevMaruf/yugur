@@ -1,0 +1,40 @@
+
+<div class="bg-white dark:bg-[#0F172A]">
+  @if (data == 'email') {
+    <div
+    class="p-[30px] flex  text-[20px] items-center gap-[10px]
+     text-red-600 font-medium"
+      >
+      <i class="pi pi-envelope text-[20px] text-red-600 font-medium"></i>
+      <p>{{ "emailAlreadyHave" | transloco }}!!!</p>
+    </div>
+  }
+  @if (data == 'user') {
+    <div
+      class="p-[30px] flex text-[20px] items-center gap-[10px] text-red-600 font-medium"
+      >
+      <i class="pi pi-user text-[20px] text-red-600 font-medium"></i>
+      <p>{{ "userAlreadyHave" | transloco }}!!!</p>
+    </div>
+  }
+  @if (data == 'password') {
+    <div
+      class="p-[30px] flex text-[20px] items-center gap-[10px] text-red-600 font-medium"
+      >
+      <i
+        class="pi pi-exclamation-triangle text-[20px] text-red-600 font-medium"
+      ></i>
+      <p>{{ "incorectPassword" | transloco }}!!!</p>
+    </div>
+  }
+  @if (data == 'enterStartAndEndDate') {
+    <div
+      class="p-[30px] flex text-[20px] items-center gap-[10px] text-red-600 font-medium"
+      >
+      <i
+        class="pi pi-exclamation-triangle text-[20px] text-red-600 font-medium"
+      ></i>
+      <p>{{ "enterStartAndEndDate" | transloco }}!!!</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,112 @@
+<div>
+  <div
+    class="flex h-[64px] bg-[#02A3D3] items-center px-[20px] rounded-t-[20px] gap-[10px]"
+    >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="33.693"
+      height="29.455"
+      viewBox="0 0 33.693 29.455"
+      >
+      <g
+        id="Сгруппировать_14749"
+        data-name="Сгруппировать 14749"
+        transform="translate(519.2 -165.596)"
+        >
+        <g
+          id="Сгруппировать_14748"
+          data-name="Сгруппировать 14748"
+          transform="translate(-519.2 165.596)"
+          >
+          <path
+            id="Контур_17621"
+            data-name="Контур 17621"
+            d="M-519.2,369.59q8.314,0,16.628,0a.5.5,0,0,1,.478.242,18.265,18.265,0,0,0,5.607,5.069q.443.279.9.537a3.075,3.075,0,0,0,3.213.026,21.324,21.324,0,0,0,5.343-4.092c.418-.46.782-.97,1.169-1.458.085-.108.165-.22.293-.393.016.155.03.234.03.312q0,5.11,0,10.22a2.09,2.09,0,0,1-2.174,2.163q-14.657,0-29.313,0a2.092,2.092,0,0,1-2.084-1.485,1.07,1.07,0,0,0-.088-.158Zm7.389,4.208c-.657,0-1.314-.007-1.971,0a1.692,1.692,0,0,0-.574.1,1.024,1.024,0,0,0-.621,1.083,1.024,1.024,0,0,0,1.012.9c1.423.02,2.847.009,4.27,0a1.039,1.039,0,0,0,.406-.111,1.019,1.019,0,0,0,.584-1.1,1.051,1.051,0,0,0-1.07-.878C-510.453,373.788-511.132,373.8-511.811,373.8Z"
+            transform="translate(519.2 -352.758)"
+            fill="#fff"
+            />
+            <path
+              id="Контур_17622"
+              data-name="Контур 17622"
+              d="M-519.2,244.056a2.823,2.823,0,0,1,.828-1.214,2.072,2.072,0,0,1,1.214-.427q6.294,0,12.588,0a.648.648,0,0,1,.1.021,26.481,26.481,0,0,0,.462,6.288H-519.2Z"
+              transform="translate(519.2 -236.1)"
+              fill="#fff"
+              />
+              <path
+                id="Контур_17623"
+                data-name="Контур 17623"
+                d="M-297.632,172.432c-.034,1.138-.02,2.279-.112,3.412a11.254,11.254,0,0,1-2.959,6.973,20.537,20.537,0,0,1-4.81,3.662,1.053,1.053,0,0,1-1.122.005,20.809,20.809,0,0,1-4.7-3.543,10.725,10.725,0,0,1-2.885-5.728,21.052,21.052,0,0,1-.264-2.835c-.043-1.488-.005-2.979-.016-4.469a1.11,1.11,0,0,1,.737-1.121q3.6-1.544,7.2-3.088a1.152,1.152,0,0,1,.95,0l7.232,3.1a1.085,1.085,0,0,1,.715,1.1c-.011.843,0,1.687,0,2.53Zm-9.412,4.01c-.07-.1-.137-.18-.2-.269-.371-.553-.733-1.113-1.113-1.66a1.02,1.02,0,0,0-1.461-.307,1.012,1.012,0,0,0-.277,1.44c.685,1.052,1.378,2.1,2.091,3.134a1.019,1.019,0,0,0,1.7.07c1.4-1.735,2.8-3.476,4.172-5.235a1.272,1.272,0,0,0,.217-.817.918.918,0,0,0-.79-.842,1.027,1.027,0,0,0-1.089.422Z"
+                transform="translate(331.326 -165.596)"
+                fill="#fff"
+                />
+              </g>
+            </g>
+          </svg>
+          <p class="sm:text-[18px] text-[16px] text-white">{{ "Payments" | transloco }}</p>
+        </div>
+        @if (existPayment) {
+          <div>
+        <div class="w-full grid grid-cols-4
+        sm:text-[16px] text-[11px]
+        text-center sm:px-[30px] px-[10px] py-[10px]
+        dark:bg-[#7b7b7b] text-[#02A3D3]  dark:text-white
+        font-semibold">
+              <p>{{'eventName' | transloco}}</p>
+              <p>{{'eventCost' | transloco}}</p>
+              <p>{{'bibCost' | transloco}}</p>
+              <p >{{'allcost' | transloco}}</p>
+            </div>
+            @for (pay of payments; track pay; let i = $index) {
+              <div class="secondaryBg">
+                <div
+                class="w-full py-[20px] sm:px-[30px] px-[10px] sm:text-[20px] text-[13px] grid grid-cols-4
+                text-center"
+                  [ngClass]="{ caruselBg: i % 2 !== 0 }"
+                  >
+                  <p class="font-semibold  dark:text-white">
+                    {{ pay.eventName }}
+                  </p>
+                  <p
+                    class=" text-[#02A3D3]  dark:text-white"
+                    >
+                    {{ pay.eventAmount | numberFormat }}
+                    <span>{{ "SUM" | transloco }}</span>
+                  </p>
+                  <p
+                    class=" text-[#02A3D3]  dark:text-white"
+                    >
+                    {{ pay.bibCodeAmount | numberFormat }}
+                    <span>{{ "SUM" | transloco }}</span>
+                  </p>
+                  <p
+                    class=" text-[#02A3D3]  dark:text-white"
+                    >
+                    {{ pay.fullAmount | numberFormat }}
+                    <span>{{ "SUM" | transloco }}</span>
+                  </p>
+                </div>
+              </div>
+            }
+            <div
+            class="w-full flex bg-white dark:bg-[#7b7b7b]
+            dark:text-white justify-between
+            rounded-b-[10px]
+            font-bold sm:text-[25px] text-[18px] p-[30px]"
+              >
+              <p class="">{{ "allcost" | transloco }}:</p>
+              <p class="text-[#02A3D3] dark:text-white">
+                {{ sum | numberFormat }} <span>{{'SUM' | transloco}}</span>
+              </p>
+            </div>
+          </div>
+        }
+        @if (!existPayment) {
+<div class="p-[60px] flex justify-center dark:bg-[#7b7b7b]
+    rounded-b-[10px]
+    items-center">
+            <p class="text-2xl font-semibold  text-[#02A3D3] dark:text-white">
+              {{ "noPaymentInfo" | transloco }}
+            </p>
+          </div>
+        }
+      </div>

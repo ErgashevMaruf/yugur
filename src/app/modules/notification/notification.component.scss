@@ -1,0 +1,18 @@
+.light {
+    :host ::ng-deep .matIconColor {
+        color: #41434e;
+    }
+}
+.dark {
+    :host ::ng-deep .matIconColor {
+        color: #8e92a2;
+    }
+}
+:host ::ng-deep .container:hover
+{
+    .matIconColor
+    {
+        color: #67BD50 !important;
+    }
+}
+

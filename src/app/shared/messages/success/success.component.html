@@ -1,0 +1,20 @@
+<div class="p-[20px] sm:w-[350px]
+bg-white dark:bg-[#25262c]
+w-[300px] h-[300px] relative overflow-hidden
+secondaryBgWhite">
+    <div class="w-full flex justify-end">
+        <mat-icon
+            class="text-red-600 dark:text-red-400 relative z-30 cursor-pointer text-[25px]"
+            (click)="close()"
+            >cancel</mat-icon
+        >
+    </div>
+    <div
+        class="w-full flex justify-center sm:text-[20px] text-[16px] font-bold gap-[20px] items-center"
+    >
+        <p class="">{{ textMessage | transloco }}</p>
+    </div>
+    <div class="absolute top-4 sm:right-0 right-[-30px] overflow-hidden">
+        <ng-lottie width="350px" height="300px" [options]="options"></ng-lottie>
+    </div>
+</div>

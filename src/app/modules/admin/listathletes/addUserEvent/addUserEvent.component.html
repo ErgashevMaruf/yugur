@@ -1,0 +1,38 @@
+<div
+  class="w-full min-h-[300px] background p-[25px] bg-white dark:bg-[#0F172A]"
+  >
+  <div class="w-full flex justify-end mb-3">
+    <div
+      class="h-10 w-10 rounded-full bg-[#F7F8F8] flex items-center justify-center"
+      (click)="cancelNumeration()"
+      >
+      <i class="pi pi-times text-[#707587] font-bold cursor-pointer"></i>
+    </div>
+  </div>
+  <div class="w-[600px] flex gap-[10px]">
+    <p-dropdown
+      [options]="eventBoxes"
+      appendTo="body"
+      optionLabel="name"
+      optionValue="id"
+      (onChange)="selectEvent($event)"
+      [placeholder]="'CHOOSE' | transloco"
+      class="w-full"
+    ></p-dropdown>
+    <p-dropdown
+      appendTo="body"
+      [options]="eventsInsideBox"
+      optionLabel="raceDistance"
+      optionValue="id"
+      (onChange)="getEventId($event)"
+      [placeholder]="'CHOOSE' | transloco"
+      class="w-full"
+    ></p-dropdown>
+  </div>
+  @if (show) {
+    <app-selectNumber
+      [inputEvent]="selectedEvent"
+      [athletesId]="data"
+    ></app-selectNumber>
+  }
+</div>

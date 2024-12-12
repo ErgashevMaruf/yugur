@@ -1,0 +1,20 @@
+.bgLinearGradient {
+    background: linear-gradient(
+        180deg,
+        rgba(247, 248, 248, 0) 0%,
+        rgba(247, 248, 248, 0.95) 90.38%,
+        #f7f8f8 100%
+    );
+}
+.dark {
+    :host ::ng-deep {
+        .bgLinearGradient {
+            background: linear-gradient(
+                180deg,
+                rgba(56, 57, 66, 0) 0%,
+                rgba(56, 57, 66, 0.92) 85.28%,
+                #383942 141.25%
+            );
+        }
+    }
+}

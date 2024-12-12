@@ -1,0 +1,64 @@
+<div class="w-full flex flex-col gap-4" [formGroup]="signUpService.access">
+    <div>
+        <div class="w-full flex justify-between items-center">
+            <label for="Номер телефона">{{ "phone" | transloco }}</label>
+            <i
+                class="pi pi-replay text-[14px] cursor-pointer text-[#8E92A2] dark:text-[#B6B9C3]"
+                (click)="backTo()"
+            ></i>
+        </div>
+        <div class="relative">
+            <p
+                class="absolute dark:text-white top-[13px] left-[12px] font-semibold text-[#383942]"
+            >
+                +998
+            </p>
+            <input
+                class="p-3 pl-[52px] border font-semibold dark:border-0 dark:bg-[#383942] border-[#D8DADF] w-full rounded-[10px]"
+                type="text"
+                id="телефона"
+                placeholder="(- -)- - -  - -  - -"
+                mask="(00) 000 00 00"
+                formControlName="phoneMain"
+            />
+        </div>
+    </div>
+    <app-input-forms
+        [inputFormsData]="formsData"
+        [groupName]="signUpService.access"
+    ></app-input-forms>
+    <div class="w-full flex gap-4">
+        <div class="w-full">
+            <label class="text-[14px] font-medium mb-1 text-[#8E92A2]">
+                {{ "REGION" | transloco }}
+            </label>
+            <p-dropdown
+                [options]="spService.GetRegion?.slice(1)"
+                formControlName="spRegionId"
+                (onChange)="changeDistrict($event.value)"
+                optionValue="value"
+                optionLabel="label"
+                [filter]="true"
+                [placeholder]="'CHOOSE' | transloco"
+                styleClass="dark:bg-[#383942] dark:border-0 dark:text-[#707587]"
+            >
+            </p-dropdown>
+        </div>
+        <div class="w-full">
+            <label class="text-[14px] font-medium mb-1 text-[#8E92A2]">
+                {{ "CITY" | transloco }}
+            </label>
+            <p-dropdown
+                [options]="district"
+                formControlName="spDistrictId"
+                optionValue="value"
+                optionLabel="label"
+                [filter]="true"
+                [placeholder]="'CHOOSE' | transloco"
+                styleClass="dark:bg-[#383942] dark:border-0 dark:text-[#707587]"
+            >
+            </p-dropdown>
+        </div>
+    </div>
+    <app-create-login></app-create-login>
+</div>

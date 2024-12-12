@@ -1,0 +1,40 @@
+
+img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+:host ::ng-deep .pi-chevron-left:before{
+    font-size: 25px;
+    color: #01A559;
+    font-weight: 700;
+
+}
+:host ::ng-deep .pi-chevron-right:before{
+    font-size: 25px;
+    color: #01A559;
+    font-weight: 700;
+}
+:host ::ng-deep .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button
+{
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background-color: #01A559;
+}
+:host ::ng-deep .p-carousel-indicators .p-link{
+    border-radius: 9999px !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+:host ::ng-deep .p-link:focus
+{
+    box-shadow: none !important;
+}
+
+@media only screen and (max-width: 768px) {
+    img{
+        width: 50px;
+        height: 50px;
+    }
+}

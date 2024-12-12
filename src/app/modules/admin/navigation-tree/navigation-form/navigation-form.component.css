@@ -1,0 +1,8 @@
+:host ::ng-deep .p-treeselect-label-container
+{
+    height: 40px !important;
+}
+:host ::ng-deep .p-component, .p-datatable .p-datatable-thead > tr > th
+{
+    height: 40px !important;
+}

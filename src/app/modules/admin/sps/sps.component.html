@@ -1,0 +1,80 @@
+<navbar
+  *transloco="let t"
+  title="{{ selItem ? selItem?.label : t('nav.sps') }}"
+  [isShowAddButton]="true"
+  (addButton)="currentSpObject.showDialogToAdd()"
+  >
+  <p-splitter [panelSizes]="[30, 70]" [style]="{ height: '90%' }">
+    <ng-template pTemplate>
+      <div
+        class="flex flex-col w-full max-h-screen-sm"
+        style="height: 90% !important"
+        fuseScrollbar
+                [fuseScrollbarOptions]="{
+                    wheelPropagation: false
+                }"
+        >
+        <div class="flex flex-auto flex-col">
+          @if (filteredSp?.length > 0) {
+            @for (
+              spItem of filteredSp; track $index) {
+              <div
+                (click)="selectSP(spItem)"
+                class="flex items-center py-4 px-6 cursor-pointer shadow border-b-2"
+                            [ngClass]="{
+                                'hover:bg-gray-100 dark:hover:bg-hover':
+                                    !selItem || selItem.value !== spItem.value,
+                                'bg-primary-50 dark:bg-hover':
+                                    selItem && selItem.value === spItem.value
+                            }"
+                >
+                <div class="min-w-0 ml-3">
+                  <div class="font-medium leading-5 truncate">
+                    {{ spItem.label }}
+                  </div>
+                </div>
+              </div>
+            }
+          } @else {
+            <div
+              class="flex flex-auto flex-col items-center justify-center w-full h-full mt-12"
+              >
+              <mat-icon
+                class="icon-size-12"
+                svgIcon="outlet"
+              ></mat-icon>
+              <div
+                class="mt-4 text-2xl font-semibold tracking-tight text-secondary"
+                >
+                {{
+                "'" +
+                searchField?.value +
+                "'" +
+                ("no_found" | transloco)
+                }}
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate>
+      @if (isLoadSp) {
+        <div class="bg-card rounded-sm mx-1 shadow-lg pb-50 w-full">
+          <app-sp-base-list #spList> </app-sp-base-list>
+        </div>
+      } @else {
+        <div
+          class="flex flex-auto flex-col items-center justify-center h-full mt-6"
+          >
+          <!-- <p-progressSpinner></p-progressSpinner> -->
+          <div
+            class="mt-4 text-2xl font-semibold tracking-tight text-secondary"
+            >
+            ... {{ t("choose_sp") }}
+          </div>
+        </div>
+      }
+    </ng-template>
+  </p-splitter>
+</navbar>

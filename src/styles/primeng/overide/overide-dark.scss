@@ -1,0 +1,101 @@
+.p-datatable .p-datatable-tbody > tr > td {
+    border: 0;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+    text-align: left;
+}
+.p-datatable .p-datatable-thead > tr > th {
+    font-weight: 500;
+    padding: 16px;
+    line-height: 1;
+    border: 0;
+    text-align: left;
+}
+.p-datatable-scrollable > .p-datatable-wrapper {
+    background: transparent;
+}
+.p-datatable .p-datatable-thead > tr > th {
+    background: #383942;
+    color: #8e92a2;
+}
+.p-datatable .p-datatable-header {
+    background: #25262c;
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(even) > td {
+    background: #383942;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+    background: #25262c;
+}
+.p-paginator .p-paginator-pages .p-paginator-page {
+    border: 1px solid #41434e !important;
+    color: #8e92a2;
+}
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    border: 1px solid #0b4e6f;
+    background: #0b4e6f;
+    color: #7cd8fd;
+}
+.p-paginator .p-paginator-next {
+    background: #4a4c5a;
+    color: white;
+}
+.p-paginator .p-paginator-prev {
+    background: #4a4c5a;
+    color: white;
+}
+.p-datatable-wrapper::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 5px;
+    background: #25262c;
+}
+.p-datatable-wrapper::-webkit-scrollbar-thumb {
+    height: 1rem;
+    background: white;
+}
+.p-datatable .p-paginator-bottom {
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+    background: #25262c !important;
+}
+.p-inputtext:enabled:focus {
+    border: 1px solid #41434e !important;
+    &:focus {
+        border: 1px solid #67bd50 !important;
+        box-shadow: 0 0 0 2px #27481f !important;
+    }
+}
+.p-inputtext:enabled:hover {
+    border: 1px solid #67bd50 !important;
+    box-shadow: 0 0 0 2px #27481f !important;
+}
+.p-dropdown:not(.p-disabled):hover {
+    border: 1px solid #67bd50 !important;
+    box-shadow: 0 0 0 2px #27481f !important;
+}
+.p-dropdown:not(.p-disabled).p-focus {
+    border: 1px solid #67bd50 !important;
+    box-shadow: 0 0 0 2px #27481f !important;
+}
+.p-multiselect:not(.p-disabled):hover {
+    border: 1px solid #67bd50 !important;
+    box-shadow: 0 0 0 2px #27481f !important;
+}
+.p-multiselect:not(.p-disabled).p-focus {
+    border: 1px solid #67bd50 !important;
+    box-shadow: 0 0 0 2px #27481f !important;
+}
+.p-button.p-button-outlined
+{
+    border: 1px solid #4A4C5A;
+}
+.p-inputtext
+{
+    background: #383942;
+}
+.p-dropdown, .p-multiselect
+{
+    background: #383942;
+}

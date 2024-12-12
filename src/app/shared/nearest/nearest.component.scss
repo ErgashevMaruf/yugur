@@ -1,0 +1,27 @@
+.counter {
+    font-size: 45px;
+    font-weight: 600;
+    color: #02a3d3;
+    line-height: 1.1;
+}
+.counter span {
+    font-size: 12px;
+    font-weight: 500;
+}
+.participant::after {
+    content: "";
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    height: 5px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 3px;
+}
+:host ::ng-deep .running .mat-icon 
+{
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+}

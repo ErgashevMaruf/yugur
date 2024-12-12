@@ -1,0 +1,350 @@
+<p-dialog
+  header="{{ 'change' | transloco }} - {{ selectedNode?.label }}"
+  [style]="{ width: '90%', height: '80%' }"
+  [(visible)]="displayDialog"
+  [modal]="true"
+  [responsive]="true"
+  showEffect="fade"
+  [focusOnShow]="false"
+  (onHide)="onCloseModalWindow(false)"
+  >
+  <div class="m-5">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-building-o fa-lg"></i>
+            {{ "org.addChildeInsitution" | transloco }}
+            <!-- Добавить подчиненное учреждение -->
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form #heroForm="ngForm" class="pvalidate">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>{{
+              "staff.institution" | transloco
+            }}</mat-label>
+            <mat-select
+              name="spInstitutionId"
+              [(ngModel)]="orgFormItem.selInsitutionId"
+              >
+              @for (
+                item of spService.SelectItemsAll[
+                'Institutions'
+                ]
+                ; track
+                item) {
+                <mat-option
+                  [value]="+item.value"
+                  >
+                  {{ item.label }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </form>
+
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          class="text-right"
+          [disabled]="!heroForm.form.valid"
+          (click)="onSaveHosp('Hosp')"
+          >
+          <mat-icon svgIcon="heroicons_solid:save"></mat-icon>
+          Добавить подчиненное учреждение
+        </button>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-users fa-lg"></i>&nbsp; Добавить
+            подразделение
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="card card-inverse card-primary">
+          <div class="card-header">
+            <strong>Выберите подразделение</strong>
+          </div>
+          <div class="card-block white-b">
+            <form #heroForm1="ngForm" class="pvalidate">
+              <mat-form-field class="w-full" appearance="outline">
+                <mat-label>{{
+                  "staff.department" | transloco
+                }}</mat-label>
+                <mat-select
+                  name="spInstitutionId"
+                  [(ngModel)]="orgFormItem.selSpDepartmentId"
+                  >
+                  @for (
+                    item of spService.filterTableNameByRootCode(
+                    'Departments',
+                    selectedNode?.spInstitutionId
+                    )
+                    ; track
+                    item) {
+                    <mat-option
+                      [value]="+item.value"
+                      >
+                      {{ item.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </form>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              class="btn btn-info text-right"
+              [disabled]="!heroForm1.form.valid"
+              (click)="onSaveHosp('Dep')"
+              >
+              <i class="fa fa-save"></i> Добавить подразделение
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-users fa-lg"></i>&nbsp; Добавить
+            должность
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="card card-inverse card-primary">
+          <div class="card-header">
+            <strong>Выберите должность</strong>
+          </div>
+          <div class="card-block white-b">
+            <form #heroForm2="ngForm" class="pvalidate">
+              <mat-form-field class="w-full" appearance="outline">
+                <mat-label>{{
+                  "staff.position" | transloco
+                }}</mat-label>
+                <mat-select
+                  name="spPositionId"
+                  [(ngModel)]="orgFormItem.selSpPositionId"
+                  >
+                  @for (
+                    item of spService.filterTableNameByRootCode(
+                    'Positions',
+                    selectedNode?.spInstitutionId
+                    )
+                    ; track
+                    item) {
+                    <mat-option
+                      [value]="+item.value"
+                      >
+                      {{ item.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </form>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              class="btn btn-info text-right"
+              [disabled]="!heroForm2.form.valid"
+              (click)="onSaveHosp('Position')"
+              >
+              <i class="fa fa-save"></i> Добавить должность
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        [ngClass]="{ hidden: selectedNode?.type != 'Position' }"
+        >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <i class="fa fa-user fa-lg"></i>&nbsp; Добавить/изменить
+            сотрудника
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="card card-inverse card-primary">
+          <div class="card-header">
+            <strong>Выберите сотрудника</strong>
+          </div>
+          <div class="card-block white-b">
+            <form #heroForm3="ngForm" class="pvalidate">
+              <mat-form-field class="w-full" appearance="outline">
+                <mat-label>{{
+                  "staff.staff" | transloco
+                }}</mat-label>
+                <mat-select
+                  name="spStaffId"
+                  [(ngModel)]="orgFormItem.selStaffId"
+                  >
+                  @for (
+                    item of spService.filterTableNameByRootCode(
+                    'Staffs',
+                    selectedNode?.spInstitutionId
+                    )
+                    ; track
+                    item) {
+                    <mat-option
+                      [value]="+item.value"
+                      >
+                      {{ item.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </form>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              class="btn btn-info text-right"
+              [disabled]="!heroForm3.form.valid"
+              (click)="onSaveHosp('Per')"
+              >
+              <i class="fa fa-save"></i> Добавить/изменить
+              сотрудника
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <!-- <p-accordionTab
+    header="Просмотр документов других сотрудников"
+    [ngClass]="{ hidden: selectedNode.type != 'people' }"
+    >
+    <p-header>
+      &nbsp; <i class="fa fa-user fa-lg"></i>&nbsp; Просмотр
+      документов других сотрудников
+    </p-header>
+
+    <div class="card card-inverse card-primary">
+      <div class="card-header">
+        <strong
+          >Выберите сотрудника чьи документы будет
+          просматривать</strong
+          >
+        </div>
+        <div class="card-block white-b">
+          <form #heroForm7="ngForm" class="pvalidate">
+            <div class="form-group">
+              <label>Выберите сотрудника:</label>
+              <p-dropdown
+                [options]="spPositions"
+                [style]="{ width: '100%' }"
+                name="selPositionOfMainLookPerson"
+                [(ngModel)]="selPositionOfMainLookPerson"
+                filter="true"
+                [emptyFilterMessage]="'Нет записи'"
+                required
+              ></p-dropdown>
+              <span></span>
+            </div>
+          </form>
+
+          <button
+            type="button"
+            class="btn btn-info text-right"
+            [disabled]="!heroForm7.form.valid"
+            (click)="onSaveHosp('AddWhoseDocToSee')"
+            >
+            <i class="fa fa-save"></i> Добавить сотрудника
+          </button>
+        </div>
+      </div>
+      <div class="card card-inverse card-primary">
+        <div class="card-header">
+          <strong
+            >Сотрудники которых просматривет документы текущий
+            пользователь</strong
+            >
+          </div>
+          <div class="card-block white-b">
+            <ul class="list-group">
+              <li
+                class="list-group-item list-group-item-success"
+                                *ngFor="
+                                    let mainPositions of tbPositionsAccessMain
+                                "
+                >
+                {{ mainPositions.label }}
+                <button
+                  class="btn btn-danger btn-sm pull-right"
+                                    (click)="
+                                        deletePositionAccess(
+                                            mainPositions.value
+                                        )
+                                    "
+                  >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card card-inverse card-primary">
+          <div class="card-header">
+            <strong
+              >Сотрудники которые просматривют документы текущего
+              пользователи</strong
+              >
+            </div>
+            <div class="card-block white-b">
+              <ul class="list-group">
+                <li
+                  class="list-group-item list-group-item-primary"
+                                *ngFor="
+                                    let lookPositions of tbPositionsAccessLook
+                                "
+                  >
+                  {{ lookPositions.label }}
+                  <button
+                    class="btn btn-danger btn-sm pull-right"
+                                    (click)="
+                                        deletePositionAccess(
+                                            lookPositions.value
+                                        )
+                                    "
+                    >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </p-accordionTab> -->
+      </div>
+
+      <p-footer>
+        <button
+          mat-flat-button
+          color="warn"
+          type="button"
+          class="btn btn-danger float-left"
+          (click)="onDelete()"
+          >
+          <i class="fa fa-trash"></i> Удалить
+        </button>
+        <button
+          mat-flat-button
+          mat-raised-button
+          color="primary"
+          type="button"
+          class="btn btn-default"
+          (click)="onChooseNodeFromCurrent()"
+          >
+          <i class="fa fa-filter"></i> График из текущей ветки
+        </button>
+        <button
+          mat-flat-button
+          type="button"
+          class="btn btn-default"
+          (click)="onCloseModalWindow(false)"
+          >
+          <i class="fa fa-close"></i> Закрыть
+        </button>
+      </p-footer></p-dialog
+      >

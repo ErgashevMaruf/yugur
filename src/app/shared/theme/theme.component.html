@@ -1,0 +1,21 @@
+@if (isLight) {
+  <div
+    class="bg-[#02A3D3] flex justify-center items-center w-[30px] h-[30px] rounded-[6px]"
+    (click)="setScheme('dark')"
+    >
+    <img
+      src="./assets/icons/disturb.png"
+      alt=""
+      class="w-[20px] h-[20px] cursor-pointer"
+      />
+    </div>
+  }
+  @if (!isLight) {
+    <div
+      class="rounded-full h-[30px] w-[30px] flex items-center justify-center"
+      >
+      <mat-icon (click)="setScheme('light')" class="text-[#02A3D3] cursor-pointer"
+        >wb_sunny</mat-icon
+        >
+      </div>
+    }

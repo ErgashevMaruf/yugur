@@ -1,0 +1,42 @@
+@import url("../primeng/default/lara-dark-theme.css");
+@import url("../primeng/overide/overide-dark.scss");
+@import url("../primeng/base.scss");
+
+fuse-vertical-navigation .fuse-vertical-navigation-wrapper {
+    background-color: #25262c !important;
+}
+.fuse-vertical-navigation-item-icon {
+    color: #707587 !important;
+}
+.fuse-vertical-navigation-item-title {
+    color: #8e92a2 !important;
+}
+.fuse-vertical-navigation-item-active {
+    background: #383942 !important;
+    .fuse-vertical-navigation-item-icon {
+        color: #d8dadf !important;
+    }
+    .fuse-vertical-navigation-item-title {
+        color: #d8dadf !important;
+    }
+}
+.fuse-vertical-navigation-item:hover {
+    .fuse-vertical-navigation-item-icon {
+        color: #d8dadf !important;
+    }
+    .fuse-vertical-navigation-item-title {
+        color: #d8dadf !important;
+    }
+}
+
+label {
+    color: #b6b9c3;
+}
+.allInput {
+    background-color: #383942 !important;
+    border: 1px solid #41434e !important;
+    &:focus {
+        border: 1px solid #67bd50 !important;
+        box-shadow: 0 0 0 2px #27481f !important;
+    }
+}

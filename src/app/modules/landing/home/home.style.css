@@ -1,0 +1,70 @@
+:host {
+    font-family: "Manrope";
+}
+
+:host ::ng-deep .p-dropdown-trigger-icon {
+    color: #d8dadf;
+}
+/* :host ::ng-deep .p-scrolltop.p-link {
+    background: #02a3d3;
+}
+:host ::ng-deep .p-scrolltop {
+    border-radius: 14px !important;
+} */
+
+@media only screen and (max-width: 768px) {
+    :host ::ng-deep .p-inputtext {
+        margin: 0 !important;
+        font-size: 14px !important;
+    }
+}
+:host ::ng-deep .secondaryBg .p-carousel-items-content {
+    padding-top: 5px !important;
+}
+.scroll-left {
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    color: red;
+    background: white;
+    z-index: 100;
+    font-size: 16px;
+    font-weight: 600;
+}
+.scroll-left p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 20px;
+    text-align: center;
+    /* Starting position */
+    transform: translateX(100%);
+    /* Apply animation to this element */
+    animation: scroll-left 30s linear infinite;
+}
+/* Move it (define the animation) */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+.section {
+    transition: transform 1s, opacity 1s;
+}
+
+.section--hidden {
+    opacity: 0 !important;
+    transform: translateY(8rem);
+}
+
+.bgOpacity
+{
+    border-radius: 14.885px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(116, 128, 197, 0.12);
+    backdrop-filter: blur(10px);
+}

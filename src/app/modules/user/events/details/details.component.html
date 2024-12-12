@@ -1,0 +1,171 @@
+<div
+    class="flex flex-col gap-6 bg-white dark:bg-[#25262c] overflow-y-auto"
+    [ngClass]="class"
+    [style.paddingForMobile]="this.landingEvent?.isLanding"
+>
+    @if (this.landingEvent?.isLanding) {
+    <div class="w-full flex justify-end" (click)="closeMatdialog()">
+        <div
+            class="w-[40px] h-[40px] flex justify-center items-center bg-[#67BD50] dark:bg-[#383942] rounded-full"
+        >
+            <i class="pi pi-times text-white"></i>
+        </div>
+    </div>
+    }
+    <img
+        class="rounded-t-[10px] w-full rounded-[16px] md:h-[406px] h-[260px] object-cover"
+        [src]="url + event.imageFileId"
+    />
+    @if (event.status!==0) {
+    <p class="text-red-500 font-semibold">• {{ "Finished" | transloco }}</p>
+    }
+    <h4
+        class="text-[#25262C] md:text-[32px] dark:text-[#D8DADF] text-[20px] font-[800]"
+    >
+        {{ event | appTranslateAsync : "name" | async }}
+    </h4>
+    <div #child></div>
+    <div class="flex sm:flex-row flex-col sm:gap-14 gap-4">
+        <div class="flex gap-2">
+            <div
+                class="w-10 h-10 flex justify-center bg-white dark:bg-[#25262C] items-center rounded-full border border-[#EDEDF1] dark:border-[#383942]"
+            >
+                <mat-icon
+                    svgIcon="calendarLanding"
+                    class="text-[#0CAEEB] text-[14px]"
+                ></mat-icon>
+            </div>
+            <div>
+                <p class="font-medium text-[#707587] dark:text-[#B6B9C3]">
+                    {{ "Date" | transloco }}
+                </p>
+                <p class="text-[#25262C] font-semibold dark:text-white">
+                    {{ event?.eventDate }}, @if (myEvent) {
+                    <span> {{ event.myRegistrationEvent?.smenaName }}</span>
+                    }
+                </p>
+            </div>
+        </div>
+        <div class="flex gap-2">
+            <div
+                class="w-10 h-10 flex justify-center bg-white dark:bg-[#25262C] items-center rounded-full border border-[#EDEDF1] dark:border-[#383942]"
+            >
+                <mat-icon
+                    svgIcon="locationLanding"
+                    class="text-[14px]"
+                ></mat-icon>
+            </div>
+            <div>
+                <p class="font-medium text-[#707587] dark:text-[#B6B9C3]">
+                    {{ "Address" | transloco }}
+                </p>
+                <p class="text-[#25262C] dark:text-white font-semibold">
+                    {{ event | appTranslateAsync:'address' | async }}
+                </p>
+            </div>
+        </div>
+    </div>
+    @if (activeEvent) { @if (myEvent) {
+    <div
+        class="w-full p-6 bg-[#F7F8F8] dark:bg-[#383942] myEvent rounded-[16px]"
+    >
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <!-- <div class="">
+            <label for="">{{ "bibCode" | transloco }}</label>
+            <p>{{event?.myRegistrationEvent.bibNumber}}</p>
+          </div>
+          <div class="" *ngIf="isPrice">
+            <label for="">{{ "bibCost" | transloco }}</label>
+            <p>{{ event?.myRegistrationEvent.bibCodeAmount| numberFormat }}
+            {{ "SUM" | transloco }}</p>
+          </div> -->
+            @if (isPrice) {
+            <div class="">
+                <label for="">{{ "singleEvent" | transloco }}</label>
+                <p>
+                    {{ event?.myRegistrationEvent.eventAmount | numberFormat
+                    }}{{ "SUM" | transloco }}
+                </p>
+            </div>
+            }
+            <div class="">
+                <label for="">{{ "payedDate" | transloco }}</label>
+                <p>
+                    {{
+                        event?.myRegistrationEvent.payedDateTime
+                            | date : "medium"
+                    }}
+                </p>
+            </div>
+        </div>
+        @if ((status == 5 || status == 3) && event.status==0) {
+        <div
+            class="w-full sm:flex justify-between items-center bg-white dark:bg-[#25262c] p-4 rounded-[12px]"
+        >
+            <div
+                class="flex gap-2 items-center w-[300px] text-[#707587] sm:mb-0 mb-4"
+            >
+                <i
+                    class="pi pi-info-circle text-[#707587] text-[22px] font-medium"
+                ></i>
+                <p>{{ message | transloco }}</p>
+            </div>
+            <div class="relative">
+                @if (btnDisable) {
+                <div
+                    class="w-full absolute top-0 left-0 h-full bg-white bg-opacity-50"
+                ></div>
+                }
+                <button
+                    class="border border-[#D8DADF] dark:border-[#383942] flex items-center bg-white dark:bg-[#25262c] text-[#67BD50] font-bold sm:w-fit w-full p-4 rounded-[10px]"
+                    [disabled]="btnDisable"
+                    (click)="controlBTN()"
+                >
+                    @if (isPrice) {
+                    <i class="pi pi-file mr-1 text-[#67BD50]"></i>
+                    } @else {
+                    <mat-icon svgIcon="logoutNav" class="mr-1"></mat-icon>
+                    }
+                    {{ btnString | transloco }}
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+    } @else {
+    <div
+        class="flex font-semibold md:text-2xl sm:px-4 px-2 bg-[#55A93E] text-white rounded-[12px] text-[16px] allDivCarusel items-center py-2 cursor-pointer justify-between"
+        (click)="gotoSignIn(activeEvent)"
+    >
+        <div class="flex sm:flex-row flex-col sm:gap-3 sm:items-center">
+            <mat-icon svgIcon="runLanding" class="text-white"></mat-icon>
+            <p class="w-[60px]">
+                {{ activeEvent?.raceDistance }}
+                {{ "km" | transloco }}
+            </p>
+        </div>
+        <div
+            class="flex sm:flex-row flex-col sm:gap-3 sm:items-center userLanding"
+        >
+            <mat-icon svgIcon="userLanding" class="text-white"></mat-icon>
+
+            <p class="w-[45px]">{{ activeEvent?.participants }}</p>
+        </div>
+        <div class="flex sm:flex-row flex-col sm:gap-3 sm:items-center">
+            <mat-icon svgIcon="moneyLanding" class="text-white"></mat-icon>
+
+            <p class="">
+                {{ activeEvent.packets[0]?.packetAmount ?? 0 | numberFormat }}
+                <span>{{ "SUM" | transloco }}</span>
+            </p>
+        </div>
+    </div>
+    } } @else { @if (event.status==0) {
+    <app-eventsLoop
+        [isUsedDetails]="true"
+        styleClass="bg-[#55a93e] py-2 text-white"
+        [openBibSelect]="true"
+        [eventBox]="event"
+    ></app-eventsLoop>
+    } }
+</div>

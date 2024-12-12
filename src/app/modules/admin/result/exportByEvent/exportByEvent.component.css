@@ -1,0 +1,4 @@
+:host ::ng-deep .p-confirm-dialog-accept
+{
+    background:#0098da !important;
+}

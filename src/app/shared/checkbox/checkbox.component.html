@@ -1,0 +1,41 @@
+@if (selectOne) {
+  <div
+    [style.width.px]="width"
+    [style.height.px]="height"
+    [style.borderRadius.px]="borderRadius"
+    [style.borderWidth.px]="border"
+    [style.borderColor]="borderColor"
+    class="cursor-pointer flex items-center justify-center select-none"
+    [ngClass]="{ green: show }"
+    (click)="changeState()"
+    >
+    @if (show) {
+      <i class="pi pi-check text-[12px] text-white"></i>
+    }
+  </div>
+} @else {
+  <div class="flex gap-[10px] mb-[8px]">
+    <div
+      class="cursor-pointer flex items-center rounded-[8px] w-[28px] h-[28px] caruselBg border-[2px] border-[#C1C1C1] justify-center select-none"
+      [ngClass]="{ green: show }"
+      (click)="changeState()"
+      >
+      @if (show) {
+        <i class="pi pi-check text-white"></i>
+      }
+    </div>
+    <p class="infoTitle">{{ 'isNotAdult' | transloco }}</p>
+  </div>
+  <div class="flex gap-[10px]">
+    <div
+      class="cursor-pointer flex items-center rounded-[8px] w-[28px] h-[28px] caruselBg border-[2px] border-[#C1C1C1] justify-center select-none"
+      [ngClass]="{ green: !show }"
+      (click)="changeState()"
+      >
+      @if (!show) {
+        <i class="pi pi-check text-white"></i>
+      }
+    </div>
+    <p class="infoTitle">{{ "foreignCitizen" | transloco }}</p>
+  </div>
+}

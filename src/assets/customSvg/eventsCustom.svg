@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37" height="37" viewBox="0 0 37 37">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Прямоугольник_114" data-name="Прямоугольник 114" width="37" height="37" transform="translate(40.886 322.191)" fill="#fff" stroke="#fff" stroke-width="0.5"/>
+    </clipPath>
+  </defs>
+  <g id="Сгруппировать_91" data-name="Сгруппировать 91" transform="translate(-40.886 -322.191)" clip-path="url(#clip-path)">
+    <path id="Контур_454" data-name="Контур 454" d="M52.2,358.236l6.023-4.517a.354.354,0,0,1,.43,0l6.023,4.517a3.946,3.946,0,0,0,6.31-3.155V332.852a4.667,4.667,0,0,0-4.661-4.661H50.547a4.667,4.667,0,0,0-4.661,4.661v22.229a3.944,3.944,0,0,0,6.31,3.155Zm-4.159-25.384a2.513,2.513,0,0,1,2.51-2.509H66.322a2.513,2.513,0,0,1,2.51,2.509v22.229a1.792,1.792,0,0,1-2.868,1.434L59.94,352a2.522,2.522,0,0,0-3.012,0l-6.023,4.516a1.793,1.793,0,0,1-2.868-1.434Z"  stroke="currentColor" stroke-width="0.5"/>
+    <path id="Контур_455" data-name="Контур 455" d="M54.132,337.513h8.6a1.076,1.076,0,0,0,0-2.151h-8.6a1.076,1.076,0,0,0,0,2.151Z" fill="#fff" stroke="#fff" stroke-width="0.5"/>
+  </g>
+</svg>

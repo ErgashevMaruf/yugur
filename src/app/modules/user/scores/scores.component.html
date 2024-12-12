@@ -1,0 +1,116 @@
+<div class="w-full">
+    <div class="w-full flex sm:flex-row flex-col justify-between mb-4">
+        <h3 class="headingPage">{{ "nav.score" | transloco }}</h3>
+        @if(result) {
+        <p-dropdown
+            [options]="events"
+            [(ngModel)]="selectedEvent"
+            optionValue="eventId"
+            styleClass="sm:w-[250px] w-full bg-transparent"
+            (onChange)="loadEventResult($event.value)"
+        >
+            <ng-template let-selected pTemplate="selectedItem">
+                {{ selected | appTranslateAsync : "eventBoxName" | async }}
+            </ng-template>
+            <ng-template let-event pTemplate="item">
+                {{ event | appTranslateAsync : "eventBoxName" | async }}
+            </ng-template>
+        </p-dropdown>
+        }
+    </div>
+    @if (result) {
+    <div class="w-full grid cs:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+        <app-circle
+            [startedUser]="result.startAthletesCount"
+            [finishedUser]="result.finishAthletesCount"
+            [alluser]="result.totalAthletesCount"
+        ></app-circle>
+        @for(x of result.athletesRankings; track $index; let odd=$odd, let
+        even=$even) {
+        <div class="w-full min-w-[280px]">
+            <app-semi-circle [item]="x" [index]="$index"></app-semi-circle>
+        </div>
+        }
+    </div>
+    <p-table
+        #dt
+        (onLazyLoad)="loadUser($event)"
+        [rows]="10"
+        [paginator]="true"
+        [value]="athletes"
+        [lazy]="true"
+        [totalRecords]="totalItems"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="rounded-tl-[5px]">No</th>
+                <th>{{ "rankOverall" | transloco }}</th>
+                <th>{{ "eventName" | transloco }}</th>
+                <th>{{ "event.raceDistance" | transloco }}</th>
+                <th>{{ "bibcode" | transloco }}</th>
+                <th>{{ "CHIPTIME" | transloco }}</th>
+                <th class="rounded-tr-[5px]">
+                    {{ "checkPoints" | transloco }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+            <tr class="cursor-pointer">
+                <td>
+                    {{ rowIndex + 1 }}
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                        {{ user.rankOverall }}
+                        @if (user.rankOverall=='1') {
+                        <mat-icon svgIcon="crownLanding"></mat-icon>
+                        }
+                    </div>
+                </td>
+                <td class="py-[18px]">
+                    @if (user.myEventBox | appTranslateAsync:'eventBoxName' |
+                    async; as name) {
+
+                    <p class="w-[150px] line-clamp-1" [pTooltip]="name">
+                        {{ name }}
+                    </p>
+                    }
+                </td>
+                <td>
+                    {{
+                        user.myEventBox
+                            | appTranslateAsync : "raceDistance"
+                            | async
+                    }}
+                </td>
+                <td>{{ user.bibCode }}</td>
+                <td>{{ user.chipTime }}</td>
+                <td>
+                    <i
+                        class="iconSize pi pi-eye text-[18px] cursor-pointer font-medium"
+                        (click)="seeCheckPoint(user.checkPoints)"
+                    ></i>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    } @else {
+    <div
+        class="w-full heightCalculate flex flex-col gap-6 items-center justify-center"
+    >
+        <img src="./assets/result.png" class="w-[56px] h-[56px]" alt="" />
+        <p
+            class="w-[180px] text-[#8E92A2] font-semibold text-[20px] text-center"
+        >
+            {{ "ResultNotFound" | transloco }}
+        </p>
+        <button
+            class="h-[44px] flex items-center justify-center gap-2 bg-[#67BD50] text-white rounded-[10px] w-[170px]"
+            [routerLink]="['/events']"
+        >
+            <span class="text-[25px] font-bold">+</span>
+            <span class="font-bold">{{ "join.us" | transloco }}</span>
+        </button>
+    </div>
+    }
+</div>

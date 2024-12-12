@@ -1,0 +1,16 @@
+<div class="w-full flex flex-col gap-6">
+    <app-input-forms
+        [inputFormsData]="formsData"
+        [groupName]="signUpService.access"
+    ></app-input-forms>
+    <button
+        class="w-full rounded-[10px] bg-[#67BD50] disabled:bg-[#D8DADF] text-white font-bold h-[44px]"
+        (click)="signUpService.save()"
+        [disabled]="signUpService.access.invalid"
+    >
+        {{ "register.now" | transloco }}
+    </button>
+    <div class="flex gap-[20px] w-full">
+        <app-checkPassword [form]="signUpService.access"></app-checkPassword>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+:host {
+    font-family: "Montserrat";
+}
+.searchTable {
+    background: white;
+    border: 1px solid #02a3d3;
+    border-radius: 7px;
+}
+.searchTable input {
+    padding-top: 14px;
+    padding-left: 10px;
+    font-size: 13px;
+}
+.searchTable input::placeholder {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333;
+}
+.gridCols6 {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr 0.5fr 0.2fr;
+}
+p {
+    /* text-align:center; */
+}
+.mainP {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-header {
+    border-bottom: 0 !important;
+    border-top: 0 !important;
+}
+:host ::ng-deep .p-datatable .p-paginator-bottom
+{
+    margin-top: 0px;
+}
+.justifyBetween{
+    justify-content: space-between;
+}

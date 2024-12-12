@@ -1,0 +1,27 @@
+label {
+    color: #707587;
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+p,
+input {
+    color: #25262c;
+    font-weight: 600;
+}
+input::placeholder {
+    color: #25262c;
+}
+svg {
+    stroke: #8e92a2 !important;
+}
+.dark {
+    :host ::ng-deep {
+        label {
+            color: #b6b9c3 !important;
+        }
+        p {
+            color: white;
+        }
+    }
+}

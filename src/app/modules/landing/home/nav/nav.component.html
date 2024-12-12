@@ -1,0 +1,117 @@
+<div
+    class="flex justify-between items-center background py-[15px] cs:px-0
+     px-4 relative w-full"
+  >
+  <div class="nav__left flex items-center">
+    <a [routerLink]="['/home']">
+      <img
+        src="./assets/images/yugurPng.png"
+        alt=""
+        class="w-[106px] h-[28px]"
+        />
+      </a>
+    </div>
+    @if (showBurgerMenu) {
+      <label class="menu">
+        <input type="checkbox" checked />
+        <div (click)="openMenu()">
+          <span></span>
+          <span></span>
+        </div>
+      </label>
+    }
+    <ul
+      class="flex-row lg:flex hidden gap-[40px] pt-[10px] items-center"
+      (click)="move($event)"
+      >
+      <li>
+        <a href="#news" class="cool-link seconDaryText hover">{{
+          "news" | transloco
+        }}</a>
+      </li>
+      <li>
+        <a href="#score" class="cool-link seconDaryText hover">{{
+          "scores" | transloco
+        }}</a>
+      </li>
+      <li>
+        <a href="#participants" class="cool-link seconDaryText hover">
+          {{ "nav.adminstatistics" | transloco }}
+        </a>
+      </li>
+      <!-- <li>
+      <a href="#organizers" class="cool-link seconDaryText hover">{{
+        "organizers" | transloco
+      }}</a>
+    </li> -->
+    <li>
+      <a href="#media" class="cool-link seconDaryText hover">{{
+        "media" | transloco
+      }}</a>
+    </li>
+  </ul>
+  @if (show) {
+    <div
+        class="flex lg:flex-row flex-col-reverse
+        nav justify-between bg-white dark:bg-[#25262c] lg:relative absolute lg:p-0 p-6 lg:top-1 right-0 top-[75px]"
+      @fadeInTop
+      >
+      @if (isCenterShow) {
+        <div class="nav__center lg:hidden block">
+          <ul
+            class="flex lg:flex-row flex-col gap-[40px] pt-[10px] items-center"
+            (click)="move($event)"
+            >
+            <li>
+              <a href="#news" class="cool-link seconDaryText hover">{{
+                "news" | transloco
+              }}</a>
+            </li>
+            <li>
+              <a href="#score" class="cool-link seconDaryText hover">{{
+                "scores" | transloco
+              }}</a>
+            </li>
+            <li>
+              <a
+                href="#participants"
+                class="cool-link seconDaryText hover"
+                >
+                {{ "participants" | transloco }}
+              </a>
+            </li>
+            <li>
+              <a
+                href="#organizers"
+                class="cool-link seconDaryText hover"
+                >{{ "organizers" | transloco }}</a
+                >
+              </li>
+              <li>
+                <a href="#media" class="cool-link seconDaryText hover">{{
+                  "media" | transloco
+                }}</a>
+              </li>
+            </ul>
+          </div>
+        }
+        <div class="nav__right flex items-center justify-center gap-[10px]">
+          <app-theme></app-theme>
+          <div class="flex justify-center">
+            <languages></languages>
+          </div>
+          <div
+                class="flex gap-2 p-3 items-center w-fit signIn text-[#67BD50] font-bold rounded-[10px] border
+                border-[#D8DADF] dark:border-[#41434E] cursor-pointer"
+            [routerLink]="['/sign-in']"
+            >
+            <mat-icon
+              svgIcon="userLanding"
+              class="text-[#67BD50] font-semibold"
+            ></mat-icon>
+            <p>{{ "sign_in" | transloco }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>

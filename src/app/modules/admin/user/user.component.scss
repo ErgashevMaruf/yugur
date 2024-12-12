@@ -1,0 +1,49 @@
+// :host ::ng-deep {
+//     font-family: "Montserrat";
+// }
+// th,
+// td {
+//     padding: 15px;
+// }
+// th {
+//     color: #6e62e5;
+// }
+// td {
+//     color: #000000;
+// }
+// :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+//     // background: #f2f0ff !important;
+//     font-weight: 600 !important;
+// }
+// .filterP p::after {
+//     content: "";
+//     display: block;
+//     margin-top: 5px;
+//     margin: 0 auto;
+//     width: 50%;
+//     height: 2px;
+// }
+// .select {
+//     color: #6e62e5;
+// }
+// .select::after {
+//     background: #6e62e5;
+// }
+// tr:nth-child(even) {
+//     background: #f8f7fe;
+// }
+// :host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+//     padding: 15px 1rem !important;
+// }
+// .inputSearch {
+//     width: 200px;
+//     height: 40px;
+//     border-radius: 10px;
+//     background: white;
+//     border: 1px solid #aeaeae;
+//     padding: 10px !important;
+//     font-size: 18px;
+// }
+// :host ::ng-deep .p-paginator {
+//     background: white !important;
+// }

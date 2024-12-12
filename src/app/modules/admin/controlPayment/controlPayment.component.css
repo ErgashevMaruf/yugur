@@ -1,0 +1,9 @@
+:host ::ng-deep .changeBtn .p-button
+{
+    padding: 0 !important
+}
+:host ::ng-deep .answer .p-inputtext
+{
+    padding: 0 10px !important;
+    margin: 0 !important;
+}

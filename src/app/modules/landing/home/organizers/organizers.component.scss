@@ -1,0 +1,30 @@
+label {
+    font-weight: 500;
+    color: #8e92a2;
+}
+input,
+textarea {
+    background: #f7f8f8;
+    resize: none;
+}
+input::placeholder {
+    color: #8e92a2;
+}
+.rightDiv div {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+.dark {
+    :host ::ng-deep {
+        input {
+            background: #383942 !important;
+            border: 1px solid #41434e !important;
+        }
+        textarea
+        {
+            background: #383942 !important;
+            border: 1px solid #41434e !important;
+        }
+    }
+}

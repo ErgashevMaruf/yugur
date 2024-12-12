@@ -1,0 +1,10 @@
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    background: #f2f0ff !important;
+}
+:host ::ng-deep tr:nth-child(even) {
+    background: #f8f7fe;
+}
+tr > th {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}

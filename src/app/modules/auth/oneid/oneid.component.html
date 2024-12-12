@@ -1,0 +1,170 @@
+<div class="flex flex-col flex-auto items-center sm:justify-center min-w-0">
+  <div
+    class="w-full sm:w-auto py-8 px-4 sm:p-12 sm:rounded-2xl sm:shadow sm:bg-card"
+    >
+    <div class="w-full max-w-100 sm:w-100 mx-auto sm:mx-0 text-center">
+      <!-- Logo -->
+      <!-- <div class="w-24 mx-auto">
+      <img src="assets/images/logo/logo.png" />
+    </div> -->
+
+    <mat-label>Marathon</mat-label>
+    @if (errorPINFL == '') {
+      <div>
+        <!-- Alert -->
+        <fuse-alert
+          class="mt-8"
+          [appearance]="'outline'"
+          [showIcon]="true"
+          [type]="'error'"
+          [@shake]="true"
+          >
+          Siz jismoniy shaxsning ERI kaliti bilan kirdingiz, iltimos
+          Yuridik shaxs ERI kaliti bilan kiring
+        </fuse-alert>
+        <fuse-alert
+          class="mt-8"
+          [appearance]="'outline'"
+          [showIcon]="true"
+          [type]="'error'"
+          [@shake]="true"
+          >
+          Вы вошли в систему с ЭЦП ключом физического лица,
+          пожалуйста, войдите в систему с ЭЦП ключом юридического лица
+        </fuse-alert>
+      </div>
+    }
+    <!-- Title -->
+    @if (!isLoad) {
+      <div
+        class="mt-3 text-lg font-normal tracking-tight leading-tight text-center hidden"
+        >
+        <div>
+          Здравствуйте
+          <span class="font-semibold">{{
+            fullName ?? "undefined"
+          }}</span>
+          @if (isForm) {
+            <div>Заполните этот опрос</div>
+          }
+          @if (!isForm) {
+            <div>
+              Ваш запрос на прохождение OneID принят
+              <span class="font-semibold">Admin</span> дождитесь
+              активации.
+            </div>
+          }
+        </div>
+        <div>
+          @if (isForm) {
+            <form
+              class="mt-8"
+              [formGroup]="comingSoonForm"
+              #comingSoonNgForm="ngForm"
+              >
+              <mat-form-field
+                [ngClass]="formFieldHelpers"
+                class="flex-auto gt-xs:pr-3"
+                >
+                <mat-label>Выберите учреждение</mat-label>
+                <select
+                  [formControlName]="'spInstetutionId'"
+                  id="spInstetutionId"
+                  matNativeControl
+                  >
+                  @for (item of SpInstitution; track item) {
+                    <option
+                      [value]="item.value"
+                      >
+                      {{ item.label }}
+                    </option>
+                  }
+                </select>
+                <mat-icon
+                  class="icon-size-5"
+                  matPrefix
+                  [svgIcon]="'heroicons_outline:office-building'"
+                  >
+                </mat-icon>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="formFieldHelpers"
+                class="fuse-mat-textarea flex-auto"
+                >
+                <mat-label>Краткая информация о себе</mat-label>
+                <textarea
+                  [formControlName]="'comment'"
+                  id="comment"
+                  matInput
+                  matTextareaAutosize
+                ></textarea>
+              </mat-form-field>
+              <!-- Email field -->
+              <!-- <mat-form-field class="w-full">
+              <mat-label>Номер телефона, который уведомит вас</mat-label>
+              <input  [placeholder]="'+99xxxxxxxxxx'" id="phone" matInput [formControlName]="'phone'" #postalCode />
+              <mat-hint align="end">{{postalCode.value.length}} / 13</mat-hint>
+                          <mat-error *ngIf="
+                          comingSoonForm.get('phone').hasError('required')
+                      ">
+                Укажите номер телефона.
+              </mat-error>
+                          <mat-error *ngIf="
+                          comingSoonForm.get('phone').hasError('phone')
+                      ">
+                Пожалуйста, введите действующий телефонный номер
+              </mat-error>
+            </mat-form-field> -->
+            <!-- Submit button -->
+            <button
+              class="fuse-mat-button-large w-full mt-3"
+              mat-flat-button
+              type="button"
+              (click)="onSubmit()"
+              [color]="'primary'"
+              [disabled]="comingSoonForm.status == 'INVALID'"
+              >
+              @if (!comingSoonForm.disabled) {
+                <span>
+                  Уведомлять меня при запуске
+                </span>
+              }
+              @if (comingSoonForm.disabled) {
+                <mat-progress-spinner
+                  [diameter]="24"
+                  [mode]="'indeterminate'"
+                ></mat-progress-spinner>
+              }
+            </button>
+          </form>
+        }
+        <!-- Form footer -->
+        <div class="mt-8 text-md font-medium text-secondary">
+          <br />
+          Контактная информация <br />
+          <div class="flex items-center mt-2">
+            <mat-icon
+              class="icon-size-4 mr-3"
+              [svgIcon]="'heroicons_outline:mail'"
+            ></mat-icon>
+            <span class="leading-none">
+              xamidboyev96&#64;gmail.com
+            </span>
+            <mat-icon
+              class="icon-size-4 mx-3"
+              [svgIcon]="'heroicons_outline:phone'"
+            ></mat-icon>
+            <span class="leading-none"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="grid justify-items-center mt-4">
+      <p-progressSpinner></p-progressSpinner>
+      <mat-label>Текширилмоқда</mat-label>
+    </div>
+  }
+</div>
+</div>
+</div>

@@ -1,0 +1,27 @@
+<div class="w-full  sm:p-[30px] p-[10px]">
+  @if (events?.length !== 0) {
+    <h3 class="md:text-[25px] text-[18px] font-bold md:mb-[30px] mb-[10px]">
+      {{ "addedUser" | transloco }}
+    </h3>
+    <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[20px]">
+      @for (event of events; track event) {
+        <div class="rounded-[10px]">
+          <app-carusel [event]="event"
+            [isCircle]="false"
+            [eventType]="6"
+          ></app-carusel>
+        </div>
+      }
+    </div>
+  } @else {
+    @if (!resultExist) {
+      <div
+        class="w-full h-full flex items-center justify-center"
+        >
+        <p class="md:text-4xl text-xl font-bold greenText">
+          {{ "no.info.your.result" | transloco }}
+        </p>
+      </div>
+    }
+  }
+</div>

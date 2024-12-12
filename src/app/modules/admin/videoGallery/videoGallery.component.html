@@ -1,0 +1,81 @@
+<div class="w-full p-[30px]" [formGroup]="galleryForm">
+  <div class="w-full">
+    <p class="text-[25px] font-semibold py-[10px]">
+      {{ "videoGallery" | transloco }}
+    </p>
+  </div>
+  <div [contentEditable]="true">
+
+  </div>
+  <div class="flex gap-3 flex-wrap">
+    @for (
+      x of galleryForm.get('galleryArr')['controls']; track
+      x; let i = $index) {
+      <div
+        formArrayName="galleryArr"
+        >
+        <div>
+          <div
+            [formGroupName]="i"
+            class="container dark:bg-[#535353] relative"
+            >
+            @if (i > 5) {
+              <div
+                class="w-full flex justify-end absolute top-[18px] right-[25px]"
+                >
+                <i
+                  class="pi pi-trash text-red-600 cursor-pointer"
+                  (click)="deleteVideo(x.value['id'], i)"
+                ></i>
+              </div>
+            }
+            <label for="title" class="font-semibold text-[16px]">{{
+              "navigation.title" | transloco
+            }}</label>
+            <input
+              type="text"
+              id="title"
+              class="h-[40px] p-[10px] font-semibold mb-[10px] w-full rounded-[10px] border-[#f2f2f2] border"
+              formControlName="title"
+              />
+              <label for="youtubeUrl" class="font-semibold text-[16px]">{{
+                "youtubeUrl" | transloco
+              }}</label>
+              <div
+                class="w-full"
+                        [ngClass]="
+                            x.value['id'] ? 'flex gap-2 items-center' : ''
+                        "
+                >
+                <input
+                  type="text"
+                  id="youtubeUrl"
+                  class="h-[40px] p-[10px] font-semibold mb-[10px] w-full rounded-[10px] border-[#f2f2f2] border"
+                  formControlName="description"
+                  />
+                  @if (x.value['id']) {
+                    <i
+                      class="pi pi-youtube text-red-500 text-[30px] cursor-pointer"
+                      (click)="openVideo(x.value['description'])"
+                    ></i>
+                  }
+                </div>
+                <button
+                  class="bg-[#0071FF] w-full py-[15px] rounded-[15px] text-white disabled:bg-[#aeaeae]"
+                  (click)="saveVideo(x)"
+                  [disabled]="x.invalid"
+                  >
+                  {{ "uploadServer" | transloco }}
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+        <div
+          class="container flex items-center justify-center dark:bg-[#535353]"
+          (click)="addForm()"
+          >
+          <i class="pi pi-plus font-bold text-[80px] cursor-pointer"></i>
+        </div>
+      </div>
+    </div>

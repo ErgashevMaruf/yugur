@@ -1,0 +1,52 @@
+<div class="p-[20px] bg-white rounded-[10px]" [formGroup]="createAdvertising">
+    <div class="w-full flex items-center relative gap-[30px] mb-[20px]">
+        <div class="absolute right-4">
+            <p-checkbox
+                formControlName="advertisingStatus"
+                [binary]="true"
+                inputId="binary"
+            />
+        </div>
+        <div>
+            <label for="name">{{ "navigation.title" | transloco }}*</label>
+            <input
+                id="name"
+                type="text"
+                class="input"
+                placeholder="{{ 'navigation.title' | transloco }}"
+                formControlName="titleInfo"
+            />
+        </div>
+        <div>
+            <label for="description">{{ "PHOTO" | transloco }}*</label>
+            <div class="input">
+                <input
+                    id="description"
+                    type="file"
+                    class="opacity-0"
+                    placeholder="{{ 'uploadPhoto' | transloco }}"
+                    (change)="uploadImg($event)"
+                />
+            </div>
+        </div>
+    </div>
+    @if (imgBase64) {
+    <img [src]="imgBase64" alt="" class="w-[350px] h-[400px]" />
+    }
+    <div class="w-full flex justify-end gap-[20px] p-[30px] pt-0">
+        <button
+            class="w-[150px] h-[40px] bg-red-600 text-white rounded-[10px] flex items-center justify-center"
+            (click)="delete()"
+        >
+            {{ "DELETE" | transloco }}
+        </button>
+        <button
+            class="w-[150px] h-[40px] bg-green-600 disabled:bg-[#aeaeae] text-white rounded-[10px] flex items-center justify-center"
+            [disabled]="createAdvertising.invalid"
+            (click)="saveAndUpdate()"
+        >
+            {{ "SAVE" | transloco }}
+        </button>
+    </div>
+</div>
+

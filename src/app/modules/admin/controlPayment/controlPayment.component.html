@@ -1,0 +1,160 @@
+<div class="p-[30px] w-full">
+  <p-table
+    #dt
+    (onLazyLoad)="loadPayment($event)"
+    [lazy]="true"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="totalItems"
+    [value]="applications"
+    [tableStyle]="{ 'min-width': '70rem' }"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+    <ng-template pTemplate="caption">
+      <div class="flex justify-between gap-2 items-center">
+        <div class="flex gap-3">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              [(ngModel)]="athletesId"
+              pInputText
+              type="text"
+                            (input)="
+                                dt.filter($event.target.value, 'AthletesId')
+                            "
+              [placeholder]="'athletesId' | transloco"
+              />
+          </span>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              [(ngModel)]="orderId"
+              pInputText
+              type="text"
+              (input)="dt.filter($event.target.value, 'OrderId')"
+              [placeholder]="'orderId' | transloco"
+              />
+          </span>
+
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              [(ngModel)]="name"
+              pInputText
+              type="text"
+              (input)="dt.filter($event.target.value, 'Name')"
+              [placeholder]="'name' | transloco"
+              />
+          </span>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="surname"
+              (input)="dt.filter($event.target.value, 'Surname')"
+              [placeholder]="'surname' | transloco"
+              />
+          </span>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="patronymic"
+                            (input)="
+                                dt.filter($event.target.value, 'Patronymic')
+                            "
+              [placeholder]="'patronymic' | transloco"
+              />
+          </span>
+        </div>
+        <p-button
+          label="Clear"
+          styleClass="p-[10px]"
+          [outlined]="true"
+          icon="pi pi-filter-slash"
+          (click)="clear(dt)"
+          />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr class="bg-[#0098DA]">
+        <th class="rounded-tl-[10px]" style="width: 5%">No</th>
+        <th style="width: 20%">{{ "fullName" | transloco }}</th>
+        <th style="width: 10%">{{ "UserId" | transloco }}</th>
+        <th style="width: 20%">{{ "orderId" | transloco }}</th>
+        <th style="width: 20%">{{ "text" | transloco }}</th>
+        <th style="width: 5%">{{ "sp.status" | transloco }}</th>
+        <th style="width: 10%">{{ "action" | transloco }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-application let-rowIndex="rowIndex">
+      <tr class="cursor-pointer">
+        <td>
+          {{ rowIndex + 1 }}
+        </td>
+        <td>{{ application | fullName }}</td>
+        <td>{{ application.athletesId }}</td>
+        <td>{{ application.orderId }}</td>
+        <td>
+          @if (isEditById !== application.id) {
+            <p>
+              {{ application.text }}
+            </p>
+          }
+          @if (isEditById == application.id) {
+            <div
+              class="flex gap-1 answer changeBtn"
+              >
+              <input
+                [(ngModel)]="comment"
+                [@shake]="isError"
+                            [placeholder]="
+                                (isAccept
+                                    ? 'writeCommentAccept'
+                                    : 'writeCommentReject'
+                                ) | transloco
+                            "
+                pInputText
+                type="text"
+                />
+              <p-button
+                styleClass="bg-blue-500"
+                [disabled]="!comment"
+                icon="pi pi-verified"
+                (onClick)="sendMessage(application)"
+              ></p-button>
+            </div>
+          }
+        </td>
+        <td>
+          <p
+            class="font-medium text-white rounded-[5px]"
+            [ngClass]="statusMap.get(application.repaymentStatus).class"
+          >{{statusMap.get(application.repaymentStatus).text | transloco}}</p>
+        </td>
+        <td style="width: 5%" class="changeBtn">
+          <p-button
+            class="mr-1"
+            [outlined]="true"
+            icon="pi pi-check-circle"
+                        (onClick)="
+                            isEditById=application.id; isAccept = true
+                        "
+            [disabled]="application.repaymentStatus !== 0"
+          ></p-button>
+          <p-button
+            styleClass="bg-red-600"
+            icon="pi pi-times-circle"
+            [disabled]="application.repaymentStatus !== 0"
+                        (onClick)="
+                            isEditById=application.id; isAccept = false
+                        "
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

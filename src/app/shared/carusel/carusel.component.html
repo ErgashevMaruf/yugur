@@ -1,0 +1,41 @@
+<div class="w-full" (click)="controlAllBtn()">
+  <img
+    [src]="url + event.imageFileId"
+    [alt]="event.nameUZ"
+        class="shadow-2 sm:h-[190px] h-[245px]  w-full rounded-t-[16px] border object-cover ][border-[#EDEDF1]
+        dark:border-[#383942]
+        "
+    />
+    <div class="p-4 bg-[#F7F8F8] dark:bg-[#383942] rounded-b-[16px]">
+      <h3 class="text-[#25262C] line-clamp-1 dark:text-white text-[16px] h-[48px] mb-4 font-semibold">
+        {{ event | appTranslateAsync:'name'|async }}
+      </h3>
+      <div class="flex flex-col gap-3">
+        <div class="flex gap-3 items-center">
+          <mat-icon
+            svgIcon="calendarLanding"
+            class="text-[#0CAEEB] text-[14px]"
+          ></mat-icon>
+          <p class="font-medium text-[#5B5F6E] dark:text-[#B6B9C3]">
+            {{ event.eventDate | date }}
+          </p>
+        </div>
+        <div class="flex gap-3 items-center">
+          <mat-icon
+            svgIcon="locationLanding"
+            class="text-[#FF3A3C] text-[14px]"
+          ></mat-icon>
+          <div class="flex">
+            @if (event | appTranslateAsync:'address' | async; as address) {
+                <p
+              class="font-medium text-[#5B5F6E] line-clamp-1 dark:text-[#B6B9C3]"
+              [pTooltip]="address"
+              >
+              {{address}}
+            </p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

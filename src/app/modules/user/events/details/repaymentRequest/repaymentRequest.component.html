@@ -1,0 +1,33 @@
+<div class="p-9 flex flex-col gap-6 bg-white">
+    <div class="w-full flex justify-between">
+        <h3>{{ "sendRequest" | transloco }}</h3>
+        <div
+            class="w-10 h-10 flex items-center justify-center cursor-pointer bg-[#F7F8F8] rounded-full"
+            (click)="closeDialog()"
+        >
+            <i class="pi-times pi text-[#707587]"></i>
+        </div>
+    </div>
+    <hr class="w-full h-[1px] bg-[#EDEDF1] m-0" />
+    <div>
+        <label class="text-[#8E92A2] mb-1 inline-block" for="">{{
+            "Ваш собшения" | transloco
+        }}</label>
+        <textarea
+            class="w-full h-[96px] p-2 resize-none bg-[#F7F8F8] rounded-[10px]"
+            name=""
+            id=""
+            [(ngModel)]="text"
+        >
+        </textarea>
+    </div>
+    <div class="w-full flex justify-end">
+        <button
+            class="text-white disabled:bg-[#aeaeae] bg-[#67BD50] font-bold px-4 py-3 rounded-[10px]"
+            [disabled]="!text"
+            (click)="sendRequest()"
+            >
+            {{ "send.to" | transloco }}
+        </button>
+    </div>
+</div>

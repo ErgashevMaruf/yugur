@@ -1,0 +1,60 @@
+<div class="w-full max-w-7xl mx-auto p-[30px]">
+    @if (show) {
+    <div class="mb-[20px] bg-white p-[10px]">
+        <div class="w-full flex justify-end">
+            <mat-icon
+                class="text-red-600 text-[25px] cursor-pointer"
+                (click)="openForm(false)"
+                >cancel</mat-icon
+            >
+        </div>
+        <app-advertisingform
+            [advertising]="adv"
+            (advertisingState)="updateList($event)"
+        ></app-advertisingform>
+    </div>
+    } @if (!show) {
+    <div class="w-full flex justify-end mb-[10px]">
+        <button
+            class="px-[30px] py-[10px] bg-green-600 text-white rounded-[10px]"
+            (click)="openForm(true)"
+        >
+            {{ "create.user" | transloco }}
+        </button>
+    </div>
+    } @if (!show) {
+    <p-table
+        [value]="advertisings"
+        (onLazyLoad)="loadAdvertising($event)"
+        [lazy]="true"
+        [rows]="10"
+        [paginator]="true"
+        [tableStyle]="{ 'min-width': '60rem' }"
+        [rowsPerPageOptions]="[5, 10, 25]"
+        [totalRecords]="totalItems"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>No</th>
+                <th>
+                    {{ "navigation.title" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 20%">
+                    {{ "sp.status" | transloco }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-advertising let-rowIndex="rowIndex">
+            <tr class="cursor-pointer" (click)="openEdit(advertising)">
+                <td>
+                    {{ rowIndex + 1 }}
+                </td>
+                <td>{{ advertising.titleInfo }}</td>
+                <td>{{ advertising.advertisingStatus }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    }
+</div>

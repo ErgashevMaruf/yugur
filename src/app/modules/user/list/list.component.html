@@ -1,0 +1,71 @@
+<div class="w-full">
+  <div
+    class="w-full flex sm:flex-row flex-col gap-2 justify-between sm:mb-6 mb-4"
+    >
+    <h3 class="headingPage mb-0">
+      {{ (active == 0 ? "coming.events" : "my.events") | transloco }}
+    </h3>
+    <div
+      class="sm:w-[400px] w-full p-1 h-full bg-[#F7F8F8] dark:bg-[#383942] flex rounded-xl relative"
+      >
+      <div
+        class="sm:w-[200px] w-1/2 h-[44px] bg-white dark:bg-[#25262c] border dark:border-[#41434E] slidingDiv border-[#D8DADF] rounded-[10px] absolute top-1 left-1"
+                [ngClass]="{
+                    'move-right': active == 1
+                }"
+      ></div>
+      <button
+        class="h-[44px] rounded-[10px] z-10 relative sm:w-[200px] w-full font-bold notActive bg-transparent"
+                [ngClass]="{
+                    'text-[#383942] dark:text-white': active == 0
+                }"
+        (click)="active = 0; change(0)"
+        >
+        {{ "new.events" | transloco }}
+      </button>
+      <button
+        class="h-[44px] rounded-[10px] sm:w-[200px] w-full font-bold notActive relative z-10"
+                [ngClass]="{
+                    'text-[#383942] dark:text-white': active == 1
+                }"
+        (click)="active = 1; change(1)"
+        >
+        {{ "my.events" | transloco }}
+      </button>
+    </div>
+  </div>
+  @if (events) {
+    <div
+      class="grid cs:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6"
+      [ngClass]="{ 'min-h-screen grid-rows-3': existEventMore }"
+      >
+      @for (event of events; track event) {
+        <div>
+          <app-carusel
+            [eventType]="isMyEvent ? 1 : 2"
+            [isCircle]="false"
+            [event]="event"
+          ></app-carusel>
+        </div>
+      }
+    </div>
+  }
+  <div #placeholder></div>
+  @if (events.length==0) {
+    <div class="w-full md:h-[600px] h-[400px] flex flex-col items-center gap-6 justify-center"
+      >
+      <app-activeEventNotFound></app-activeEventNotFound>
+      @if (active==1) {
+        <div class="w-full heightCalculate flex flex-col gap-6 items-center justify-center"
+          >
+          <button class="h-[44px] flex items-center justify-center gap-2 bg-[#67BD50] text-white rounded-[10px] w-[170px]"
+            (click)="change(0)"
+            >
+            <span class="text-[25px] font-bold">+</span>
+            <span class="font-bold">{{'join.us' | transloco}}</span>
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

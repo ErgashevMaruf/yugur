@@ -1,0 +1,420 @@
+@if (isReadyForm) {
+<div class="h-screen flex items-center">
+    <div
+        class="w-[600px] mx-auto bg-main rounded-[32px] p-9 h-[90%] overflow-y-auto flex flex-col gap-6"
+    >
+        <div class="flex w-full justify-between items-center">
+            <p class="text-grey950toWhite text-[32px] font-[800]">
+                {{ "create.user" | transloco }}
+            </p>
+            @if (user.imageFileGuid) {
+            <div class="">
+                <p-image
+                    [src]="url + user.imageFileGuid"
+                    alt="Image"
+                    styleClass="w-[100px]"
+                    [preview]="true"
+                />
+            </div>
+            }
+        </div>
+        <hr class="w-full h-[1px] border border-grey100To800" />
+        <div
+            class="w-full p-1 bg-[#F7F8F8] dark:bg-[#383942] flex rounded-xl relative"
+        >
+            <div
+                class="w-[33%] h-[88%] bg-white dark:bg-[#25262c] border dark:border-[#41434E] ease-in-out transition-[0.5s] border-[#D8DADF] rounded-[10px] absolute top-1 left4"
+                [ngClass]="{
+                        'translate-x-[100%]': active == 'passport',
+                        'translate-x-[200%] left-0': active == 'foreign',
+                    }"
+            ></div>
+            <button
+                class="min-h-[44px] max-h-[110px] rounded-[10px] z-10 relative w-full px-2 font-bold break-words notActive bg-transparent"
+                [ngClass]="{
+                    'text-[#383942] dark:text-white': active == 'gsp'
+                }"
+                (click)="changeTab('gsp')"
+            >
+                {{ "gsp" | transloco }}
+            </button>
+            <button
+                class="min-h-[44px] rounded-[10px] px-2 max-h-[110px] z-10 relative w-full font-bold notActive bg-transparent"
+                [ngClass]="{
+                    'text-[#383942] dark:text-white': active == 'passport'
+                }"
+                (click)="changeTab('passport')"
+            >
+                {{ "age16" | transloco }}
+            </button>
+            <button
+                class="min-h-[44px] rounded-[10px] px-2 max-h-[100px] w-full font-bold notActive relative z-10"
+                [ngClass]="{
+                    'text-[#383942] dark:text-white': active == 'foreign'
+                }"
+                (click)="changeTab('foreign', true)"
+            >
+                {{ "foreignPersonality" | transloco }}
+            </button>
+        </div>
+        <div class="" [formGroup]="createUser" class="flex flex-col gap-6">
+            <div class="w-full grid grid-cols-2 gap-4 items-end">
+                @if (isFromGCP) {
+                <p-iconField iconPosition="right" styleClass="w-full">
+                    <label> {{ "passportSeria" | transloco }}</label>
+                    <p-inputIcon>
+                        <div class="mt-[15px]">
+                            <mat-icon
+                                class="text-[#8E92A2]"
+                                svgIcon="passportCustom"
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        formControlName="passportSeria"
+                        [inputTransformFn]="inputTransformFn"
+                        [outputTransformFn]="outputTransformFn"
+                        mask="AA"
+                    />
+                </p-iconField>
+                <p-iconField iconPosition="right">
+                    <label> {{ "passportNumber" | transloco }}</label>
+                    <p-inputIcon>
+                        <div class="mt-[16px]">
+                            <mat-icon
+                                class="text-[#8E92A2]"
+                                svgIcon="passportCustom"
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        formControlName="passportNumber"
+                        mask="000 00 00"
+                    />
+                </p-iconField>
+                } @else {
+                <p-iconField iconPosition="right" styleClass="w-full">
+                    <label> {{ "name" | transloco }}</label>
+                    <p-inputIcon>
+                        <div class="mt-[15px]">
+                            <mat-icon
+                                class="text-[#8E92A2]"
+                                svgIcon="userLanding"
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <input pInputText formControlName="name" />
+                </p-iconField>
+                <p-iconField iconPosition="right">
+                    <label> {{ "surname" | transloco }}</label>
+                    <p-inputIcon>
+                        <div class="mt-[16px]">
+                            <mat-icon
+                                class="text-[#8E92A2]"
+                                svgIcon="userLanding"
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <input pInputText formControlName="surname" />
+                </p-iconField>
+                }
+            </div>
+            @if (!isFromGCP) {
+            <p-iconField iconPosition="right">
+                <label> {{ "patronymic" | transloco }}</label>
+                <p-inputIcon>
+                    <div class="mt-[16px]">
+                        <mat-icon
+                            class="text-[#8E92A2]"
+                            svgIcon="userLanding"
+                        ></mat-icon>
+                    </div>
+                </p-inputIcon>
+                <input pInputText formControlName="patronymic" />
+            </p-iconField>
+            @if (isForeign) {
+            <div>
+                <label for="country">{{ "countryinfo" | transloco }}</label>
+                <p-dropdown
+                    appendTo="body"
+                    [options]="countries.slice(1)"
+                    optionValue="value"
+                    styleClass="w-full"
+                    optionLabel="label"
+                    formControlName="spCountryId"
+                    [placeholder]="'CHOOSE' | transloco"
+                ></p-dropdown>
+            </div>
+            } @else {
+            <div class="grid grid-cols-2 gap-4">
+                <div class="w-full">
+                    <label for="region">{{ "eventRegion" | transloco }}</label>
+                    <p-dropdown
+                        appendTo="body"
+                        [options]="spService.GetRegion.slice(1)"
+                        styleClass="w-full"
+                        optionValue="value"
+                        optionLabel="label"
+                        formControlName="spRegionId"
+                        [placeholder]="'CHOOSE' | transloco"
+                        (onChange)="changeDistrict($event)"
+                    ></p-dropdown>
+                </div>
+                <div class="w-full">
+                    <label for="distric">{{ "eventCity" | transloco }}</label>
+                    <p-dropdown
+                        appendTo="body"
+                        [options]="district"
+                        styleClass="w-full"
+                        optionValue="value"
+                        optionLabel="label"
+                        formControlName="spDistrictId"
+                        [placeholder]="'CHOOSE' | transloco"
+                    ></p-dropdown>
+                </div>
+            </div>
+            <p-iconField iconPosition="right" styleClass="w-full">
+                <label> {{ "Address" | transloco }}</label>
+                <p-inputIcon>
+                    <div class="mt-[15px]">
+                        <mat-icon
+                            class="text-[#8E92A2]"
+                            svgIcon="locationFooter"
+                        ></mat-icon>
+                    </div>
+                </p-inputIcon>
+                <input pInputText formControlName="address" />
+            </p-iconField>
+            } }
+            <div
+                class="w-full"
+                [ngClass]="{ 'flex items-center gap-6': !isFromGCP }"
+            >
+                <p-iconField iconPosition="right" styleClass="w-full">
+                    <label> {{ "birthday.date" | transloco }}</label>
+                    <p-inputIcon>
+                        <div class="mt-[15px]">
+                            <mat-icon
+                                class="text-[#8E92A2]"
+                                svgIcon="signCalendar"
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <p-calendar
+                        appendTo="body"
+                        formControlName="birthDate"
+                        dataType="string"
+                        dateFormat="dd.mm.yy"
+                    ></p-calendar>
+                </p-iconField>
+                @if (!isFromGCP) {
+                <div class="gap-6 flex items-center mt-[25px]">
+                    <div class="flex gap-2 items-center">
+                        <p-radioButton
+                            value="1"
+                            formControlName="spSexId"
+                            inputId="Men"
+                        />
+                        <label
+                            for="Men"
+                            class="font-medium dark:text-[#D8DADF] text-[#41434E] leading-5"
+                        >
+                            {{ "Men" | transloco }}
+                        </label>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <p-radioButton
+                            value="2"
+                            formControlName="spSexId"
+                            inputId="woman"
+                        />
+                        <label
+                            for="woman"
+                            class="text-[#41434E] dark:text-[#D8DADF] leading-5 font-medium"
+                        >
+                            {{ "woman" | transloco }}
+                        </label>
+                    </div>
+                </div>
+                }
+            </div>
+            @if(isForeign) {
+            <p-iconField iconPosition="right" styleClass="w-full">
+                <label for="phoneMain">{{ "phone" | transloco }}</label>
+                <p-inputIcon>
+                    <div class="mt-[15px]">
+                        <mat-icon
+                            class="text-[#8E92A2] font-[800]"
+                            svgIcon="phoneFooter"
+                        ></mat-icon>
+                    </div>
+                </p-inputIcon>
+                <input pInputText formControlName="phoneMain" mask="0000" />
+            </p-iconField>
+            } @else {
+            <div class="relative phoneNumber">
+                <p-iconField iconPosition="right" styleClass="w-full">
+                    <p
+                        class="absolute top-[38px] text-[1rem] left-[7px] font-medium"
+                    >
+                        +998
+                    </p>
+                    <label for="phoneMain">{{ "phone" | transloco }}</label>
+                    <p-inputIcon>
+                        <div class="mt-[15px]">
+                            <mat-icon
+                                class="text-[#8E92A2] font-[800]"
+                                svgIcon="phoneFooter"
+                            ></mat-icon>
+                        </div>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        formControlName="phoneMain"
+                        placeholder="(--)--- -- --"
+                        mask="(00) 000 00 00"
+                    />
+                </p-iconField>
+            </div>
+            } @if (!data) {
+            <div class="w-full flex flex-col">
+                <label for="spUserTypeId">{{
+                    "staff.spUserTypeId" | transloco
+                }}</label>
+                <p-dropdown
+                    appendTo="body"
+                    styleClass="w-full"
+                    [options]="spService.SelectItemsAll['UserTypes']?.slice(1)"
+                    optionValue="value"
+                    optionLabel="label"
+                    formControlName="spUserTypeId"
+                    [placeholder]="'CHOOSE' | transloco"
+                ></p-dropdown>
+            </div>
+            }
+            <p-iconField iconPosition="right" styleClass="w-full">
+                <label> {{ "email" | transloco }}</label>
+                <p-inputIcon>
+                    <div class="mt-[15px]">
+                        <mat-icon
+                            class="text-[#8E92A2]"
+                            svgIcon="mailFooter"
+                        ></mat-icon>
+                    </div>
+                </p-inputIcon>
+                <input pInputText formControlName="email" />
+            </p-iconField>
+            <p-iconField iconPosition="right" styleClass="w-full">
+                <label for="userName"> {{ "userName" | transloco }}</label>
+                <p-inputIcon>
+                    <div class="mt-[15px]">
+                        <mat-icon
+                            class="text-[#8E92A2]"
+                            svgIcon="userLanding"
+                        ></mat-icon>
+                    </div>
+                </p-inputIcon>
+                <input id="userName" pInputText formControlName="userName" />
+            </p-iconField>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="newpassword">{{
+                        "sign.password" | transloco
+                    }}</label>
+                    <p-password
+                        inputId="newpassword"
+                        formControlName="password"
+                        [toggleMask]="true"
+                    />
+                </div>
+                <div>
+                    <label for="reenterpassword">{{
+                        "confirmpassword" | transloco
+                    }}</label>
+                    <p-password
+                        inputId="reenterpassword"
+                        formControlName="confirmpassword"
+                        [feedback]="false"
+                        [toggleMask]="true"
+                    />
+                </div>
+            </div>
+            <!-- Roles Start -->
+            @if (data) {
+            <div>
+                <p class="font-bold">
+                    {{ "roles" | transloco }}
+                </p>
+                <div class="relative">
+                    @if (studentMessage!='') {
+                    <div
+                        class="absolute h-full flex flex-col w-full top-0 left-0 p-5 z-999 bgOpacity"
+                    >
+                        <div class="w-full flex justify-end cursor-pointer">
+                            <div
+                                class="h-10 w-10 rounded-full bg-[#F7F8F8] flex items-center justify-center"
+                                (click)="studentMessage=''"
+                            >
+                                <i
+                                    class="pi pi-times text-[#707587] font-bold cursor-pointer"
+                                ></i>
+                            </div>
+                        </div>
+                        <div
+                            class="w-full h-full font-semibold text-[18px] text-red-600 flex justify-center items-center"
+                        >
+                            <p>{{ studentMessage | transloco }}</p>
+                        </div>
+                    </div>
+                    }
+                    <mat-selection-list
+                        (selectionChange)="select($event)"
+                        formControlName="roles"
+                    >
+                        @for (x of rolesList; track x) {
+                        <mat-list-option [value]="x.label">
+                            {{ roles.get(x.label) | transloco }}
+                        </mat-list-option>
+                        }
+                    </mat-selection-list>
+                </div>
+            </div>
+            }
+            <!-- Roles End -->
+            @if (createUser.get('password').dirty) {
+            <div class="w-full my-[10px] flex items-end">
+                <app-checkPassword [form]="userIsGCP"></app-checkPassword>
+            </div>
+            }
+            <div class="flex justify-end gap-4">
+                <p-button
+                    styleClass="px-4 py-3"
+                    [label]="'CANCEL' | transloco"
+                    [outlined]="true"
+                    (onClick)="closePopUp()"
+                >
+                </p-button>
+                @if (!data) {
+                <p-button
+                    [disabled]="createUser.invalid"
+                    styleClass="px-4 py-3"
+                    [label]="'SAVE' | transloco"
+                    (onClick)="saveUser()"
+                >
+                </p-button>
+                } @else {
+                <p-button
+                    [disabled]="createUser.invalid"
+                    styleClass="px-4 py-3"
+                    [label]="'SAVE' | transloco"
+                    (onClick)="saveExistingUser()"
+                >
+                </p-button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}

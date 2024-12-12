@@ -1,0 +1,108 @@
+<div class="flex flex-row m-4">
+  <button
+    mat-flat-button
+    name="b2"
+    [color]="'primary'"
+    class="mr-4"
+    (click)="mouseScroll.onScrollMinus($event, org)"
+    >
+    <mat-icon svgIcon="heroicons_outline:plus-circle"></mat-icon>
+    {{ "org.minus" | transloco }}
+  </button>
+  <button
+    mat-flat-button
+    name="b2"
+    [color]="'primary'"
+    class="mr-4"
+    (click)="mouseScroll.onScrollPlus($event, org)"
+    >
+    <mat-icon svgIcon="heroicons_outline:minus-circle"></mat-icon
+      >{{ "org.plus" | transloco }}
+    </button>
+  </div>
+
+  <div style="height: calc(100vh - 200px)">
+    <div
+      #el
+      (mousedown)="mouseScroll.onMouseDown($event, el)"
+      (mouseup)="mouseScroll.onMouseUp($event)"
+      (mouseleave)="mouseScroll.onMouseUp($event)"
+      (mousemove)="mouseScroll.onMouseMove($event, el)"
+      style="overflow: scroll; border: 1px solid black; height: 100%"
+      class="noselect"
+      >
+      <p-organizationChart
+        #org
+        [value]="listItems"
+        selectionMode="single"
+        [(selection)]="selectedNode"
+        (onNodeSelect)="orgForm.onNodeSelect($event)"
+        styleClass="company"
+        >
+        <ng-template let-node pTemplate="Institution">
+          <div class="flex flex-row m-2">
+            <mat-icon
+              class="mr-2"
+              svgIcon="heroicons_solid:office-building"
+            ></mat-icon>
+            {{ node.label }}
+          </div>
+        </ng-template>
+
+        <ng-template let-node pTemplate="Department">
+          <div class="flex flex-row m-2">
+            <mat-icon
+              class="mr-2"
+              svgIcon="heroicons_solid:user-group"
+            ></mat-icon>
+            {{ node.label }}
+          </div>
+        </ng-template>
+
+        <ng-template let-node pTemplate="Position">
+          <div class="flex flex-row m-2">
+            <mat-icon
+              class="mr-2"
+              svgIcon="heroicons_solid:user"
+            ></mat-icon>
+            {{ node.label }}
+          </div>
+        </ng-template>
+
+        <ng-template let-node pTemplate="Staff">
+          <div
+            class="node-header w-22 ui-corner-top"
+            style="line-height: 1"
+            >
+            {{ node.label }}
+          </div>
+          <div class="node-content flex flex-col text-center">
+            @if (!node.dataPicture) {
+              <mat-icon
+                style="margin: 0 auto"
+                svgIcon="heroicons_solid:user"
+              ></mat-icon>
+            }
+
+            @if (node.dataPicture) {
+              <img
+                src="{{ node.dataPicture }}"
+                alt="Нет изображения"
+                class="w-22 text-center"
+                />
+            }
+
+            <span class="font-bold mb-2">{{ node.dataName }}</span>
+          </div>
+        </ng-template>
+      </p-organizationChart>
+    </div>
+  </div>
+
+  <!-- Редактирование -->
+  <app-org-form
+    #orgForm
+    (closeModalWindow)="onCloseDialog($event)"
+    (chooseNodeFromCurrent)="getRootNodeCurrent()"
+    >
+  </app-org-form>

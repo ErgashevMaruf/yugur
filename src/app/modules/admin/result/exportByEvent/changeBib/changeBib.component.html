@@ -1,0 +1,117 @@
+<div
+    class="w-[600px] p-5 bg-white flex flex-col gap-4 dark:bg-[#0f172a] text-[16px] max-h-screen overflow-y-auto"
+>
+    <ng-container
+        *ngTemplateOutlet="
+            bibInfo;
+            context: {
+                $implicit: data.athlete.athletes.fullName,
+                bibCode: data.athlete.eventBib.bibCode,
+                bibType: data.athlete.eventBib.bibType,
+                bibStatus: data.athlete.eventBib.status,
+            }
+        "
+    ></ng-container>
+    <div class="w-full flex gap-2">
+        <div>
+            <label for="bib" class="text-[14px] font-medium">{{
+                "SearchByBib" | transloco
+            }}</label>
+            <input
+                pInputText
+                id="bib"
+                inputId="integeronly"
+                debonceInput
+                [(ngModel)]="searchingBib"
+                (search)="searchByBib($event)"
+                type="number"
+            />
+        </div>
+        <div>
+            <label for="fullName" class="text-[14px] font-medium">{{
+                "SearchByAthletes" | transloco
+            }}</label>
+            <input
+                type="text"
+                id="fullName"
+                pInputText
+                debonceInput
+                (search)="searchByUserName($event)"
+                [(ngModel)]="fullName"
+            />
+        </div>
+    </div>
+    @for (x of result; track x) {
+    <div>
+        <ng-container
+            *ngTemplateOutlet="
+                bibInfo;
+                context: {
+                    $implicit: x.fullName,
+                    bibCode: x.bibCode,
+                    bibType: x.bibType,
+                    bibStatus: x.bibStatus,
+                    bibId: x.eventBibId
+                }
+            "
+        ></ng-container>
+    </div>
+    } @if (text=='searchSomethingToConfirm' || result.length==0) {
+    <p
+        class="italic text-center"
+        [ngClass]="{
+            'text-red-600 font-semibold': text !== 'searchSomethingToConfirm'
+        }"
+    >
+        {{ text | transloco }}
+    </p>
+    }
+    <div class="w-full flex justify-end">
+        <button
+            class="w-[150px] h-[35px] text-white rounded bg-[#0098da] disabled:bg-[#aeaeae]"
+            [disabled]="!selectedId"
+            (click)="changeBib()"
+        >
+            {{ "popgo" | transloco }}
+        </button>
+    </div>
+</div>
+
+<ng-template
+    let-fullName
+    let-bibCode="bibCode"
+    let-bibType="bibType"
+    let-bibStatus="bibStatus"
+    let-bibId="bibId"
+    #bibInfo
+>
+    <div
+        class="flex flex-col gap-4 hover:bg-blue-100 cursor-pointer p-1 rounded"
+        (click)="bibId ? (this.selectedId = bibId) : ''"
+        [ngClass]="{ 'bg-blue-100': bibId == this.selectedId }"
+    >
+        <div
+            class="bg-[#0098DA] text-white rounded p-1 flex justify-between px-2"
+        >
+            <span class="">{{ fullName ? fullName : "-" }}</span>
+            <div class="flex gap-1 items-center">
+                @if (bibId == this.selectedId) {
+                <i class="pi pi-verified"></i>
+                }
+                <span class="">{{ bibCode }}</span>
+            </div>
+        </div>
+        <div class="flex gap-2 border-b-2 justify-between pb-2">
+            <p>
+                {{ "eventCategory" | transloco }}:<span class="font-semibold">{{
+                    bibTypeMap.get(bibType).bibType | transloco
+                }}</span>
+            </p>
+            <p>
+                {{ "sp.status" | transloco }}:<span class="font-semibold">{{
+                    bibTypeMap.get(bibStatus).bibStatus | transloco
+                }}</span>
+            </p>
+        </div>
+    </div>
+</ng-template>

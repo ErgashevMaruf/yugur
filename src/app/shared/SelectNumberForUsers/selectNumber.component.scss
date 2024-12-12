@@ -1,0 +1,82 @@
+p {
+    font-size: 18px;
+}
+
+.inputNumber {
+    width: 213px;
+    height: 44px;
+    padding: 10px;
+    border: 1px solid #D8DADF;
+    border-radius: 10px;
+    font-size: 14px;
+}
+.radioButton {
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    border: 2px solid #707587;
+    // padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white !important;
+}
+.confirmBtn {
+    /* border: 1px solid rgb(37, 99, 235); */
+    border-radius: 10px !important;
+    background: #0098da;
+}
+.disableBtn:disabled {
+    border: 1px solidn #aeaeae;
+}
+.confirmBtnFree {
+    padding: 18px 30px 18px 30px;
+    background: #67bd50;
+    border-radius: 12px;
+    font-weight: 600 !important;
+    color: white;
+}
+.suggestionBibCodes {
+    width: 100%;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center !important;
+    justify-content: space-around !important;
+    padding: 16px 0 16px 0;
+    border-radius: 10px;
+}
+.price {
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+@media (max-width:750px)
+{
+    p{
+        font-size: 14px;
+    }
+}
+.notSelect
+{
+    color:#707587;
+}
+:host ::ng-deep .p-checkbox .p-checkbox-box
+{
+    border: 2px solid #707587 !important
+}
+.allBtn
+{
+    padding: 12px 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    background: #67BD50;
+    color: white;
+}
+.allBtn:disabled
+{
+    background: #D8DADF !important;
+    color: white !important;
+}

@@ -1,0 +1,79 @@
+:host {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    background: url("/assets/images/Pattern.svg");
+}
+.p-calendar {
+    width: 100%;
+}
+.cdk-overlay-pane {
+    z-index: 10099;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+.filepicker {
+    -webkit-appearance: none;
+    position: absolute;
+    text-indent: 100em;
+    background: url("/assets/images/avatars/profile.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+    outline: none;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.img_size {
+    position: absolute;
+    width: 170px;
+    height: 190px;
+    align-self: center;
+    border-radius: 0.4rem;
+    border-width: 1px;
+}
+.input {
+    display: block;
+    width: 100%;
+    padding: 5px 0px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #01a559;
+    font-size: 16px;
+    font-weight: 500;
+}
+.disable {
+    color: #aeaeae !important;
+    font-weight: 600;
+}
+.heading {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 15px 0;
+}
+.left4{
+    left: 4px;
+}
+.phoneNumber .p-icon-field-right > .p-inputtext
+{
+    padding-left: 45px;
+}
+.bgOpacity
+{
+    border-radius: 14.885px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(116, 128, 197, 0.12);
+    backdrop-filter: blur(10px);
+}

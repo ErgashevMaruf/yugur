@@ -1,0 +1,54 @@
+<!-- <span class="text-red-600 dark:text-white">*</span> -->
+<div [formGroup]="groupName" class="flex flex-col gap-4">
+    @if(isGroup) { @for (item of inputFormsData; track $index) {
+    <div class="relative" [@shake]="error">
+        <div class="flex justify-between">
+            <label
+                [for]="item.label"
+                >{{ item.label | transloco }}</label
+            >
+        </div>
+        @if (item.type=='password') {
+        <div class="w-full h-[44px] relative">
+            <input
+                [type]="showPassword"
+                [placeholder]="(item?.placeholder | transloco) ?? '••••••••'"
+                name=""
+                [id]="item.label"
+                class="allInput"
+                [formControlName]="item.nameFormControl"
+            />
+            <div
+                class="absolute top-3 right-2 text-[#8E92A2] cursor-pointer"
+                (click)="passWordShow()"
+            >
+                <i
+                    class="pi text-[18px] text-[#8E92A2]"
+                    [ngClass]="{
+                        'pi-eye-slash': showPassword == 'password',
+                        'pi-eye': showPassword == 'text'
+                    }"
+                ></i>
+            </div>
+        </div>
+        } @else {
+        <div class="relative h-[44px]">
+            <input
+                type="text"
+                name=""
+                [id]="item.label"
+                class="allInput"
+                [formControlName]="item.nameFormControl"
+                [placeholder]="item?.placeholder ?? '' | transloco"
+            />
+            @if (item?.matIcon) {
+            <mat-icon
+                [svgIcon]="item.matIcon"
+                class="absolute top-[10px] right-2 text-[#8E92A2]"
+            ></mat-icon>
+            }
+        </div>
+        }
+    </div>
+    } }
+</div>

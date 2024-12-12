@@ -1,0 +1,43 @@
+.changeGap {
+    gap: 12px;
+}
+span {
+    font-weight: bold;
+    margin-left: 5px;
+}
+:host ::ng-deep .ql-align-center {
+    text-align: center;
+}
+.childEvent {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+:host ::ng-deep a {
+    text-decoration: underline;
+    color: #0098da;
+    cursor: pointer;
+}
+:host ::ng-deep .p-inputtext {
+    padding: 0.3rem 0.75rem !important;
+}
+label {
+    color: #707587;
+    // font-size: 12px;
+    font-weight: 500;
+}
+.myEvent p {
+    font-weight: 600;
+    color: #25262c;
+}
+.dark {
+    :host ::ng-deep {
+        label {
+            color: #b6b9c3 !important;
+        }
+        .myEvent p {
+            color: white !important;
+        }
+    }
+}

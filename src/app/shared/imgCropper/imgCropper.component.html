@@ -1,0 +1,25 @@
+<div class="p-[10px] flex gap-[10px]">
+    <image-cropper
+        [imageFile]="imageChangedEvent"
+        [onlyScaleDown]="true"
+        format="png"
+        [output]="'base64'"
+        (imageCropped)="imageCropped($event)"
+    ></image-cropper>
+    <div class="">
+        <img
+            class="p-[5px] w-full"
+            [style.height.px]="height"
+            [style.minWidth.px]="width"
+            [src]="croppedImage"
+        />
+        <div class="w-full flex justify-end">
+            <button
+                class="px-[50px] mt-[10px] rounded-[10px] py-[10px] bg-blue-500 text-white font-semibold"
+                (click)="sendToServer()"
+            >
+                {{ "ok" | transloco }}
+            </button>
+        </div>
+    </div>
+</div>

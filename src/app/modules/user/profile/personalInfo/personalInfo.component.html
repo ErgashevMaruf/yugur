@@ -1,0 +1,187 @@
+<div
+    class="bg-[#F7F8F8] dark:bg-[#383942] flex flex-col gap-4 rounded-[24px] p-6 w-full"
+    [formGroup]="userEdit"
+>
+    <div class="w-full flex sm:flex-row flex-col gap-5 sm:justify-between">
+        <div class="flex gap-6 items-center">
+            <div
+                class="w-30 h-30 flex flex-col justify-center items-center rounded-[20px]"
+            >
+                <div
+                    class="bg-white flex justify-center items-center relative rounded-full min-h-[120px] min-w-[120px]"
+                >
+                    @if (!userEdit.get('imageFileGuid').value) {
+                    <p class="text-[#67BD50] text-[48px] font-[800]">
+                        {{ user?.name[0] }}
+                    </p>
+                    } @else {
+                    <img
+                        [src]="url + userEdit.get('imageFileGuid').value"
+                        class="w-full h-full rounded-full object-cover"
+                    />
+                    }
+                </div>
+            </div>
+            @if (true) {
+            <p
+                class="w-[100px] text-[#0B4E6F] dark:text-[#F0FAFF] font-[800] sm:text-[24px] text-[20px] leading-8"
+            >
+                {{ user?.fullName }}
+            </p>
+            } @else {
+            <!-- <div class="flex flex-col gap-4">
+          <p class="text-[#0B4E6F] text-[20px] font-semibold">
+            {{ "newPhoto" | transloco }}
+          </p>
+          <div
+            class="w-[120px] relative h-[44px] border border-[#D8DADF] dark:border-[#4A4C5A] flex items-center gap-2 rounded-[10px] justify-center"
+            >
+            <mat-icon svgIcon="editProfile"></mat-icon>
+            <p class="text-[#0CAEEB] font-bold">
+              {{ "uploadServer" | transloco }}
+            </p>
+            <input
+              type="file"
+              class="opacity-0 w-full absolute h-full"
+              (change)="setPhoto($event.target.files)"
+              [ngClass]="editState ? '' : 'z-[-3]'"
+              />
+            </div>
+          </div> -->
+            }
+        </div>
+        @if (!editState) {
+        <div
+            class="w-[120px] h-[44px] cursor-pointer border border-[#D8DADF] dark:border-[#4A4C5A] flex items-center gap-2 rounded-[10px] justify-center"
+            (click)="editState = true"
+        >
+            <mat-icon svgIcon="editProfile"></mat-icon>
+            <p class="text-[#0CAEEB] font-bold">
+                {{ "profileEdit" | transloco }}
+            </p>
+        </div>
+        }
+    </div>
+    <hr class="w-full h-[1px] bg-[#EDEDF1] dark:bg-[#41434E]" />
+    @if (!editState) {
+    <div class="grid sm:grid-cols-2 grid-cols-1 gap-6">
+        <div>
+            <label for="">{{ "PHONE" | transloco }}</label>
+            <p>+998 {{ user?.phoneMain | mask : "00 000 00 00" }}</p>
+        </div>
+        <div>
+            <label for="">{{ "EMAIL" | transloco }}</label>
+            <p>{{ user?.email }}</p>
+        </div>
+        <div>
+            <label for="">{{ "birthday.date" | transloco }}</label>
+            <p>{{ user?.birthDate }}</p>
+        </div>
+        <div>
+            <label for="">{{ "sp.sexes" | transloco }}</label>
+            <p>{{ (user?.spSexId == 2 ? "Woman" : "Men") | transloco }}</p>
+        </div>
+        <div>
+            <label for="">{{ "personCountry" | transloco }}</label>
+            <p>{{ user | location | async }}</p>
+        </div>
+        <div>
+            <label for="">{{ "userName" | transloco }}</label>
+            <p>{{ user?.userName }}</p>
+        </div>
+        <div>
+            <label for="">{{ "sign.password" | transloco }}</label>
+            <p>••••••••</p>
+        </div>
+        <div>
+            <label for="">{{ "confirmpassword" | transloco }}</label>
+            <p>••••••••</p>
+        </div>
+    </div>
+    @if (user?.studentDTO) {
+    <hr class="w-full h-[1px] bg-[#EDEDF1] dark:bg-[#41434E]" />
+    <div class="w-full">
+        <p class="mb-4">{{ "studyInfo" | transloco }}</p>
+        <div class="grid sm:grid-cols-2 grid-cols-1 gap-6">
+            <div>
+                <label for="hemisId">{{ "hemisId" | transloco }}</label>
+                <p>{{ user.studentDTO.hemisId }}</p>
+            </div>
+            <div>
+                <label for="">{{ "cource" | transloco }}</label>
+                <p>{{ user.studentDTO.cource }}</p>
+            </div>
+            <div>
+                <label for="universityName">{{
+                    "universityName" | transloco
+                }}</label>
+                <p>{{ user.studentDTO.universityName }}</p>
+            </div>
+            <div>
+                <label for="educationTypeName">{{
+                    "educationTypeName" | transloco
+                }}</label>
+                <p>{{ user.studentDTO.educationTypeName }}</p>
+            </div>
+        </div>
+    </div>
+    } @if (user?.erPsportDTO) {
+    <hr class="w-full h-[1px] bg-[#EDEDF1] dark:bg-[#41434E]" />
+    <div class="w-full">
+        <p class="mb-4">{{ "erpINFO" | transloco }}</p>
+        <div class="grid sm:grid-cols-2 grid-cols-1 gap-6">
+            <div>
+                <label for="">{{ "sportTitleName" | transloco }}</label>
+                <p>{{ user.erPsportDTO.sportTitleName }}</p>
+            </div>
+            <div>
+                <label for="">{{
+                    "sportTypeClassifiername" | transloco
+                }}</label>
+                <p>{{ user.erPsportDTO.sportTypeClassifiername }}</p>
+            </div>
+        </div>
+    </div>
+    } } @else {
+    <div class="sm:w-[486px] w-full flex flex-col gap-6">
+        <div>
+            <label for="Номер телефона">{{ "phone" | transloco }}</label>
+            <div class="relative w-full">
+                <p
+                    class="absolute dark:text-white top-[13px] left-[12px] font-semibold text-[#383942]"
+                >
+                    +998
+                </p>
+                <div class="relative w-full">
+                    <input
+                        class="p-3 pl-[47px] w-full border font-semibold border-[#D8DADF] dark:border-[#41434E] rounded-[10px]"
+                        type="text"
+                        id="телефона"
+                        placeholder="(- -)- - -  - -  - -"
+                        mask="(00) 000 00 00"
+                        formControlName="phoneMain"
+                    />
+                    <mat-icon
+                        svgIcon="phoneFooter"
+                        class="absolute top-[10px] right-2 text-[#8E92A2]"
+                    ></mat-icon>
+                </div>
+            </div>
+        </div>
+        <app-input-forms
+            [inputFormsData]="formsData"
+            [groupName]="userEdit"
+        ></app-input-forms>
+        @if (userEdit.value.password) {
+        <app-checkPassword [form]="userEdit"></app-checkPassword>
+        }
+        <button
+            class="h-[44px] w-[188px] disabled:bg-[#D8DADF] text-white rounded-[10px] font-bold bg-[#67BD50]"
+            [disabled]="userEdit.invalid"
+            (click)="updateUser()"
+        >
+            {{ "SAVE" | transloco }}
+        </button>
+    </div>
+    }
+</div>

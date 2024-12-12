@@ -1,0 +1,51 @@
+@if (events) {
+  <div class="flex flex-col gap-6 w-full">
+    <div class="flex justify-between items-center">
+      <p class="text-[16px] text-[#707587] dark:text-[#D8DADF] font-semibold">
+        {{ "recommendedEvent" | transloco }}
+      </p>
+      <a class="text-[#67BD50] font-bold" [routerLink]="['/events']">{{
+        "view.all" | transloco
+      }}</a>
+    </div>
+    @for (event of events; track event) {
+      <div class="">
+        <div
+          class="rounded-[16px] p-4 w-full flex bg-[#F7F8F8] dark:bg-[#383942] object-cover cursor-pointer"
+          (click)="joinEvent(event)"
+          >
+          <div class="self-center ml-[20px] infoText">
+           @if (event | appTranslateAsync:'name' | async; as name) {
+            <p
+            class="text-[16px] text-[#25262C] dark:text-[#D8DADF] font-semibold leading-6"
+            [pTooltip]="name"
+            >
+            {{ name }}
+          </p>
+           }
+            <div class="flex flex-col gap-3">
+              <div class="flex gap-3 items-center">
+                <mat-icon
+                  svgIcon="calendarLanding"
+                  class="text-[#0CAEEB] text-[14px]"
+                ></mat-icon>
+                <p class="font-medium text-[#5B5F6E] dark:text-[#FFFFFF]">
+                  {{ event.eventDate | date }}
+                </p>
+              </div>
+              <div class="flex gap-3 items-center">
+                <mat-icon
+                  svgIcon="locationLanding"
+                  class="text-[#FF3A3C] text-[14px]"
+                ></mat-icon>
+                <p class="font-medium text-[#5B5F6E] dark:text-[#FFFFFF]">
+                  {{ event | appTranslateAsync:'address' | async }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

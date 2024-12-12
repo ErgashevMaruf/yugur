@@ -1,0 +1,210 @@
+<!-- ****************************************************** -->
+<div class="w-full bg-white dark:bg-[#25262c] relative">
+  <div class="mb-2">
+    <div class="relative z-30 w-full max-w-cs mx-auto">
+      <app-nav (sectionId)="moveSection($event)"></app-nav>
+    </div>
+    <div class="scroll-left dark:bg-transparent">
+      <p>{{ "workingTest" | transloco }}</p>
+    </div>
+    <div class="mx-auto max-w-cs h-full">
+      <app-info></app-info>
+    </div>
+  </div>
+  <div
+    class="max-w-cs mx-auto w-full flex flex-col md:gap-[86px] gap-12 md:mb-[86px] mb-12"
+    >
+        <div class="h-[332px]">
+            <div id="news"></div>
+            <app-event-carusel
+                class="section section--hidden"
+                [first]="true"
+                observeVisibility
+            ></app-event-carusel>
+        </div>
+        <div class="section section--hidden cs:px-0 px-4" observeVisibility>
+            <h3 class="heading" id="score">
+                {{ "landingResults" | transloco }}
+            </h3>
+            <div class="w-full flex cs:justify-between justify-center">
+                <div class="w-full max-w-[792px]">
+                    <app-result-table
+                        [inputShowId]="haveNearestEvent"
+                    ></app-result-table>
+                </div>
+                <div class="w-full cs:block hidden max-w-[384px]">
+                    <app-nearest [nearestEvent]="nearestEvent"></app-nearest>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 class="heading" id="participants">
+                {{ "nav.adminstatistics" | transloco }}
+            </h3>
+            <div class="section section--hidden cs:px-0 px-4" observeVisibility>
+                <div class="w-full flex cs:justify-between justify-center">
+                    <div class="w-full max-w-[792px]">
+                        <div
+                            class="sm:p-9 p-4 border border-[#EDEDF1] dark:border-[#41434E] rounded-2xl"
+                        >
+                            <app-statistic
+                                [categories]="statisticCategories"
+                                [series]="statisticSeries"
+                            ></app-statistic>
+                        </div>
+                    </div>
+                    <div
+                        class="w-full max-w-[384px] cs:flex hidden flex-col justify-between"
+                    >
+                        <div
+                            class="w-full relative"
+                            (mouseenter)="showMobileHover = true"
+                            (mouseleave)="showMobileHover = false"
+                        >
+                            <div
+                                class="absolute text-white top-6 left-6 text-[32px] font-[800]"
+                            >
+                                <p class="leading-[44px]">
+                                    {{ "download" | transloco }}
+                                </p>
+                                <p class="leading-[44px]">
+                                    {{ "app" | transloco }}
+                                </p>
+                            </div>
+                            <svg
+                                version="1.1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                viewBox="0 0 384 263"
+                            >
+                                <image
+                                    width="384"
+                                    height="263"
+                                    xlink:href="./assets/landing/app.png"
+                                ></image>
+                                <a xlink:href="https://www.yugur.uz">
+                                    <rect
+                                        x="25"
+                                        y="133"
+                                        fill="#fff"
+                                        opacity="0"
+                                        width="151"
+                                        height="50"
+                                    ></rect>
+                                </a>
+                                <a xlink:href="https://www.yugur.uz">
+                                    <rect
+                                        x="23"
+                                        y="195"
+                                        fill="#fff"
+                                        opacity="0"
+                                        width="153"
+                                        height="50"
+                                    ></rect>
+                                </a>
+                            </svg>
+                            @if (showMobileHover) {
+                            <div
+                                class="absolute flex items-center justify-center w-full h-full top-0 bgOpacity"
+                                [@zoomIn]="showMobileHover"
+                            >
+                                <p class="text-white text-[20px] font-semibold">
+                                    {{ "JustReadyMobile" | transloco }}
+                                </p>
+                            </div>
+                            }
+                        </div>
+                        <div
+                            class="relative"
+                            (mouseenter)="showBot = true"
+                            (mouseleave)="showBot = false"
+                        >
+                            <div
+                                class="absolute top-6 left-5 text-white text-[24px] font-[800]"
+                            >
+                                <p class="leading-[32px]">
+                                    {{ "subscribe" | transloco }}
+                                </p>
+                                <p class="leading-[32px]">
+                                    {{ "ourTelegram" | transloco }}
+                                </p>
+                                <p class="leading-[32px]">
+                                    {{ "bot" | transloco }}
+                                </p>
+                            </div>
+                            <img
+                                src="./assets/landing/bot.png"
+                                alt=""
+                                class="cursor-pointer"
+                            />
+                            @if (showBot) {
+                            <div
+                                class="absolute flex items-center justify-center w-full h-full top-0 bgOpacity"
+                                [@zoomIn]="showBot"
+                            >
+                                <p class="text-white text-[20px] font-semibold">
+                                    {{ "JustReadyBot" | transloco }}
+                                </p>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-announcement
+            class="section section--hidden cs:px-0 px-4"
+            observeVisibility
+        ></app-announcement>
+    </div>
+    <div id="media">
+        @defer(on viewport) {
+        <div
+            class="w-full md:mb-[86px] mb-12 section section--hidden"
+            observeVisibility
+        >
+            <div
+                class="flex justify-between max-w-cs w-full mx-auto md:mb-12 mb-6 cs:px-0 px-4 items-center"
+            >
+                <h3 class="heading mb-0">{{ "media" | transloco }}</h3>
+                <p-dropdown [options]="listItems" [(ngModel)]="selectedItem">
+                </p-dropdown>
+            </div>
+            @if (selectedItem == 'photoGallery') {
+            <app-gallery></app-gallery>
+            } @if (selectedItem == 'videoGallery') {
+            <app-videoGallery></app-videoGallery>
+            }
+        </div>
+        } @placeholder {
+        <div class="h-[408px]"></div>
+        }
+    </div>
+    <div
+        id="organizers"
+        class="w-full max-w-cs mx-auto flex flex-col md:gap-[86px] gap-12 md:mb-[86px] mb-12 cs:px-0 px-4"
+        observeVisibility
+    >
+        @defer(on viewport) {
+        <app-video-guid
+            observeVisibility
+            class="section section--hidden"
+        ></app-video-guid>
+        } @placeholder {
+        <div></div>
+        }
+
+        <!-- <app-organizers
+  id="organizers"
+  observeVisibility
+  class="section section--hidden"
+></app-organizers> -->
+    </div>
+    <app-footer (sectionId)="moveSection($event)"></app-footer>
+    <a href="https://t.me/+YRXlUi2jG184OTgy" class="cursor-pointer">
+        <i
+            class="pi pi-telegram text-[40px] text-[#24A1DE] fixed bottom-[50%] right-6"
+        ></i>
+    </a>
+    <p-scrollTop></p-scrollTop>
+</div>

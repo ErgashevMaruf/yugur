@@ -1,0 +1,150 @@
+<div class="bg-white dark:bg-[#0f172a] p-[15px]">
+  <dialog-navbar
+    [titleDialog]="titleDialog"
+    [modelId]="selItem.id"
+    [matDialogRef]="matDialogRef"
+    [heroForm]="heroForm"
+    (onClick)="onSave()"
+    >
+    <div mat-dialog-content class="p-6 m-0" fusePerfectScrollbar>
+      <form
+        #heroForm="ngForm"
+        class="pvalidate compose-form flex flex-col"
+        >
+        <mat-form-field appearance="outline" fxFlex="100">
+          <mat-label>{{ "sp.nameRu" | transloco }}</mat-label>
+          <input
+            matInput
+            name="nameRu"
+            [(ngModel)]="selItem.nameRu"
+            required
+            type="text"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>{{ "sp.nameUz" | transloco }}</mat-label>
+            <input
+              matInput
+              name="nameUz"
+              [(ngModel)]="selItem.nameUz"
+              required
+              type="text"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="100">
+              <mat-label>{{ "sp.NameEn" | transloco }}</mat-label>
+              <input
+                matInput
+                name="nameCyr"
+                [(ngModel)]="selItem.nameCyr"
+                type="text"
+                />
+              </mat-form-field>
+              @if (curRootTableName) {
+                <mat-form-field
+                  appearance="outline"
+                  fxFlex="100"
+                  >
+                  <mat-label>{{ "sp.rootName" | transloco }}</mat-label>
+                  <mat-select
+                        name="spRootCode
+            "
+                    [(ngModel)]="selItem.spRootCode"
+                    >
+                    @for (
+                      item of spService.SelectItemsAll[
+                      curRootTableName
+                      ]
+                      ; track
+                      item) {
+                      <mat-option
+                        [value]="item.value"
+                        >
+                        {{ item.label }}
+                      </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              }
+
+              @if (!codeSelectItems) {
+                <mat-form-field appearance="outline">
+                  <mat-label>{{ "sp.code" | transloco }}</mat-label>
+                  <input
+                    matInput
+                    name="code"
+                    [(ngModel)]="selItem.code"
+                    type="text"
+                    />
+                  </mat-form-field>
+                }
+
+                @if (codeSelectItems) {
+                  <mat-form-field
+                    appearance="outline"
+                    fxFlex="100"
+                    >
+                    <mat-label>{{ titleCode | transloco }}</mat-label>
+                    <mat-select
+                      name="codeSelectItems"
+                      [(ngModel)]="selItem.code"
+                      >
+                      @for (item of codeSelectItems; track item) {
+                        <mat-option
+                          [value]="item.value"
+                          >
+                          {{ item.label }}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                }
+
+                @if (capacityField) {
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{ capacityField }}</mat-label>
+                    <input
+                      matInput
+                      name="capacity"
+                      [(ngModel)]="selItem.capacity"
+                      type="text"
+                      specialIsNumeric
+                      />
+                    </mat-form-field>
+                  }
+                  @if (dateTimeField) {
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{ dateTimeField }}</mat-label>
+                      <input
+                        matInput
+                        name="dateTimeField"
+                        type="datetime-local"
+                        [(ngModel)]="selItem.dateTimeField"
+                        />
+                      </mat-form-field>
+                    }
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{ "sp.comment" | transloco }}</mat-label>
+                      <input
+                        matInput
+                        name="comment"
+                        [(ngModel)]="selItem.comment"
+                        type="text"
+                        />
+                      </mat-form-field>
+
+                      <div>
+                        <span>{{ "sp.status" | transloco }}</span>
+                        <mat-slide-toggle
+                          class="ml-28"
+                          name="active"
+                          [(ngModel)]="selItem.active"
+                          >
+                        </mat-slide-toggle>
+                      </div>
+                    </form>
+                  </div>
+                </dialog-navbar>
+              </div>

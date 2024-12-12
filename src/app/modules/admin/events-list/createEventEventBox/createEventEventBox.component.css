@@ -1,0 +1,66 @@
+.input {
+    width: 100%;
+    height: 46px;
+    border: 1px solid #0098da;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+:host ::ng-deep .p-inputtext {
+    border-color: #0098da !important;
+}
+/* :host ::ng-deep .p-calendar {
+    width: 100% !important;
+} */
+/* :host ::ng-deep .additionalCost .p-calendar {
+    width: 150px !important;
+} */
+.imgBox{
+    width: 260px;
+    height: 260px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    align-items: center;
+    border-radius: 15px;
+    background: #f2f2f2;
+}
+.bgStepperActive {
+    box-shadow: 0 0 0 15px #e4ffdc !important;
+    background: #67bd50 0% 0% no-repeat padding-box !important;
+}
+.bgStepperNoActive {
+    background: #b9b9b9 0% 0% no-repeat padding-box;
+    box-shadow: 0 0 0 15px #e4e4e4;
+}
+
+.bgCreateEvent {
+    background: #f9f9f9 0% 0% no-repeat padding-box;
+}
+.stepperDiv {
+    background: #d2d2d2;
+}
+.stepperActive {
+    background: #80c86d !important;
+}
+textarea {
+    resize: none;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+span {
+    color: red;
+}
+/* :host ::ng-deep .ageCategory .p-inputtext
+{
+    padding: 4px !important;
+} */
+:host ::ng-deep .smenas .p-inputtext{
+    width: 150px;
+} 

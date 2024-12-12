@@ -1,0 +1,38 @@
+<div class="tag-list">
+    <div
+        class="loop-slider flex"
+        style="--duration: 15951ms; --direction: normal"
+    >
+        <div class="inner">
+            @for (img of videos; track $index) {
+            <div class="tag sm:min-w-[282px]
+            sm:h-[360px] min-w-[148px] h-[188px]">
+                <iframe
+                    [ngClass]="{ 'mb-14': $index % 2 == 0 }"
+                    class="rounded-[16px] h-full w-full"
+                    src="https://www.youtube.com/embed/gF0rrpMH-Jo?si=BVxMT3ED5tf_282E"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                ></iframe>
+            </div>
+            } @for (img of videos; track $index) {
+            <div class="tag mr-5 sm:min-w-[282px]
+            sm:h-[360px] min-w-[148px] h-[188px]">
+                <iframe
+                    [ngClass]="{ 'mb-14': $index % 2 == 0 }"
+                    class="rounded-[16px] w-full h-full"
+                    src="https://www.youtube.com/embed/gF0rrpMH-Jo?si=BVxMT3ED5tf_282E"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                ></iframe>
+            </div>
+            }
+        </div>
+    </div>
+</div>

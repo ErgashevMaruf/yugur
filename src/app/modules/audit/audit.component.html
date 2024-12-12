@@ -1,0 +1,110 @@
+<div class="w-full">
+    <p-table
+        #dt
+        (onLazyLoad)="loadUserAudit($event)"
+        [lazy]="true"
+        [paginator]="true"
+        styleClass=""
+        [rows]="10"
+        [totalRecords]="totalItems"
+        [value]="audits"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+        <ng-template pTemplate="caption">
+            <div class="w-full flex justify-between">
+                <h3 class="headingPage">{{ "nav.logout.user" | transloco }}</h3>
+                @if (isAdmin) {
+                <div class="flex gap-6">
+                    <p-iconField iconPosition="left">
+                        <p-inputIcon styleClass="pi pi-search" />
+                        <input
+                            type="text"
+                            pInputText
+                            placeholder="Search"
+                            (input)="dt.filter($event.target.value, 'userName')"
+                            [placeholder]="'userName' | transloco"
+                        />
+                    </p-iconField>
+                    <p-iconField iconPosition="right">
+                        <p-inputIcon>
+                            <i class="pi pi-calendar"></i>
+                        </p-inputIcon>
+                        <p-calendar
+                            [placeholder]="'searchByEventDate' | transloco"
+                            dateFormat="dd.mm.yy"
+                            [(ngModel)]="date"
+                            (onSelect)="dt.filter(date, 'date')"
+                            (onInput)="dt.filter(date, 'date')"
+                            dataType="string"
+
+                        ></p-calendar>
+                    </p-iconField>
+                    <p-dropdown
+                        [options]="roles"
+                        optionValue="value"
+                        optionLabel="label"
+                        [placeholder]="'CHOOSEROLES' | transloco"
+                        (onChange)="dt.filter($event.value, 'roles')"
+                        [showClear]="true"
+                    >
+                        <ng-template pTemplate="item" let-item>
+                            {{ item.label | transloco }}
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                }
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>No</th>
+                <th>{{ "user.name" | transloco }}</th>
+                <th>{{ "UserRole" | transloco }}</th>
+                <th>{{ "device" | transloco }}</th>
+                <th>{{ "enter.time" | transloco }}</th>
+                <th>{{ "ipaddress" | transloco }}</th>
+                <th>{{ "userAction" | transloco }}</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+            <tr>
+                <td class="">{{ rowIndex + 1 }}</td>
+                <td>
+                    <p class="text-[#383942] line-clamp-1 py-4 dark:text-white">
+                        {{ user.applicationUserName }}
+                    </p>
+                </td>
+                <td>
+                    <p class="text-[#0CAEEB] line-clamp-1">
+                        {{ user.applicationUserRole }}
+                    </p>
+                </td>
+                <td>
+                    <p
+                        class="text-[#55A93E] line-clamp-1"
+                        [pTooltip]="user.device"
+                    >
+                        {{ user.device }}
+                    </p>
+                </td>
+                <td>
+                    <p class="text-[#0CAEEB]">
+                        {{ user.dateTime | date : "dd.MM.yyyy" }}
+                    </p>
+                </td>
+                <td>
+                    <p class="text-[#383942] dark:text-white">
+                        {{ user.ipAddress }}
+                    </p>
+                </td>
+                <td>
+                    <div class="flex justify-center items-center">
+                        <i class="pi pi-eye"></i>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

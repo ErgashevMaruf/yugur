@@ -1,0 +1,64 @@
+<div class="w-full p-[30px]">
+  <div class="w-full">
+    <p class="text-[25px] font-semibold py-[10px]">{{'photoGallery' | transloco}}</p>
+  </div>
+  <div class="flex gap-[10px] flex-wrap">
+    @for (x of uploadGalleryArr; track x; let i = $index) {
+      <div class="container dark:bg-[#535353] relative"
+        >
+        @if (i>5 && x.id) {
+<i class="pi pi-trash text-red-500
+    cursor-pointer
+    font-semibold absolute top-4 right-5"
+            (click)="deleteFromGallery(i)"
+          ></i>
+        }
+        <label for="title" class="font-semibold text-[16px]">{{'navigation.title' | transloco}}</label>
+    <input type="text" id="title" class="h-[40px] p-[10px]
+    font-semibold
+    mb-[10px] w-full rounded-[10px]
+    border-[#f2f2f2] border
+    ">
+          @if (x.fileId=='') {
+        <div class="w-full h-[200px] bg-[#f2f2f2]
+        relative
+        flex flex-col justify-center mb-[20px] items-center
+        rounded-[15px]"
+              >
+              <img src="./assets/icons/upload.png"
+                class="w-[70px] h-[70px]"
+                alt="">
+                <p class="text-[20px] font-medium text-black">{{'uploadImg' | transloco}}</p>
+                <p class="font-medium text-[#9999B0] ">{{'ImageSizeMaxSize' | transloco}}</p>
+                <input type="file" class="absolute top-0 w-full h-full opacity-0"
+                  (change)="uploadPhotoServer($event.target.files, i)"
+                  >
+                </div>
+              } @else {
+                <div class=" relative">
+        <img [src]="
+    url + x.fileId
+    " class="rounded-[15px] mb-[10px]" alt="">
+                    <input type="file" class="absolute top-0 w-full h-full opacity-0"
+                      (change)="uploadPhotoServer($event.target.files, i)"
+                      >
+                    </div>
+                  }
+    <button class="bg-[#0071FF] w-full py-[15px]
+    rounded-[15px] text-white disabled:bg-[#aeaeae]"
+                    [disabled]="x.fileId==''"
+                    (click)="saveGallery(i)"
+                    >
+                    {{'uploadServer' | transloco}}
+                  </button>
+                </div>
+              }
+              <div class="container flex items-center justify-center dark:bg-[#535353]"
+                (click)="addGallery()"
+                >
+                <i class="pi pi-plus font-bold text-[80px] cursor-pointer"></i>
+              </div>
+            </div>
+
+          </div>
+

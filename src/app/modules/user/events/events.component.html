@@ -1,0 +1,19 @@
+<!-- <router-outlet></router-outlet> -->
+<div class="w-full flex cs:justify-between justify-center gap-6">
+  @if (event) {
+    <app-details
+      class="sm:w-[588px] w-full p-0"
+      [activeEvent]="activeEvent"
+      [myEvent]="isMyEvent"
+      [event]="event"
+      >
+    </app-details>
+  }
+  <div class="w-full cs:flex hidden">
+    <app-eventsInfo
+      (signal)="getEvent($event)"
+      [isEventInfo]="true"
+      [rows]="4"
+    ></app-eventsInfo>
+  </div>
+</div>

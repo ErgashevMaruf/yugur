@@ -1,0 +1,13 @@
+.iconSize{
+    font-size: 22px !important;
+}
+.open {
+    transform: rotate(180deg);
+}
+
+.closed {
+    transform: rotate(0);
+}
+.icon {
+    transition: transform 0.3s ease;
+}

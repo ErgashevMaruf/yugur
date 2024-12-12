@@ -1,0 +1,610 @@
+<div
+    class="w-256 p-[40px] max-h-screen overflow-y-auto bg-white dark:bg-[#25262c] defaultTextColor background"
+>
+    <!-- Second Step Cost,Location and date -->
+    <div class="w-full flex flex-col gap-3" [formGroup]="eventFullInfo">
+        <p class="font-semibold text-[20px]">{{ "allInfo" | transloco }}</p>
+        <div class="grid grid-cols-3 gap-[10px]">
+            <div class="w-full relative">
+                <div class="flex items-center gap-2 mb-2">
+                    <label class="signText" for="location"
+                        >{{ "eventName" | transloco }}*</label
+                    >
+                    <div
+                        class="w-[40px] h-[30px] bg-[#0098DA] flex rounded-[5px] items-center justify-center"
+                    >
+                        <p class="text-white font-semibold">UZ</p>
+                    </div>
+                </div>
+                <input
+                    id="location"
+                    type="text"
+                    class="input"
+                    placeholder="{{ 'eventName' | transloco }}"
+                    formControlName="titleUZ"
+                />
+            </div>
+            <div class="w-full">
+                <div class="flex items-center gap-2 mb-2">
+                    <label class="signText" for="location"
+                        >{{ "eventName" | transloco }}*</label
+                    >
+                    <div
+                        class="w-[40px] h-[30px] bg-[#0098DA] flex rounded-[5px] items-center justify-center"
+                    >
+                        <p class="text-white font-semibold">RU</p>
+                    </div>
+                </div>
+                <input
+                    id="location"
+                    type="text"
+                    class="input"
+                    placeholder="{{ 'eventName' | transloco }}"
+                    formControlName="titleRU"
+                />
+            </div>
+            <div class="w-full">
+                <div class="flex items-center gap-2 mb-2">
+                    <label class="signText" for="location"
+                        >{{ "eventName" | transloco }}*</label
+                    >
+                    <div
+                        class="w-[40px] h-[30px] bg-[#0098DA] flex rounded-[5px] items-center justify-center"
+                    >
+                        <p class="text-white font-semibold">Eng</p>
+                    </div>
+                </div>
+                <input
+                    id="location"
+                    type="text"
+                    class="input"
+                    placeholder="{{ 'eventName' | transloco }}"
+                    formControlName="titleEN"
+                />
+            </div>
+            <div class="w-full">
+                <label class="signText"
+                    >{{ "eventCategory" | transloco }}*</label
+                >
+                <p-multiSelect
+                    styleClass="w-full"
+                    [options]="category"
+                    [(ngModel)]="eventCategories"
+                    [ngModelOptions]="{ standalone: true }"
+                    optionLabel="label"
+                    optionValue="value"
+                    [placeholder]="'CHOOSE' | transloco"
+                />
+            </div>
+            <div class="w-full flex gap-2">
+                <div>
+                    <label class="signText" for="km"
+                        >{{ "event.distance" | transloco }}*</label
+                    >
+                    <!-- <input
+                            id="km"
+                            type="text"
+                            class="input"
+                            formControlName="raceDistance"
+                            placeholder="km"
+                            mask="separator.2"
+                            separatorLimit="999"
+                            /> -->
+                    <p-dropdown
+                        [options]="raceDistances"
+                        formControlName="spRaceDistanceId"
+                        optionLabel="nameUz"
+                        optionValue="id"
+                        (onChange)="setValueDistance($event)"
+                    ></p-dropdown>
+                </div>
+                <div class="relative">
+                    <label class="signText" for="location"
+                        >{{ "AgeTo" | transloco }}*</label
+                    >
+                    <input
+                        id="location"
+                        type="text"
+                        class="input"
+                        placeholder="{{ 'AgeTo' | transloco }}"
+                        formControlName="ageFrom"
+                    />
+                </div>
+                <div class="relative">
+                    <label class="signText" for="location"
+                        >{{ "toAgeYears" | transloco }}*</label
+                    >
+                    <input
+                        id="location"
+                        type="text"
+                        class="input"
+                        placeholder="{{ 'toAgeYears' | transloco }}"
+                        formControlName="toAgeYears"
+                    />
+                </div>
+            </div>
+            <div class="flex gap-1">
+                <!-- <div>
+                                  <label class="signText" for="cost">{{
+                                    "eventCost" | transloco
+                                  }}</label>
+                                  <input
+                                    id="cost"
+                                    type="text"
+                                    class="input"
+                                    placeholder="{{ 'eventCost' | transloco }}"
+                                    formControlName="uzsPrice"
+                                    [mask]="'separator'"
+                                    />
+                                  </div> -->
+                <div>
+                    <label class="signText" for="participants">{{
+                        "participantsSmena" | transloco
+                    }}</label>
+                    <input
+                        id="participants"
+                        [@shake]="
+                            eventFullInfo.get('smenas').value.length == 2 &&
+                            !data
+                        "
+                        [ngClass]="
+                            eventFullInfo.get('smenaParticipants').errors
+                                ? 'border-2 border-red-600'
+                                : ''
+                        "
+                        type="text"
+                        class="input"
+                        placeholder="{{ 'participantsSmena' | transloco }}"
+                        formControlName="smenaParticipants"
+                        [mask]="'separator'"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Add age category start -->
+        <div class="flex flex-col gap-2 ageCategory">
+            <p class="font-semibold text-[20px]">
+                {{ "ageCategory" | transloco }}
+            </p>
+            <div class="flex items-center gap-1">
+                <div
+                    class="w-[40px] h-[30px] bg-[#0098DA] flex rounded-[5px] items-center justify-center"
+                    (click)="addAgeCategory(1)"
+                >
+                    <p class="text-white font-semibold">M</p>
+                </div>
+                <ng-container
+                    [ngTemplateOutlet]="ageCategory"
+                    [ngTemplateOutletContext]="{
+                        $implicit: 1,
+                        gender: mens
+                    }"
+                ></ng-container>
+            </div>
+            <div class="flex items-center gap-1">
+                <div
+                    class="w-[40px] h-[30px] bg-[#0098DA] flex rounded-[5px] items-center justify-center"
+                    (click)="addAgeCategory(2)"
+                >
+                    <p class="text-white font-semibold">W</p>
+                </div>
+                <ng-container
+                    [ngTemplateOutlet]="ageCategory"
+                    [ngTemplateOutletContext]="{
+                        $implicit: 2,
+                        gender: womens
+                    }"
+                ></ng-container>
+            </div>
+        </div>
+        <!-- Add age category start -->
+
+        <!-- Smena start-->
+        <div formArrayName="smenas">
+            <p class="font-semibold text-[20px]">
+                {{ "smenaInfo" | transloco }}
+            </p>
+            <div class="flex flex-wrap gap-2">
+                @for ( x of eventFullInfo.get('smenas')['controls']; track x;
+                let i = $index) {
+                <div>
+                    <div class="flex gap-1 smenas">
+                        <div [formGroupName]="i">
+                            <p-calendar
+                                inputId="calendar-timeonly"
+                                dataType="string"
+                                formControlName="name"
+                                [timeOnly]="true"
+                            />
+                        </div>
+                        <div class="flex gap-1">
+                            <p-button
+                                [disabled]="i == 0"
+                                styleClass="bg-red-600"
+                                icon="pi pi-times-circle"
+                                (onClick)="removeSmena(i)"
+                            ></p-button>
+                        </div>
+                    </div>
+                </div>
+                } @if (isSmenaAdd) {
+                <p-button
+                    class="mr-1"
+                    icon="pi pi-plus-circle"
+                    (onClick)="addSmena()"
+                ></p-button>
+                }
+            </div>
+        </div>
+        <!-- Smena end-->
+
+        <!-- Packet start -->
+        <div formArrayName="packets" [@shake]="packetError">
+            <p class="font-semibold text-[20px]">
+                {{ "packetinfo" | transloco }}
+            </p>
+            <div class="flex flex-wrap gap-2">
+                @for ( x of eventFullInfo.get('packets')['controls']; track x;
+                let i = $index) {
+                <div>
+                    <div class="flex gap-1 smenas">
+                        <div [formGroupName]="i" class="flex flex-col gap-1">
+                            <input
+                                type="text"
+                                class="input w-[150px]"
+                                formControlName="packetNameUZ"
+                                [placeholder]="'packetName' | transloco"
+                            />
+                            <input
+                                type="text"
+                                class="input w-[150px]"
+                                formControlName="packetNameEN"
+                                [placeholder]="'packetNameEn' | transloco"
+                            />
+                            <input
+                                type="text"
+                                class="input w-[150px]"
+                                formControlName="packetNameRU"
+                                [placeholder]="'packetNameRu' | transloco"
+                            />
+                            <input
+                                type="text"
+                                class="input w-[150px]"
+                                formControlName="packetAmount"
+                                [placeholder]="'packetAmount' | transloco"
+                                mask="separator.2"
+                            />
+                            <input
+                                type="text"
+                                class="input w-[150px]"
+                                formControlName="bibFrom"
+                                [placeholder]="'bibFrom' | transloco"
+                                mask="separator.2"
+                            />
+                            <input
+                                type="text"
+                                class="input w-[150px]"
+                                formControlName="bibUntil"
+                                mask="separator.2"
+                                [placeholder]="'bibUntil' | transloco"
+                                (input)="createArr()"
+                            />
+                        </div>
+                    </div>
+                </div>
+                }
+                <p-button
+                    styleClass="bg-red-600"
+                    icon="pi pi-times-circle"
+                    (onClick)="removePacket()"
+                ></p-button>
+                <p-button
+                    class="mr-1"
+                    icon="pi pi-plus-circle"
+                    (onClick)="addPacket()"
+                ></p-button>
+            </div>
+        </div>
+        <!-- Packet end -->
+        <!-- Additional cost start -->
+        <div>
+            <div
+                class="w-[300px] flex gap-[10px] items-center"
+                (click)="addAdditionalCost('first')"
+            >
+                <p class="font-semibold text-[20px]">
+                    {{ "additionalCostEvent" | transloco }}
+                </p>
+                <i
+                    class="pi pi-calendar-plus cursor-pointer text-[20px] font-medium"
+                ></i>
+            </div>
+            <div class="w-full items-center flex gap-[10px] additionalCost">
+                @if ( additionalCost == 'first' || additionalCost == 'second' )
+                {
+                <div class="">
+                    <label class="signText" for="location"
+                        >{{ "additionalCost1" | transloco }}*</label
+                    >
+                    <input
+                        id="location"
+                        type="text"
+                        class="input w-[150px]"
+                        placeholder="{{ 'additionalCost1' | transloco }}"
+                        formControlName="uzsPriceOne"
+                        [mask]="'separator'"
+                    />
+                </div>
+                <div>
+                    <label class="signText"
+                        >{{ "startDateAdditionalCost" | transloco }}
+                        <span>*</span></label
+                    >
+                    <p-calendar
+                        dataType="string"
+                        [formControl]="
+                            eventFullInfo.controls['uzsPriceDateOne']
+                        "
+                        [showIcon]="true"
+                        dateFormat="yy.mm.dd"
+                        [minDate]="createOrUpdateEvent.minDate"
+                        [maxDate]="createOrUpdateEvent.maxDate"
+                        appendTo="body"
+                    ></p-calendar>
+                </div>
+                @if (additionalCost !== 'second') {
+                <div
+                    class="mt-[20px] flex gap-[5px] cursor-pointer items-center"
+                >
+                    <p-button
+                        styleClass="bg-red-600"
+                        icon="pi pi-times-circle"
+                        (onClick)="removeAddtionalCost('first')"
+                    ></p-button>
+                    @if (eventFullInfo.get('uzsPriceDateOne').value) {
+                    <p-button
+                        class="mr-1"
+                        icon="pi pi-plus-circle"
+                        (onClick)="addAdditionalCost('second')"
+                    ></p-button>
+                    }
+                </div>
+                } } @if (additionalCost == 'second') {
+                <div class="">
+                    <label class="signText" for="location"
+                        >{{ "additionalCost2" | transloco }}*</label
+                    >
+                    <input
+                        id="location"
+                        type="text"
+                        class="input w-[150px]"
+                        placeholder="{{ 'additionalCost2' | transloco }}"
+                        formControlName="uzsPriceTwo"
+                        [mask]="'separator'"
+                    />
+                </div>
+                <div>
+                    <label class="signText"
+                        >{{ "startDateAdditionalCost" | transloco }}
+                        <span>*</span></label
+                    >
+                    <p-calendar
+                        dataType="string"
+                        [formControl]="
+                            eventFullInfo.controls['uzsPriceDateTwo']
+                        "
+                        [showIcon]="true"
+                        dateFormat="yy.mm.dd"
+                        [minDate]="minAdditionCost"
+                        [maxDate]="createOrUpdateEvent.maxDate"
+                        appendTo="body"
+                    ></p-calendar>
+                </div>
+                <div class="mt-[20px] flex gap-[5px] cursor-pointer">
+                    <p-button
+                        styleClass="bg-red-600"
+                        icon="pi pi-times-circle"
+                        (onClick)="removeAddtionalCost('second')"
+                    ></p-button>
+                </div>
+                }
+            </div>
+        </div>
+        <!-- Additional cost end -->
+    </div>
+    <!-- Second Step Cost,Location and date -->
+
+    <!-- Select numeration -->
+    <div
+        class="w-full py-[60px] px-[30px] flex flex-col gap-[40px] text-[18px] bg-[#F9F9F9] dark:bg-[#383942] rounded-[15px]"
+        [ngClass]="{ 'mt-[15px]': !notFree }"
+        [formGroup]="eventCategoryNumbers"
+    >
+        <div class="flex items-center gap-4">
+            <div
+                class="w-full flex font-semibold items-center justify-center gap-[10px]"
+            >
+                <input
+                    type="text"
+                    class="w-[70px] p-[5px] rounded-[8px] h-[40px] border border-[#0098DA]"
+                    placeholder="1"
+                    formControlName="bibFrom"
+                    mask="separator.2"
+                    separatorLimit="99999"
+                    (input)="createArr()"
+                />
+                <div class="h-1 w-[20px] bg-[#0098DA]"></div>
+                <input
+                    type="text"
+                    class="w-[120px] p-[5px] rounded-[8px] h-[40px] border border-[#0098DA]"
+                    placeholder="1000"
+                    formControlName="bibUntil"
+                    mask="separator.2"
+                    separatorLimit="99999"
+                    (input)="createArr()"
+                />
+                <p class="ml-[15px]">
+                    {{ "totalNumber" | transloco }}:
+                    <span class="text-[#0098DA]">{{ lengthArr }}</span>
+                </p>
+                @if (notFree) {
+                <p class="ml-[15px]">
+                    {{ "event.cost" | transloco }}:
+                    <span class="text-[#0098DA]"
+                        >{{ eventFullInfo.get("uzsPrice").value }} so'm</span
+                    >
+                </p>
+                }
+            </div>
+            <div class="flex items-center gap-[20px] w-1/8">
+                <p class="">{{ "VipNumbers:" | transloco }}</p>
+                <app-selectnumber
+                    formControlName="vipNumbers"
+                    [info]="vipNumbers"
+                    (signal)="changeStatusNumber($event, 'vipNumbers')"
+                    status="VipNumber"
+                    [id]="data"
+                ></app-selectnumber>
+            </div>
+        </div>
+        @if (notFree) {
+        <div class="flex items-center gap-[40px] font-medium">
+            <div class="flex items-center gap-[20px]">
+                <p class="w-[85px]">{{ "Platinum" | transloco }}</p>
+                <app-selectnumber
+                    formControlName="platinNumbers"
+                    [info]="platinumNumber"
+                    (signal)="changeStatusNumber($event, 'platinNumbers')"
+                    status="PlatinumNumber"
+                    [id]="data"
+                ></app-selectnumber>
+            </div>
+            <div class="flex items-center gap-[20px]">
+                <p>{{ "event.cost" | transloco }}</p>
+                <input
+                    type="text"
+                    class="w-[150px] p-[5px] rounded-[8px] h-[40px] border border-[#0098DA]"
+                    placeholder="100"
+                    formControlName="platinumNumberPrice"
+                    [mask]="'separator'"
+                />
+            </div>
+            <p>
+                {{ "totalNumber" | transloco }}:
+                <span class="text-[#0098DA]">{{
+                    eventCategoryNumbers.get("platinNumbers").value.length
+                }}</span>
+            </p>
+        </div>
+        <div class="flex items-center gap-[40px] font-medium">
+            <div class="flex items-center gap-[20px]">
+                <p class="w-[85px]">{{ "Gold" | transloco }}</p>
+                <app-selectnumber
+                    formControlName="goldNumbers"
+                    [info]="goldNumber"
+                    (signal)="changeStatusNumber($event, 'goldNumbers')"
+                    status="GoldenNumber"
+                    [id]="data"
+                ></app-selectnumber>
+            </div>
+            <div class="flex items-center gap-[20px]">
+                <p>{{ "event.cost" | transloco }}</p>
+                <input
+                    type="text"
+                    class="w-[150px] p-[5px] rounded-[8px] h-[40px] border border-[#0098DA]"
+                    placeholder="100"
+                    [mask]="'separator'"
+                    formControlName="goldenNumberPrice"
+                />
+            </div>
+            <p>
+                {{ "totalNumber" | transloco }}:
+                <span class="text-[#0098DA]">{{
+                    eventCategoryNumbers.get("goldNumbers").value.length
+                }}</span>
+            </p>
+        </div>
+        <div class="flex items-center gap-[40px] font-medium">
+            <div class="flex items-center gap-[20px]">
+                <p class="w-[85px]">{{ "Silver" | transloco }}</p>
+                <app-selectnumber
+                    formControlName="silverNumbers"
+                    [info]="silverNumber"
+                    (signal)="changeStatusNumber($event, 'silverNumbers')"
+                    status="SilverNumber"
+                    [id]="data"
+                ></app-selectnumber>
+            </div>
+            <div class="flex items-center gap-[20px]">
+                <p>{{ "event.cost" | transloco }}</p>
+                <input
+                    type="text"
+                    class="w-[150px] p-[5px] rounded-[8px] h-[40px] border border-[#0098DA]"
+                    placeholder="100"
+                    formControlName="silverNumberPrice"
+                    [mask]="'separator'"
+                />
+            </div>
+            <p>
+                {{ "totalNumber" | transloco }}:
+                <span class="text-[#0098DA]">{{
+                    eventCategoryNumbers.get("silverNumbers").value.length
+                }}</span>
+            </p>
+        </div>
+        }
+    </div>
+    <!-- Select numeration -->
+    <div class="w-full flex justify-end mt-[25px]">
+        <button
+            class="w-[150px] h-[50px] rounded-[10px] disabled:bg-[#aeaeae] flex items-center justify-center gap-[10px] bg-[#0098DA] text-white font-semibold"
+            [disabled]="
+                eventCategoryNumbers.invalid ||
+                eventFullInfo.invalid ||
+                eventCategories.length == 0
+            "
+            (click)="sendInfo()"
+        >
+            {{ "SAVE" | transloco }}
+        </button>
+    </div>
+</div>
+
+<ng-template let-type let-gender="gender" #ageCategory>
+    <div [formGroup]="eventFullInfo" class="flex gap-1">
+        @for ( x of eventFullInfo.get('eventGenderAgeCategories')[ 'controls' ];
+        track x; let i = $index) {
+        <div formArrayName="eventGenderAgeCategories">
+            @if (x.get('spGenderId').value == type) {
+            <div [formGroupName]="i" class="flex gap-1 items-center">
+                <p-inputNumber
+                    styleClass="w-[70px]"
+                    inputId="integeronly"
+                    placeholder="from"
+                    formControlName="fromAge"
+                />
+                <div class="w-[20px] h-[1px] bg-[#aeaeae]"></div>
+                <p-inputNumber
+                    styleClass="w-[70px]"
+                    inputId="integeronly"
+                    placeholder="to"
+                    formControlName="endAge"
+                />
+                <p-button
+                    styleClass="bg-red-600"
+                    icon="pi pi-times-circle"
+                    (onClick)="removeAgeCategory(i, type)"
+                ></p-button>
+                @if (gender !== 3) {
+                <p-button
+                    icon="pi pi-plus-circle"
+                    (onClick)="addAgeCategory(type)"
+                ></p-button>
+                }
+            </div>
+            }
+        </div>
+        }
+    </div>
+</ng-template>

@@ -1,0 +1,84 @@
+<div class="p-[30px]  w-full">
+  <p-table
+    (onLazyLoad)="loadFeedBack($event)"
+    [lazy]="true"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="totalItems"
+    [value]="feedbacks"
+    [tableStyle]="{ 'min-width': '70rem' }"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+    <ng-template pTemplate="header">
+      <tr class="bg-[#0098DA]">
+        <th class="rounded-tl-[10px]" style="width: 5%">No</th>
+        <th style="width: 10%">{{ "UserId" | transloco }}</th>
+        <th style="width: 20%">{{ "full.name" | transloco }}</th>
+        <th style="width: 20%">{{ "phone" | transloco }}</th>
+        <th  style="width: 20%">
+          {{ "feedback.text" | transloco }}
+        </th>
+        <th  style="width: 15%">
+          {{ "feedback.deviceType" | transloco }}
+        </th>
+        <th  style="width: 10%">
+          {{ "feedback.type" | transloco }}
+        </th>
+        <th  style="width: 10%">
+          {{ "feedback.date" | transloco }}
+        </th>
+        <th
+
+          style="width: 10%"
+          >
+          {{ "feedback.file" | transloco }}
+        </th>
+        <th
+          style="width: 5%"
+          class="rounded-tr-[10px]"
+          >
+          {{ "feedback.answer" | transloco }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-feedback let-rowIndex="rowIndex">
+      <tr class="cursor-pointer">
+        <td>
+          {{ rowIndex + 1 }}
+        </td>
+        <td>{{ feedback.athletesId }}</td>
+        <td>{{ feedback.athletesFullName }}</td>
+        <td>{{ feedback.phoneNumber }}</td>
+        <td>{{ feedback.text }}</td>
+        <td>{{ deviceType(feedback.deviceType) }}</td>
+        <td>{{ FeedType(feedback.type) }}</td>
+        <td>{{ feedback.createdDate | date : "dd.MM.yyyy" }}</td>
+        <td>
+          @if (feedback.fileId) {
+            <mat-icon
+              (click)="fileDownload(feedback.fileId)"
+              class="dark:text-white"
+              >
+              attach_file</mat-icon
+              >
+            }
+          </td>
+          <td >
+            @if (feedback.feedStatus==0) {
+              <mat-icon
+                class="text-[#0098DA] font-bold dark:text-white"
+                matTooltip="Answer Feedback"
+                (click)="openDialog(feedback)"
+              >send</mat-icon>
+            }
+            @if (feedback.feedStatus==10) {
+              <mat-icon
+                class="text-[#0098DA] font-bold dark:text-white"
+              >done</mat-icon>
+            }
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>

@@ -1,0 +1,46 @@
+<div class="w-full p-[30px]">
+    @if (!addnewsState) {
+    <div class="w-full flex justify-end items-center mb-[20px]">
+        <p-button (click)="addnewsMenu(true)">
+            {{ "add.event" | transloco }}
+        </p-button>
+    </div>
+    }
+    <div [ngClass]="{ 'min-h-screen': searchingState }">
+
+        <div class="grid grid-cols-4 gap-[20px]">
+            @for (x of newsList; track $index) {
+            <div
+                class="bg-white dark:bg-[#535353] rounded-[10px] relative cursor-pointer"
+                >
+                <div class="cursor-pointer p-[10px]"
+                (click)="edit(x, $index)"
+                >
+                    <div
+                        class="w-full flex justify-end gap-[10px] items-center"
+                    >
+                        @if (x.newsStatus == status.Active) {
+                        <mat-icon>check_circle</mat-icon>
+                        }
+                        <p class="text-green-600 font-medium">
+                            {{ x.sendTime | date : "dd.MM.yyyy" }}
+                        </p>
+                    </div>
+                    <h4 class="font-semibold text-[18px]">{{ x | appTranslateAsync:'title' | async }}</h4>
+                    <p class="font-medium">
+                        {{ x | appTranslateAsync:'text' | async }}
+                    </p>
+                </div>
+                <div
+                    class="w-full flex justify-end gap-[10px] pt-0 p-[10px] cursor-pointer"
+                >
+                    <mat-icon class="text-red-400" (click)="confirmPopUp(x)"
+                        >delete</mat-icon
+                    >
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div #placeholder></div>
+</div>

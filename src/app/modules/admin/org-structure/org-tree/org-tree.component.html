@@ -1,0 +1,12 @@
+<p-tree
+    [value]="treeData"
+    [(selection)]="selectedNode"
+    selectionMode="single"
+    [propagateSelectionUp]="false"
+    [propagateSelectionDown]="false"
+    (onNodeSelect)="orgForm.onNodeSelect($event)"
+></p-tree>
+
+<!-- Редактирование -->
+<app-org-form #orgForm (closeModalWindow)="onCloseDialog($event)">
+</app-org-form>

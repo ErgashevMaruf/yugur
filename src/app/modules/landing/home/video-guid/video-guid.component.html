@@ -1,0 +1,95 @@
+<div class="videoGuid rounded-[32px] w-full overflow-hidden cs:p-0 p-6 cs:h-[500px]">
+  <h3 class="heading text-white text-center md:mt-12">
+    {{ "usedVideo" | transloco }}
+  </h3>
+  <div class="cs:flex items-end justify-between hidden">
+    <div class="mb-30 relative">
+      <p class="text-[16px] text-white mb-4 text-center">
+        {{'videoGuidLeft' | transloco}}
+      </p>
+      <iframe
+        width="100%"
+        class="rounded-[12px] h-[148px] w-[278px]"
+        [src]="guidArr[0].url"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <div
+        class="h-full w-full absolute opacity-0 top-0 z-20"
+        (click)="openYoutube(guidArr[0].url)"
+      ></div>
+    </div>
+    <div>
+      <p class="text-[20px] text-white mb-4 text-center">
+        {{"videoGuidCenter" | transloco}}
+      </p>
+      <div
+        class="w-[590px] rounded-[50px] border border-[#739F1D] p-4 relative"
+        >
+        <div
+          class="w-full rounded-[36px] border-2 border-[#8AB92C] p-4 h-[395px]"
+          >
+          <iframe
+            width="100%"
+            class="rounded-[20px] h-full"
+            [src]="guidArr[1].url"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div
+          class="h-full w-full absolute opacity-0 top-0 z-20"
+          (click)="openYoutube(guidArr[1].url)"
+        ></div>
+      </div>
+    </div>
+    <div class="mb-30 relative">
+      <p class="text-[16px] text-white mb-4 ml-7">
+        {{'videoGuidRight' | transloco}}
+      </p>
+      <iframe
+        width="100%"
+        class="rounded-[12px] h-[148px] w-[278px]"
+        [src]="guidArr[2].url"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <div
+        class="h-full w-full absolute opacity-0 top-0 z-20"
+        (click)="openYoutube(guidArr[2].url)"
+      ></div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-4 w-full h-full  cs:hidden">
+    @for (item of guidArr; track item) {
+      <div class="relative gap-2 w-full flex items-center">
+        <iframe
+          width="100%"
+          class="sm:h-[300px] sm:w-full w-[156px] h-[88px] rounded-[8px]"
+          [src]="item.url"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+        <p class="text-[16px] text-white mb-4 text-center">
+          {{item.transloco | transloco}}
+        </p>
+        <div
+          class="h-full w-full absolute opacity-0 top-0 z-20"
+          (click)="openYoutube(item)"
+        ></div>
+      </div>
+    }
+  </div>
+</div>

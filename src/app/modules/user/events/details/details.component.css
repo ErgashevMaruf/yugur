@@ -1,0 +1,30 @@
+/* .event-text::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 2px;
+    background: #01a559;
+    margin-top: 30px;
+    margin-bottom: 30px;
+} */
+span {
+    font-weight: bold;
+    margin-left: 5px;
+}
+:host ::ng-deep .ql-align-center {
+    text-align: center;
+}
+.childEvent{
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+:host ::ng-deep a{
+    text-decoration: underline;
+    color: #0098da;
+    cursor: pointer;
+}
+:host ::ng-deep .p-inputtext{
+    padding: 0.3rem 0.75rem !important;
+}

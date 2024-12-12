@@ -1,0 +1,11 @@
+.slidingDiv {
+    transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+}
+.move-right {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+}
+.notActive {
+    color: #8e92a2;
+}

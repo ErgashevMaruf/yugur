@@ -1,0 +1,251 @@
+@if (!_isMoble) {
+<div class="w-full overflow-x-auto">
+    <p-table
+        #dt1
+        [styleClass]="widthClass"
+        [value]="athletesResults"
+        (onLazyLoad)="loadEventResult($event)"
+        [lazy]="true"
+        [rows]="6"
+        [totalRecords]="totalItems"
+        [paginator]="true"
+        [scrollable]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div
+                class="w-full flex items-center gap-4 px-4 justifyBetween"
+                [ngClass]="{ 'justify-start': isAdmin }"
+            >
+                <input
+                    class="allInput bg-transparent"
+                    type="text"
+                    [(ngModel)]="name"
+                    (input)="dt1.filter($event.target.value, 'fullname')"
+                    [placeholder]="'fullName' | transloco"
+                />
+                <input
+                    class="allInput bg-transparent"
+                    type="text"
+                    [(ngModel)]="bibcode"
+                    (input)="dt1.filter($event.target.value, 'bibcode')"
+                    [placeholder]="'bibcode' | transloco"
+                />
+                <p-dropdown
+                    [options]="mainSearch"
+                    optionValue="id"
+                    [(ngModel)]="formulaId"
+                    optionLabel="name"
+                    styleClass="w-[200px]"
+                    [placeholder]="'mainFilter' | transloco"
+                    (onChange)="dt1.filter($event.value, 'formulaId')"
+                >
+                    <ng-template pTemplate="empty">
+                        {{ "notFound" | transloco }}
+                    </ng-template>
+                    <ng-template let-selected pTemplate="selectedItem">
+                        {{ selected | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                    <ng-template let-event pTemplate="item">
+                        {{ event | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                </p-dropdown>
+                <p-dropdown
+                    [options]="additionalSearch"
+                    optionValue="id"
+                    [(ngModel)]="formulaId"
+                    styleClass="w-[200px] placeholder:text-[12px]"
+                    [placeholder]="'additionalSearch' | transloco"
+                    optionLabel="name"
+                    (onChange)="dt1.filter($event.value, 'formulaId')"
+                >
+                    <ng-template pTemplate="empty">
+                        {{ "notFound" | transloco }}
+                    </ng-template>
+                    <ng-template let-selected pTemplate="selectedItem">
+                        {{ selected | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                    <ng-template let-event pTemplate="item">
+                        {{ event | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                </p-dropdown>
+                <div
+                    class="min-w-6 min-h-6 rounded-full bg-[#0CAEEB] flex items-center justify-center cursor-pointer"
+                    (click)="clear(dt1)"
+                >
+                    <i class="pi pi-times text-white text-sm font-semibold"></i>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr class="">
+                @for (x of cols; track $index) {
+                <th>
+                    {{
+                        x == "bibCode"
+                            ? ("bibcode" | transloco)
+                            : (x | transloco)
+                    }}
+                </th>
+                } @for (item of rankingCols; track $index) {
+                <th>
+                    {{ item }}
+                </th>
+                }
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+            <tr>
+                @for (x of cols; track $index) { @if (user[x]?.length > 15) {
+                <td [pTooltip]="user[x]" class="text-grey900To100">
+                    {{ user[x].slice(0, 8) + "..." }}
+                </td>
+                } @else if (x=='bibCode') {
+                <td>
+                    <span class="text-[#0CAEEB]">{{ user[x] }}</span>
+                </td>
+                } @else if (x=='spSex') {
+                <td>
+                    <span
+                        [ngClass]="
+                            user[x] == 0 ? 'text-[#FF3A3C]' : 'text-[#55A93E]'
+                        "
+                        >{{ user[x] }}</span
+                    >
+                </td>
+                } @else if(x=='birthDate'){
+                <td class="text-grey900To100">
+                    {{ user[x] | date : "dd.MM.yyyy" }}
+                </td>
+                } @else {
+                <td>
+                    <div
+                        class="flex gap-1"
+                        [ngClass]="{ 'items-center': user[x] == 1 }"
+                    >
+                        <span class="text-grey900To100">{{ user[x] }}</span>
+                        @if ((user[x]==='1' || user[x]==='2' || user[x]==='3')
+                        && x=='rankOverall') {
+                        <mat-icon svgIcon="crownLanding"></mat-icon>
+                        }
+                    </div>
+                </td>
+                } }
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+} @if (_isMoble) {
+<div
+    class="w-full tableClass overflow-x-auto rounded-b-[16px] bg-[#F7F8F8] dark:bg-[#383942]"
+>
+    <p-table
+        #dt1
+        [value]="athletesResults"
+        styleClass=""
+        (onLazyLoad)="loadEventResult($event)"
+        [lazy]="true"
+        [rows]="6"
+        [totalRecords]="totalItems"
+        [paginator]="true"
+        [scrollable]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div class="w-full flex justify-end py-3">
+                <i
+                    class="pi pi-filter-slash text-[18px] text-[#55A93E] font-semibold"
+                ></i>
+            </div>
+            <div class="w-full flex flex-col gap-2">
+                <input
+                    class="allInput bg-transparent"
+                    type="text"
+                    [(ngModel)]="name"
+                    (input)="dt1.filter($event.target.value, 'fullname')"
+                    [placeholder]="'fullName' | transloco"
+                />
+                <input
+                    class="allInput bg-transparent"
+                    type="text"
+                    [(ngModel)]="bibcode"
+                    (input)="dt1.filter($event.target.value, 'bibcode')"
+                    [placeholder]="'bibcode' | transloco"
+                />
+                <p-dropdown
+                    [options]="mainSearch"
+                    optionValue="id"
+                    [(ngModel)]="formulaId"
+                    optionLabel="name"
+                    styleClass="w-full"
+                    [placeholder]="'mainFilter' | transloco"
+                    (onChange)="dt1.filter($event.value, 'formulaId')"
+                >
+                    <ng-template pTemplate="empty">
+                        {{ "notFound" | transloco }}
+                    </ng-template>
+                    <ng-template let-selected pTemplate="selectedItem">
+                        {{ selected | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                    <ng-template let-event pTemplate="item">
+                        {{ event | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                </p-dropdown>
+                <p-dropdown
+                    [options]="additionalSearch"
+                    optionValue="id"
+                    [(ngModel)]="formulaId"
+                    styleClass="w-full placeholder:text-[12px]"
+                    [placeholder]="'additionalSearch' | transloco"
+                    optionLabel="name"
+                    (onChange)="dt1.filter($event.value, 'formulaId')"
+                >
+                    <ng-template pTemplate="empty">
+                        {{ "notFound" | transloco }}
+                    </ng-template>
+                    <ng-template let-selected pTemplate="selectedItem">
+                        {{ selected | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                    <ng-template let-event pTemplate="item">
+                        {{ event | appTranslateAsync : "name" | async }}
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+            <div class="px-4 bg-[#F7F8F8] dark:bg-[#383942]">
+                <div
+                    class="py-2 px-3 rounded-[8px]"
+                    [ngClass]="{
+                        'bg-white dark:bg-[#25262C]': rowIndex % 2 == 0
+                    }"
+                >
+                    <div
+                        class="flex justify-between text-[#707587] font-semibold"
+                    >
+                        <p>
+                            {{ user.rankOverall }}
+                            @if (rowIndex == 0) {
+                            <mat-icon svgIcon="crownLanding"></mat-icon>
+                            }
+                        </p>
+                        <p class="text-[#383942] dark:text-[#EDEDF1]">
+                            {{ user.name + " " + user.surname }}
+                        </p>
+                    </div>
+                    <div class="flex justify-between font-semibold">
+                        <p class="text-[#0CAEEB]">{{ user.bibCode }}</p>
+                        <p
+                            [ngClass]="
+                                user[x] == 0
+                                    ? 'text-[#FF3A3C]'
+                                    : 'text-[#55A93E]'
+                            "
+                        >
+                            {{ user.spSex }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+}

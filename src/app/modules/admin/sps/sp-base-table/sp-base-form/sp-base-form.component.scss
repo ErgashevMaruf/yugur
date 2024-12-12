@@ -1,0 +1,25 @@
+:host ::ng-deep .p-dropdown {
+    min-width: 15rem;
+    width: 100%;
+}
+:host ::ng-deep {
+    @media screen and (max-width: 640px) {
+        .p-dropdown {
+            width: 100%;
+        }
+    }
+}
+
+:host::ng-deep {
+    .custom-dropdown {
+        width: 100% !important;
+    }
+}
+
+.p-dropdown-panel {
+    z-index: 1001;
+    transform-origin: center top;
+    top: 42px;
+    left: none !important;
+    width: 100px !important;
+}

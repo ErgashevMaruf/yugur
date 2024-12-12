@@ -1,0 +1,52 @@
+<div class="w-full">
+  <div class="w-full flex justify-between">
+    <h3 class="headingPage">
+      {{ "hello" | transloco }},
+      <span class="text-[#55A93E]">{{ _user.userInfo.name }}</span>
+    </h3>
+    <h3 class="headingPage">
+      ID:<span span class="text-[#55A93E]">{{
+      _user.userInfo.athletesId
+    }}</span>
+  </h3>
+</div>
+@if (events.length==0) {
+  <div class="w-full bg-[#F7F8F8] dark:bg-[#383942] p-6 rounded-[24px] mb-12">
+    <h4 class="font-bold dark:text-[#B6B9C3] text-[#41434E]">
+      {{ "coming.events" | transloco }}
+    </h4>
+    <div class="flex justify-center items-center">
+      <app-activeEventNotFound></app-activeEventNotFound>
+    </div>
+  </div>
+} @else {
+  <div class="mb-12">
+    <div class="grid cs:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6"
+      [ngClass]="{'justify-between':isScreenSmall}"
+      >
+      @for (item of events; track $index) {
+        <app-carusel [isCircle]="false" [event]="item"></app-carusel>
+      }
+    </div>
+    @if (isHaveManyEvent) {
+      <div
+        class="flex w-full justify-end cursor-pointer"
+        >
+        <a
+          class="text-[#0CAEEB] sm:flex hidden font-medium underline mt-3 mr-3"
+          [routerLink]="['/events']"
+          >{{ "seeMore" | transloco }}</a
+          >
+            <button class="w-full rounded-[10px] sm:hidden flex h-[40px] mt-3 justify-center items-center
+             bg-[#0CAEEB] text-white"
+            [routerLink]="['/events']">
+            {{'seeMore' | transloco}}
+          </button>
+        </div>
+      }
+    </div>
+  }
+  <div class="w-full">
+    <app-result-table></app-result-table>
+  </div>
+</div>

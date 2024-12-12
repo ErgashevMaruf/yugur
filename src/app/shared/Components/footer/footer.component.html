@@ -1,0 +1,144 @@
+<div class="w-full bg-[#25262C] dark:bg-[#383942] pt-9 pb-6 cs:px-0 px-4">
+    <div class="max-w-cs w-full mx-auto flex flex-col gap-6">
+        <div
+            class="w-full flex mw800:flex-row flex-col justify-between mw800:items-center"
+        >
+            <div
+                class="w-full flex gap items-center gap-[45px] mw800:mb-0 mb-4"
+            >
+                <a href="#">
+                    <img
+                        src="./assets/images/yugurPng.png"
+                        class="w-[95px] h-[25px]"
+                        alt=""
+                    />
+                </a>
+                <a href="https://uzathletics.uz/">
+                    <img
+                        src="./assets/logo/athletic.svg"
+                        class="w-[58px] h-[58px]"
+                        alt=""
+                    />
+                </a>
+            </div>
+            <div class="font-semibold text-[#EDEDF1]">
+                <ul
+                    class="flex mw800:flex-row flex-col mw800:gap-9 gap-4"
+                    (click)="move($event)"
+                >
+                    <li>
+                        <a
+                            href="#news"
+                            class="cool-link defaultTextColor hover"
+                            >{{ "news" | transloco }}</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#score"
+                            class="cool-link defaultTextColor hover"
+                            >{{ "scores" | transloco }}</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="#participants"
+                            class="cool-link defaultTextColor hover"
+                        >
+                            {{ "nav.adminstatistics" | transloco }}
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a
+                            href="#organizers"
+                            class="cool-link defaultTextColor hover"
+                            >{{ "organizers" | transloco }}</a
+                        >
+                    </li> -->
+                    <li>
+                        <a
+                            href="#media"
+                            class="cool-link defaultTextColor hover"
+                            >{{ "media" | transloco }}</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div
+            class="w-full flex mw800:flex-row flex-col justify-between gap-4 mw800:items-center"
+        >
+            <div class="flex mw800:flex-row flex-col mw800:gap-9 gap-4">
+                <a href="tel:+998712411364" class="flex gap-1 items-center">
+                    <mat-icon
+                        svgIcon="phoneFooter"
+                        class="text-[#707587] hover:text-white"
+                    ></mat-icon>
+                    <a>+998 71 2411364</a>
+                </a>
+                <a
+                    class="flex gap-1 items-center"
+                    href="https://maps.app.goo.gl/KTMrfDKeDcPd4vEV9"
+                >
+                    <mat-icon
+                        svgIcon="locationFooter"
+                        class="text-[#707587] hover:text-white"
+                    ></mat-icon>
+                    <a>{{ "addressAthletic" | transloco }}</a>
+                </a>
+                <a class="flex gap-1 items-center" href="mailto:uzb@mf.worldathletics.org">
+                    <mat-icon
+                        svgIcon="mailFooter"
+                        class="text-[#707587] hover:text-white"
+                    ></mat-icon>
+                    <a>{{ "uzb@mf.worldathletics.org" }}</a>
+                </a>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="https://www.facebook.com/groups/1747649938858408">
+                    <i
+                        class="pi pi-facebook text-[#707587] hover:text-white text-3xl"
+                    ></i>
+                </a>
+                <a
+                    href="https://www.youtube.com/channel/UC7VVQ6C4TFuYq_tU-eMe3zA/videos"
+                >
+                    <i
+                        class="pi pi-youtube text-[#707587] hover:text-white text-3xl"
+                    ></i>
+                </a>
+                <a href="https://t.me/YugurBotDevelBot">
+                    <i
+                        class="pi pi-telegram text-[#707587] hover:text-white text-3xl"
+                    ></i>
+                </a>
+                <a href="https://www.instagram.com/uzathletica/">
+                    <mat-icon
+                        svgIcon="instagramFooter"
+                        class="text-[#707587] hover:text-white"
+                    ></mat-icon>
+                </a>
+                <a href="https://uzathletics.uz/">
+                    <mat-icon
+                        svgIcon="webFooter"
+                        class="text-[#707587] hover:text-white"
+                    ></mat-icon
+                ></a>
+            </div>
+        </div>
+        <div class="h-[1px] w-full bg-[#5B5F6E]"></div>
+        <div
+            class="w-full flex mw800:flex-row flex-col gap-6 mw800:justify-between items-center"
+        >
+            <p class="text-[#8E92A2] leading-[20px]">
+                © {{ year }}. Все права защищены
+            </p>
+            <a href="https://uzinfocom.uz/">
+                <img
+                    src="./assets/landing/footer/uzinfocom.png"
+                    class="w-[118px] h-[20px]"
+                />
+            </a>
+        </div>
+    </div>
+</div>

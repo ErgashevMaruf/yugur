@@ -1,0 +1,152 @@
+<div
+    class="w-full md:grid hidden gridCols6 px-4 mb-2 text-[#8E92A2]"
+    id="resultTable"
+>
+    <p class="mainP">
+        {{ "event.name" | transloco }}
+    </p>
+    <p class="mainP">
+        {{ "event.raceDistance" | transloco }}
+    </p>
+    <p class="mainP">
+        {{ "event.eventDate" | transloco }}
+    </p>
+    <p class="mainP">
+        {{ "event.participants" | transloco }}
+    </p>
+    <p class="mainP">
+        {{ "event.price" | transloco }}
+    </p>
+</div>
+<div class="mainTable w-full">
+    <p-table
+        #dt
+        (onLazyLoad)="loadEvents($event)"
+        [lazy]="true"
+        [rows]="3"
+        [paginator]="true"
+        [value]="finishedEvents"
+        [totalRecords]="totalItems"
+    >
+        <ng-template pTemplate="body" let-event let-rowIndex="rowIndex">
+            <div
+                class="bg-[#F7F8F8] dark:bg-[#383942] rounded-2xl mb-4 w-full flex flex-col justify-start"
+            >
+                <div
+                    class="w-full md:grid hidden gridCols6 rounded-t-2xl px-4 py-4 items-center"
+                    [ngClass]="{
+                        'bg-[#67BD50] text-white': event.eventId == showId
+                    }"
+                >
+                    <p
+                        [ngClass]="{
+                            'text-[#383942] dark:text-white':
+                                event.eventId !== showId
+                        }"
+                        class="mainP line-clamp-2"
+
+                        >
+                        {{ event | appTranslateAsync:'eventBoxName' | async }}
+                    </p>
+                    <p
+                        [ngClass]="{
+                            'text-[#55A93E]': event.eventId !== showId
+                        }"
+                        class="mainP"
+                    >
+                        {{ event | appTranslateAsync:'raceDistance' | async }}
+                    </p>
+                    <p
+                        [ngClass]="{
+                            'text-[#0CAEEB]': event.eventId !== showId
+                        }"
+                        class="mainP text-[#0CAEEB]"
+                    >
+                        {{ event?.eventDate }}
+                    </p>
+                    <p
+                        class="mainP"
+                        [ngClass]="{
+                            'text-[#55A93E]': event.eventId !== showId
+                        }"
+                    >
+                        {{ event?.participants }}
+                    </p>
+                    <p
+                        [ngClass]="{
+                            'text-[#383942] dark:text-white':
+                                event.eventId !== showId
+                        }"
+                        class="mainP"
+                    >
+                        {{
+                            event?.eventAmount
+                                ? (event?.eventAmount | numberFormat)
+                                : ("Free" | transloco)
+                        }}
+                    </p>
+                    <div
+                        class="flex items-center justify-center rounded-full w-[30px] h-[30px] backGround"
+                        [ngClass]="{ 'bg-white': event.eventId == showId }"
+                        (click)="showTable(event.eventId)"
+                    >
+                        <mat-icon
+                            class="text-white text-[22px] icon cursor-pointer"
+                            [ngClass]="
+                                event.eventId == showId
+                                    ? 'open text-[#8E92A2]'
+                                    : 'close'
+                            "
+                            >expand_more</mat-icon
+                        >
+                    </div>
+                </div>
+                <div class="w-full flex flex-col md:hidden px-4 py-4">
+                    <div class="flex justify-between mb-2">
+                        <p class="mainP">
+                            {{ event | appTranslateAsync:'eventBoxName' | async }}
+                        </p>
+                        <div
+                            class="flex items-center justify-center rounded-full w-[30px] h-[30px] backGround"
+                            (click)="showTable(event.eventId)"
+                        >
+                            <mat-icon
+                                class="text-white text-[22px] icon cursor-pointer"
+                                [ngClass]="
+                                    event.eventId == showId ? 'open' : 'close'
+                                "
+                                >expand_more</mat-icon
+                            >
+                        </div>
+                    </div>
+                    <div class="w-full flex gap-4 justify-between">
+                        <div class="flex gap-2 text-[#55A93E]">
+                            <mat-icon
+                                svgIcon="runLanding"
+                                class="text-[#55A93E]"
+                            ></mat-icon>
+                            <p class="text-[16px] font-semibold">
+                                {{ event | appTranslateAsync : 'raceDistance' | async }}
+                            </p>
+                        </div>
+                        <div class="flex gap-2">
+                            <mat-icon
+                                class="text-[#0CAEEB]"
+                                svgIcon="signCalendar"
+                            ></mat-icon>
+                            <p class="text-[16px] text-[#0CAEEB] font-semibold">
+                                {{ event?.eventDate }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @if (event.eventId==showId) {
+                <div class="w-full">
+                    <app-score [isMobile]="isMobile" [event]="event">
+                    </app-score>
+                </div>
+                }
+            </div>
+        </ng-template>
+    </p-table>
+</div>

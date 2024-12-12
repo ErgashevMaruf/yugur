@@ -1,0 +1,53 @@
+<div class="tag-list">
+    <div class="loop-slider flex" style="--duration: 15951ms; --direction: normal">
+        <div class="inner">
+            @for (img of images; track $index) {
+            <div class="tag sm:min-w-[282px]
+            sm:h-[360px] min-w-[148px] h-[188px]">
+                <img
+                [ngClass]="{ 'mb-14': $index % 2 == 0 }"
+                    [src]="url + img.fileId"
+                    alt="Gallery"
+                    class="rounded-[16px] h-full object-cover"
+                />
+            </div>
+            } 
+            @for (img of images; track $index) {
+            <div class="tag sm:min-w-[282px]
+            sm:h-[360px] min-w-[148px] h-[188px]">
+                <img
+                    [ngClass]="{ 'mb-14': $index % 2 == 0 }"
+                    [src]="url + img.fileId"
+                    alt="Gallery"
+                    class="rounded-[16px] h-full object-cover"
+                />
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
+    <div class="scroll-container flex">
+      <div class="carousel-primary">
+        @for (img of images; track $index) {
+            <img
+            [ngClass]="{ 'mb-14': $index % 2 == 0 }"
+                [src]="url + img.fileId"
+                alt="Gallery"
+                class="rounded-[16px] min-w-[282px] h-full object-cover"
+            />
+            }
+      </div>
+      <div class="carousel-primary carousel-secondary">
+        @for (img of images; track $index) {
+            <img
+            [ngClass]="{ 'mb-14': $index % 2 == 0 }"
+                [src]="url + img.fileId"
+                alt="Gallery"
+                class="rounded-[16px] min-w-[282px] h-full object-cover"
+            />
+            }
+      </div>
+    </div>
+  </div> -->

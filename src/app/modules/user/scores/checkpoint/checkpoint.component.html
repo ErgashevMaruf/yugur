@@ -1,0 +1,26 @@
+<div class="bg-white dark:bg-[#5e5e5e] p-5">
+    <p-table [value]="data.checkpoints" [lazy]="true" [rows]="10">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>No</th>
+                <th>
+                    {{ "checkPointTime" | transloco }}
+                </th>
+                <th pSortableColumn="code" style="width: 20%">
+                    {{ "checkPointStatus" | transloco }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-x let-rowIndex="rowIndex">
+            <tr class="cursor-pointer" (click)="openEdit(advertising)">
+                <td>
+                    {{ rowIndex + 1 }}
+                </td>
+                <td>{{ x.checkPointTime }}</td>
+                <td>
+                    {{ checkPointStatus.get(x.checkPointStatus) | transloco }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

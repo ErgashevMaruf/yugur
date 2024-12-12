@@ -1,0 +1,17 @@
+.input {
+    width: 300px;
+    height: 46px;
+    border: 1px solid #3b82f6;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background: white;
+}
+:host ::ng-deep .p-calendar {
+    width: 100% !important;
+}
+:host ::ng-deep .p-calendar .p-inputtext {
+    background: white !important;
+}

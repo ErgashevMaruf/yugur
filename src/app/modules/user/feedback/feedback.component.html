@@ -1,0 +1,83 @@
+<div class="w-full"
+  >
+  <h3 class="headingPage">
+    {{ "FEEDBACK" | transloco }}
+  </h3>
+  <div class="">
+    <div class="left__side w-full flex flex-col md:gap-[20px] gap-[10px]">
+      <app-sendfeedback
+        [showSelectOption]="true"
+        (signal)="loadMessage()"
+      ></app-sendfeedback>
+      @if (messages.length!==0) {
+        <div class=""
+          >
+          <div class="card">
+            <div
+              class="flex py-[15px] bg-[#0098da] items-center cursor-pointer px-[20px] rounded-t-[20px] gap-[20px]"
+              >
+              <div class="flex items-center gap-[10px] text-white">
+                <mat-icon
+                  svgIcon="recieveCustom"
+                  class="text-white font-extrabold"
+                ></mat-icon>
+              </div>
+              <app-sliding-btn
+                [notMessage]="false"
+                [(ngModel)]="Issending"
+                (sendState)="loadMessage()"
+              ></app-sliding-btn>
+              <div class="flex items-center gap-[10px] text-white">
+                <mat-icon
+                  svgIcon="sendCustom"
+                  class="text-white font-extrabold"
+                ></mat-icon>
+              </div>
+            </div>
+            <div
+              >
+              <p-table
+                [value]="messages"
+                [lazy]="true"
+                (onLazyLoad)="loadMessage($event)"
+                [lazy]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>No</th>
+                    <th>{{ "feedback.text" | transloco }}</th>
+                    <th>{{ "event.date" | transloco }}</th>
+                    <th>{{ "feedback.type" | transloco }}</th>
+                    <th>{{ "feedback.deviceType" | transloco }}</th>
+                    <th>{{ "FILE" | transloco }}</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-message let-i="rowIndex">
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ message.text }}</td>
+                    <td>{{ message.createdDate | date : "dd.MM.yyyy" }}</td>
+                    <td>{{ Enum(message.type) }}</td>
+                    <td>{{ deviceType.get(message.deviceType) | transloco }}</td>
+                    <td class="cursor-pointer">
+                      @if (message.fileId || message.answerFileId) {
+                        <mat-icon
+                          class="dark:text-white"
+                          (click)="fileDownload(message)"
+                          >
+                          attach_file</mat-icon
+                          >
+                        }
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>

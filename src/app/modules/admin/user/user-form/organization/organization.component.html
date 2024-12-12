@@ -1,0 +1,45 @@
+<div
+    class="w-[500px] dark:bg-[#535353] p-[15px]"
+    [formGroup]="organizaitonInfo"
+>
+    <div class="w-full rounded-t-[10px] bg-[#0098da] py-[10px]">
+        <p class="text-center text-white font-medium text-[16px]">
+            {{ "organizers" | transloco }}
+        </p>
+    </div>
+    <div class="bg-white dark:bg-[#0f172a] p-[20px]">
+        <div class="w-full bg-white dark:bg-[#0f172a] flex flex-col gap-[10px]">
+            <div class="w-full">
+                <p class="font-medium text-[16px]">
+                    {{ "organizaitonName" | transloco }}
+                </p>
+                <input
+                    pInputText
+                    type="text"
+                    class=""
+                    formControlName="name"
+                />
+            </div>
+            <div class="w-full mb-4">
+                <p class="font-medium text-[16px]">
+                    {{ "organizers" | transloco }}
+                </p>
+                <p-dropdown
+                    formControlName="spOrganizationTypeId"
+                    [options]="organizers"
+                    optionValue="value"
+                    optionLabel="label"
+                    appendTo="body"
+                    placeholder="{{'CHOOSE' | transloco}}"
+                ></p-dropdown>
+            </div>
+        </div>
+        <div class="w-full flex justify-end">
+            <p-button
+            [disabled]="organizaitonInfo.invalid"
+            >
+                {{ "SUBMIT" | transloco }}
+            </p-button>
+        </div>
+    </div>
+</div>

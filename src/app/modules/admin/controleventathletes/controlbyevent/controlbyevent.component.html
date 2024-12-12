@@ -1,0 +1,114 @@
+<div class="w-full">
+  <div class="w-full p-[10px]">
+    <div class="flex gap-2 flex-wrap">
+      @for (x of events; track x) {
+        <div
+                class="w-[150px] flex items-center border border-blue-500 font-semibold justify-center h-[40px]
+                cursor-pointer rounded-md mb-[10px] hover:scale-105"
+          [ngClass]="x.id == this.id ? 'bg-[#0098da] text-white' : ''"
+          (click)="changeEvent(x)"
+          >
+          <p>{{ x.raceDistance }}{{ "km" | transloco }}</p>
+        </div>
+      }
+    </div>
+    <div class="w-full flex justify-end">
+      <button (click)="exportToExcell()" class="btnAll">
+        <i class="pi pi-file-excel text-[#67BD50]"></i>
+        {{ "Export" | transloco }}
+      </button>
+    </div>
+    <p-table
+      #dt
+      (onLazyLoad)="loadUser($event)"
+      [rows]="10"
+      [paginator]="true"
+      [value]="athletes"
+      [globalFilterFields]="['name', 'surname', 'fullname', 'phonemain']"
+      [lazy]="true"
+      [totalRecords]="totalItems"
+      [rowsPerPageOptions]="[10, 50, 100]"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="rounded-tl-[5px]">No</th>
+          <th>{{ "personName" | transloco }}</th>
+          <th>{{ "personSurname" | transloco }}</th>
+          <th>{{ "personPatronic" | transloco }}</th>
+          <th>{{ "pinfl" | transloco }}</th>
+          <th>{{ "birthday.date" | transloco }}</th>
+          <th class="">{{ "email" | transloco }}</th>
+          <th>{{ "phone" | transloco }}</th>
+          @if (isPrice) {
+            <th class="rounded-tr-[5px]"
+              >
+              {{ "userAction" | transloco }}
+            </th>
+          }
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="caption">
+        <div class="flex justify-between items-center">
+          <div class="flex gap-4">
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                [(ngModel)]="fullName"
+                pInputText
+                type="text"
+                                (input)="
+                                    dt.filter($event.target.value, 'fullname')
+                                "
+                [placeholder]="'fullName' | transloco"
+                />
+            </span>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="phoneMain"
+                                (input)="
+                                    dt.filter($event.target.value, 'phonemain')
+                                "
+                [placeholder]="'phone' | transloco"
+                />
+            </span>
+          </div>
+          <p-button
+            label="Clear"
+            [outlined]="true"
+            icon="pi pi-filter-slash"
+            (click)="clear(dt)"
+            />
+        </div>
+      </ng-template>
+      <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+        <tr class="cursor-pointer">
+          <td>
+            {{ rowIndex + 1 }}
+          </td>
+          <td class="px-[15px]">
+            {{ user.athletes.name }}
+          </td>
+          <td>{{ user.athletes.surname }}</td>
+          <td>{{ user.athletes.patronymic }}</td>
+          <td>{{ user.athletes.pinfl }}</td>
+          <td>{{ user.athletes.birthDate | date : "dd.MM.yyyy" }}</td>
+          <td>{{ user.athletes.eMail }}</td>
+          <td>{{ user.athletes.phoneMain }}</td>
+          @if (isPrice) {
+            <td
+              >
+              <i
+                class="iconSize pi pi-delete-left text-[18px] font-medium text-red-600"
+                (click)="deleteFromEvent(user, rowIndex)"
+              ></i>
+            </td>
+          }
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

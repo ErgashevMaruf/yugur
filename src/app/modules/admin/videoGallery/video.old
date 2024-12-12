@@ -1,0 +1,162 @@
+<div class="w-full p-[30px]">
+    <div class="w-full">
+        <p class="text-[25px] font-semibold py-[10px]">{{'videoGallery' | transloco}}</p>
+    </div>
+<div class="flex gap-[10px] flex-wrap">
+    <div class="container dark:bg-[#535353] relative"
+    *ngFor="let x of uploadGalleryArr; let i=index"
+>
+    <i class="pi pi-trash text-red-500
+    cursor-pointer
+    font-semibold absolute top-4 right-5"
+    *ngIf="i>5 && x.id"
+    (click)="deleteFromGallery(i)"
+    ></i>
+    <label for="title" class="font-semibold text-[16px]">{{'navigation.title' | transloco}}</label>
+    <input type="text" id="title" class="h-[40px] p-[10px]
+    font-semibold
+    mb-[10px] w-full rounded-[10px]
+    border-[#f2f2f2] border
+    ">
+    <ng-container *ngIf="x.fileId==''; else galleryItem">
+        <div class="w-full h-[200px] bg-[#f2f2f2]
+        relative
+        flex flex-col justify-center mb-[20px] items-center
+        rounded-[15px]"
+        >
+        <img src="./assets/icons/upload.png"
+        class="w-[70px] h-[70px]"
+        alt="">
+           <p class="text-[20px] font-medium text-black">{{'uploadVideo' | transloco}}</p>
+           <p class="font-medium text-[#9999B0] ">{{'ImageSizeMaxSize' | transloco}}</p>
+            <input type="file" class="absolute top-0 w-full h-full opacity-0"
+            (change)="uploadVideoServer($event.target.files, i)"
+            >
+        </div>
+    </ng-container>
+   <ng-template #galleryItem>
+        <div class="w-full flex justify-end">
+            <i class="pi
+            pi-times-circle text-red-500 text-[15px] font-bold mb-[10px] cursor-pointer"
+            (click)="deleteVideo(i)"
+            ></i>
+        </div>
+        <video [src]="url+x.fileId"
+        controls
+        class="rounded-[15px] mb-[10px]"
+        ></video>
+   </ng-template>
+
+    <button class="bg-[#0071FF] w-full py-[15px]
+    rounded-[15px] text-white disabled:bg-[#aeaeae]"
+    [disabled]="x.fileId==''"
+    (click)="saveGallery(i)"
+    >
+        {{'uploadServer' | transloco}}
+    </button>
+</div>
+    <div class="container flex items-center justify-center dark:bg-[#535353]"
+    (click)="addGallery()"
+    >
+        <i class="pi pi-plus font-bold text-[80px] cursor-pointer"></i>
+    </div>
+</div>
+
+</div>
+
+
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { environment } from 'app/core/env/environment.prod';
+import { FileServiceService } from 'app/modules/services/fileUpload.service';
+import { ErrorComponent } from 'app/shared/messages/error/error.component';
+import { SuccessComponent } from 'app/shared/messages/success/success.component';
+import { WarningComponent } from 'app/shared/messages/warning/warning.component';
+import { PhotoVideoClient, FilesClient, IPhotoVideoDTO, PhotoVideoDTO } from 'nswag-api-marathon';
+
+@Component({
+  selector: 'app-videoGallery',
+  templateUrl: './videoGallery.component.html',
+  styleUrls: ['./videoGallery.component.css']
+})
+export class VideoGalleryComponent implements OnInit {
+
+    constructor(private photoClient:PhotoVideoClient, private fb:FormBuilder,
+        private fileService:FileServiceService, private dialog:MatDialog,
+        private fileClient:FilesClient
+        ) { }
+     url = environment.URL
+     uploadGalleryArr:IPhotoVideoDTO[];
+     ngOnInit() {
+       this.photoClient.listVideo().subscribe(res=>{
+               this.uploadGalleryArr = res.items
+       })
+     }
+     uploadVideoServer(file: File[], index:number) {
+       if(environment.maxUploadFileSize<file[0].size)
+       {
+           this.dialog.open(ErrorComponent,{
+               data:'fileSizeLarge'
+           })
+           return;
+       }
+       this.fileService.uploadFileForFolderVideo(file[0]).subscribe({
+           next: (value) => {
+               this.uploadGalleryArr[index].fileId = value;
+           },
+           error: (err) => {
+               this.dialog.open(ErrorComponent);
+           },
+       });
+    }
+       saveGallery(index)
+       {
+           if(this.uploadGalleryArr[index].id!==0)
+           {
+             this.photoClient.deleteVideo(this.uploadGalleryArr[index].id).subscribe();
+           }
+           this.photoClient.saveVideo(new PhotoVideoDTO({
+               id:0,
+               fileId: this.uploadGalleryArr[index].fileId,
+               title:this.uploadGalleryArr[index].title,
+           })).subscribe(res=>{
+               this.dialog.open(SuccessComponent, {
+                   data: 'uploaded'
+               })
+           })
+       }
+       addGallery()
+       {
+           this.uploadGalleryArr.push({
+               id:0,
+               title:undefined,
+               fileId:'',
+               description:undefined
+           })
+       }
+       deleteFromGallery(index:number)
+       {
+           const dialog =  this.dialog.open(WarningComponent);
+            dialog.afterClosed().subscribe(res=>{
+                if(res=='yes')
+                {
+                    this.photoClient.deleteVideo(this.uploadGalleryArr[index].id).subscribe(res=>{
+                       this.uploadGalleryArr.splice(index,1);
+                    })
+                }
+            })
+       }
+       deleteVideo(i)
+       {
+        if(this.uploadGalleryArr[i].id)
+        {
+                this.photoClient.deleteVideo(this.uploadGalleryArr[i].id).subscribe();
+        }
+        else{
+            this.fileClient.deleteFileById(this.uploadGalleryArr[i].fileId).subscribe();
+        }
+         this.uploadGalleryArr[i].fileId = '';
+       }
+}

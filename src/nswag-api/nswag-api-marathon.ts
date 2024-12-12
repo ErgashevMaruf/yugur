@@ -10853,7 +10853,7 @@ export interface ISuperAdminClient {
     updateREventOldBibCodes(eventId: number | undefined): Observable<FileResponse | null>;
     updateAthletesCadastr(): Observable<FileResponse | null>;
     exportExcelResultStatistic(eventIds: number[]): Observable<FileResponse | null>;
-    emailResultsToAthletes(eventId: number | null | undefined): Observable<ResponseModelOfBoolean>;
+    emailResultsToAthletes(eventId: number | null | undefined, sendEmail: SendEmail): Observable<ResponseModelOfBoolean>;
 }
 
 @Injectable({
@@ -11548,16 +11548,20 @@ export class SuperAdminClient implements ISuperAdminClient {
         return _observableOf(null as any);
     }
 
-    emailResultsToAthletes(eventId: number | null | undefined): Observable<ResponseModelOfBoolean> {
+    emailResultsToAthletes(eventId: number | null | undefined, sendEmail: SendEmail): Observable<ResponseModelOfBoolean> {
         let url_ = this.baseUrl + "/api/marathon/SuperAdmin/EmailResultsToAthletes?";
         if (eventId !== undefined && eventId !== null)
             url_ += "eventId=" + encodeURIComponent("" + eventId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(sendEmail);
+
         let options_ : any = {
+            body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -20574,6 +20578,62 @@ export interface IResponseModelOfListOfEventBibDTO {
     statusCode: HttpStatusCode;
     error: string;
     result: EventBibDTO[];
+}
+
+export class SendEmail implements ISendEmail {
+    emailTo?: string | undefined;
+    subject!: string;
+    message!: string;
+    athletesIds?: number[] | undefined;
+
+    constructor(data?: ISendEmail) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.emailTo = _data["emailTo"];
+            this.subject = _data["subject"];
+            this.message = _data["message"];
+            if (Array.isArray(_data["athletesIds"])) {
+                this.athletesIds = [] as any;
+                for (let item of _data["athletesIds"])
+                    this.athletesIds!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): SendEmail {
+        data = typeof data === 'object' ? data : {};
+        let result = new SendEmail();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["emailTo"] = this.emailTo;
+        data["subject"] = this.subject;
+        data["message"] = this.message;
+        if (Array.isArray(this.athletesIds)) {
+            data["athletesIds"] = [];
+            for (let item of this.athletesIds)
+                data["athletesIds"].push(item);
+        }
+        return data;
+    }
+}
+
+export interface ISendEmail {
+    emailTo?: string | undefined;
+    subject: string;
+    message: string;
+    athletesIds?: number[] | undefined;
 }
 
 export interface FileResponse {

@@ -3039,7 +3039,7 @@ export interface ISuperAdminClient {
     addMobileVersions(mobileVersion: MobileVersionDTO): Observable<ResponseModelOfBoolean>;
     updateStudent(pinfl: string | null): Observable<ResponseModelOfBoolean>;
     sendEmail(model: SendEmail): Observable<boolean>;
-    emailResultsToAthletes(athletesIds: number[]): Observable<ResponseModelOfBoolean>;
+    emailResultsToAthletes(model: SendEmail): Observable<ResponseModelOfBoolean>;
     getOldMobileVersion(): Observable<FileResponse | null>;
 }
 
@@ -3264,11 +3264,11 @@ export class SuperAdminClient implements ISuperAdminClient {
         return _observableOf(null as any);
     }
 
-    emailResultsToAthletes(athletesIds: number[]): Observable<ResponseModelOfBoolean> {
+    emailResultsToAthletes(model: SendEmail): Observable<ResponseModelOfBoolean> {
         let url_ = this.baseUrl + "/api/auth/SuperAdmin/EmailResultsToAthletes";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(athletesIds);
+        const content_ = JSON.stringify(model);
 
         let options_ : any = {
             body: content_,

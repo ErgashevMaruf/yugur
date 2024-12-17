@@ -32,7 +32,7 @@ export interface IAccountClient {
     confirmUser(code: EmailConfirmed): Observable<ResponseModelOfTokenModel>;
     notConfirmUser(id: string | null): Observable<ResponseModelOfBoolean>;
     addNewRole(roleName: string): Observable<Response>;
-    getByAthletsIdsUserApplications(athletesIds: number[]): Observable<UserApplicationModel[]>;
+    getByAthletsIdsUserApplications(athletesIds: number[]): Observable<FileResponse | null>;
     userProfile(): Observable<UserProfile>;
     checkUserAuthentication(): Observable<boolean>;
     getRoles(): Observable<SelectItem[]>;
@@ -539,7 +539,7 @@ export class AccountClient implements IAccountClient {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
             return this.processGetUserById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
@@ -886,7 +886,7 @@ export class AccountClient implements IAccountClient {
         return _observableOf(null as any);
     }
 
-    getByAthletsIdsUserApplications(athletesIds: number[]): Observable<UserApplicationModel[]> {
+    getByAthletsIdsUserApplications(athletesIds: number[]): Observable<FileResponse | null> {
         let url_ = this.baseUrl + "/api/auth/Account/GetByAthletsIdsUserApplications";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -898,7 +898,7 @@ export class AccountClient implements IAccountClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Accept": "application/octet-stream"
             })
         };
 
@@ -909,34 +909,31 @@ export class AccountClient implements IAccountClient {
                 try {
                     return this.processGetByAthletsIdsUserApplications(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<UserApplicationModel[]>;
+                    return _observableThrow(e) as any as Observable<FileResponse | null>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<UserApplicationModel[]>;
+                return _observableThrow(response_) as any as Observable<FileResponse | null>;
         }));
     }
 
-    protected processGetByAthletsIdsUserApplications(response: HttpResponseBase): Observable<UserApplicationModel[]> {
+    protected processGetByAthletsIdsUserApplications(response: HttpResponseBase): Observable<FileResponse | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(UserApplicationModel.fromJS(item));
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            let fileNameMatch = contentDisposition ? /filename\*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/g.exec(contentDisposition) : undefined;
+            let fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[3] || fileNameMatch[2] : undefined;
+            if (fileName) {
+                fileName = decodeURIComponent(fileName);
+            } else {
+                fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+                fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
             }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
+            return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -4677,50 +4674,6 @@ export class EmailConfirmed implements IEmailConfirmed {
 export interface IEmailConfirmed {
     id: string;
     emailConfirmedCode: string;
-}
-
-export class UserApplicationModel implements IUserApplicationModel {
-    athletesId!: number;
-    userId!: string;
-    userName!: string;
-
-    constructor(data?: IUserApplicationModel) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.athletesId = _data["athletesId"];
-            this.userId = _data["userId"];
-            this.userName = _data["userName"];
-        }
-    }
-
-    static fromJS(data: any): UserApplicationModel {
-        data = typeof data === 'object' ? data : {};
-        let result = new UserApplicationModel();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["athletesId"] = this.athletesId;
-        data["userId"] = this.userId;
-        data["userName"] = this.userName;
-        return data;
-    }
-}
-
-export interface IUserApplicationModel {
-    athletesId: number;
-    userId: string;
-    userName: string;
 }
 
 export class UserProfile implements IUserProfile {

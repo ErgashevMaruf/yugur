@@ -747,7 +747,8 @@ export interface IAthletesClient {
     getAllAthletes(tableMeta: TableMetaData): Observable<ResponseModelOfQueryResultOfAthletesDTO>;
     getAthletesByIds(athletesIds: number[]): Observable<AthletesDTO[]>;
     getSelectAthletesByIds(athletesIds: number[]): Observable<SelectAthlete[]>;
-    athletesById(id: number): Observable<AthletesDTO>;
+    getAthletesById(id: number): Observable<AthletesDTO>;
+    getAthleteInfo(): Observable<AthletesDTO>;
     getAthletesIdByPinfl(pinfl: string | null): Observable<number | null>;
     getByIdOrganization(athletesId: number): Observable<OrganizationDTO>;
     onSave(athletes: AthletesDTO): Observable<ResponseModelOfBoolean>;
@@ -946,8 +947,8 @@ export class AthletesClient implements IAthletesClient {
         return _observableOf(null as any);
     }
 
-    athletesById(id: number): Observable<AthletesDTO> {
-        let url_ = this.baseUrl + "/api/marathon/Athletes/AthletesById/{id}";
+    getAthletesById(id: number): Observable<AthletesDTO> {
+        let url_ = this.baseUrl + "/api/marathon/Athletes/GetAthletesById/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -962,11 +963,11 @@ export class AthletesClient implements IAthletesClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processAthletesById(response_);
+            return this.processGetAthletesById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processAthletesById(response_ as any);
+                    return this.processGetAthletesById(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<AthletesDTO>;
                 }
@@ -975,7 +976,55 @@ export class AthletesClient implements IAthletesClient {
         }));
     }
 
-    protected processAthletesById(response: HttpResponseBase): Observable<AthletesDTO> {
+    protected processGetAthletesById(response: HttpResponseBase): Observable<AthletesDTO> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = AthletesDTO.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getAthleteInfo(): Observable<AthletesDTO> {
+        let url_ = this.baseUrl + "/api/marathon/Athletes/GetAthleteInfo";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAthleteInfo(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAthleteInfo(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<AthletesDTO>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<AthletesDTO>;
+        }));
+    }
+
+    protected processGetAthleteInfo(response: HttpResponseBase): Observable<AthletesDTO> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3996,7 +4045,7 @@ export class FilesClient implements IFilesClient {
     }
 
     uploadForImage(): Observable<FileResponse | null> {
-        let url_ = this.baseUrl + "/api/marathon/Files/uploadForImage";
+        let url_ = this.baseUrl + "/api/marathon/Files/UploadForImage";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

@@ -342,9 +342,9 @@ export interface ISPClient {
     spItemsList(tableName: string | null, uTData: TableMetaData): Observable<QueryResultOfBaseSPViewModel>;
     createNewTableSPS(tableName: string | null): Observable<number>;
     addUpdate(tableName: string | null, model: SPUpdateModel): Observable<FileResponse | null>;
-    getSpById(tableName: string | null, id: number): Observable<BaseSPEntity>;
-    getSpByIds(tableName: string | null, ids: number[]): Observable<SPSelectModel[]>;
-    getAllRaceDistances(distance: string | null | undefined): Observable<FileResponse | null>;
+    getSpById(tableName: string | null, id: number): Observable<ResponseModelOfBaseSPEntity>;
+    getSpByIds(tableName: string | null, ids: number[]): Observable<FileResponse | null>;
+    getAllRaceDistances(distance: string | null | undefined): Observable<ResponseModelOfListOfSPSelectModel>;
 }
 
 @Injectable({
@@ -526,7 +526,7 @@ export class SPClient implements ISPClient {
         return _observableOf(null as any);
     }
 
-    getSpById(tableName: string | null, id: number): Observable<BaseSPEntity> {
+    getSpById(tableName: string | null, id: number): Observable<ResponseModelOfBaseSPEntity> {
         let url_ = this.baseUrl + "/api/sps/SP/GetSpById/{tableName}/{id}";
         if (tableName === undefined || tableName === null)
             throw new Error("The parameter 'tableName' must be defined.");
@@ -551,14 +551,14 @@ export class SPClient implements ISPClient {
                 try {
                     return this.processGetSpById(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<BaseSPEntity>;
+                    return _observableThrow(e) as any as Observable<ResponseModelOfBaseSPEntity>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<BaseSPEntity>;
+                return _observableThrow(response_) as any as Observable<ResponseModelOfBaseSPEntity>;
         }));
     }
 
-    protected processGetSpById(response: HttpResponseBase): Observable<BaseSPEntity> {
+    protected processGetSpById(response: HttpResponseBase): Observable<ResponseModelOfBaseSPEntity> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -569,7 +569,7 @@ export class SPClient implements ISPClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = BaseSPEntity.fromJS(resultData200);
+            result200 = ResponseModelOfBaseSPEntity.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -580,7 +580,7 @@ export class SPClient implements ISPClient {
         return _observableOf(null as any);
     }
 
-    getSpByIds(tableName: string | null, ids: number[]): Observable<SPSelectModel[]> {
+    getSpByIds(tableName: string | null, ids: number[]): Observable<FileResponse | null> {
         let url_ = this.baseUrl + "/api/sps/SP/GetSpByIds/{tableName}";
         if (tableName === undefined || tableName === null)
             throw new Error("The parameter 'tableName' must be defined.");
@@ -595,7 +595,7 @@ export class SPClient implements ISPClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Accept": "application/octet-stream"
             })
         };
 
@@ -606,63 +606,6 @@ export class SPClient implements ISPClient {
                 try {
                     return this.processGetSpByIds(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<SPSelectModel[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<SPSelectModel[]>;
-        }));
-    }
-
-    protected processGetSpByIds(response: HttpResponseBase): Observable<SPSelectModel[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(SPSelectModel.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    getAllRaceDistances(distance: string | null | undefined): Observable<FileResponse | null> {
-        let url_ = this.baseUrl + "/api/sps/SP/GetAllRaceDistances?";
-        if (distance !== undefined && distance !== null)
-            url_ += "distance=" + encodeURIComponent("" + distance) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/octet-stream"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllRaceDistances(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllRaceDistances(response_ as any);
-                } catch (e) {
                     return _observableThrow(e) as any as Observable<FileResponse | null>;
                 }
             } else
@@ -670,7 +613,7 @@ export class SPClient implements ISPClient {
         }));
     }
 
-    protected processGetAllRaceDistances(response: HttpResponseBase): Observable<FileResponse | null> {
+    protected processGetSpByIds(response: HttpResponseBase): Observable<FileResponse | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -688,6 +631,56 @@ export class SPClient implements ISPClient {
                 fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
             }
             return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getAllRaceDistances(distance: string | null | undefined): Observable<ResponseModelOfListOfSPSelectModel> {
+        let url_ = this.baseUrl + "/api/sps/SP/GetAllRaceDistances?";
+        if (distance !== undefined && distance !== null)
+            url_ += "distance=" + encodeURIComponent("" + distance) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllRaceDistances(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllRaceDistances(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ResponseModelOfListOfSPSelectModel>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ResponseModelOfListOfSPSelectModel>;
+        }));
+    }
+
+    protected processGetAllRaceDistances(response: HttpResponseBase): Observable<ResponseModelOfListOfSPSelectModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ResponseModelOfListOfSPSelectModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -1162,6 +1155,177 @@ export interface ISPUpdateModel {
     regionId?: number | undefined;
     districtId?: number | undefined;
     belongCivilService?: number | undefined;
+}
+
+export class ResponseModelOfBaseSPEntity implements IResponseModelOfBaseSPEntity {
+    statusCode!: HttpStatusCode;
+    error!: string;
+    result!: BaseSPEntity;
+
+    constructor(data?: IResponseModelOfBaseSPEntity) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.result = new BaseSPEntity();
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.statusCode = _data["statusCode"];
+            this.error = _data["error"];
+            this.result = _data["result"] ? BaseSPEntity.fromJS(_data["result"]) : new BaseSPEntity();
+        }
+    }
+
+    static fromJS(data: any): ResponseModelOfBaseSPEntity {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseModelOfBaseSPEntity();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["statusCode"] = this.statusCode;
+        data["error"] = this.error;
+        data["result"] = this.result ? this.result.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IResponseModelOfBaseSPEntity {
+    statusCode: HttpStatusCode;
+    error: string;
+    result: BaseSPEntity;
+}
+
+export enum HttpStatusCode {
+    Continue = 100,
+    SwitchingProtocols = 101,
+    Processing = 102,
+    EarlyHints = 103,
+    OK = 200,
+    Created = 201,
+    Accepted = 202,
+    NonAuthoritativeInformation = 203,
+    NoContent = 204,
+    ResetContent = 205,
+    PartialContent = 206,
+    MultiStatus = 207,
+    AlreadyReported = 208,
+    IMUsed = 226,
+    MultipleChoices = 300,
+    Ambiguous = 300,
+    MovedPermanently = 301,
+    Moved = 301,
+    Found = 302,
+    Redirect = 302,
+    SeeOther = 303,
+    RedirectMethod = 303,
+    NotModified = 304,
+    UseProxy = 305,
+    Unused = 306,
+    TemporaryRedirect = 307,
+    RedirectKeepVerb = 307,
+    PermanentRedirect = 308,
+    BadRequest = 400,
+    Unauthorized = 401,
+    PaymentRequired = 402,
+    Forbidden = 403,
+    NotFound = 404,
+    MethodNotAllowed = 405,
+    NotAcceptable = 406,
+    ProxyAuthenticationRequired = 407,
+    RequestTimeout = 408,
+    Conflict = 409,
+    Gone = 410,
+    LengthRequired = 411,
+    PreconditionFailed = 412,
+    RequestEntityTooLarge = 413,
+    RequestUriTooLong = 414,
+    UnsupportedMediaType = 415,
+    RequestedRangeNotSatisfiable = 416,
+    ExpectationFailed = 417,
+    MisdirectedRequest = 421,
+    UnprocessableEntity = 422,
+    Locked = 423,
+    FailedDependency = 424,
+    UpgradeRequired = 426,
+    PreconditionRequired = 428,
+    TooManyRequests = 429,
+    RequestHeaderFieldsTooLarge = 431,
+    UnavailableForLegalReasons = 451,
+    InternalServerError = 500,
+    NotImplemented = 501,
+    BadGateway = 502,
+    ServiceUnavailable = 503,
+    GatewayTimeout = 504,
+    HttpVersionNotSupported = 505,
+    VariantAlsoNegotiates = 506,
+    InsufficientStorage = 507,
+    LoopDetected = 508,
+    NotExtended = 510,
+    NetworkAuthenticationRequired = 511,
+}
+
+export class ResponseModelOfListOfSPSelectModel implements IResponseModelOfListOfSPSelectModel {
+    statusCode!: HttpStatusCode;
+    error!: string;
+    result!: SPSelectModel[];
+
+    constructor(data?: IResponseModelOfListOfSPSelectModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+        if (!data) {
+            this.result = [];
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.statusCode = _data["statusCode"];
+            this.error = _data["error"];
+            if (Array.isArray(_data["result"])) {
+                this.result = [] as any;
+                for (let item of _data["result"])
+                    this.result!.push(SPSelectModel.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ResponseModelOfListOfSPSelectModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new ResponseModelOfListOfSPSelectModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["statusCode"] = this.statusCode;
+        data["error"] = this.error;
+        if (Array.isArray(this.result)) {
+            data["result"] = [];
+            for (let item of this.result)
+                data["result"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IResponseModelOfListOfSPSelectModel {
+    statusCode: HttpStatusCode;
+    error: string;
+    result: SPSelectModel[];
 }
 
 export class SPSelectModel implements ISPSelectModel {
